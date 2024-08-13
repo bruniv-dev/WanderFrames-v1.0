@@ -1,0 +1,39 @@
+.postActions-header {
+  background-color: white;
+  border-bottom: 1px solid rgb(226, 223, 223);
+}
+
+.postActions-logo {
+  color: black;
+}
+
+.postActions-nav a {
+  color: black;
+}
+
+.postActions-signin {
+  color: black;
+}
+
+.role-select {
+  width: 7rem;
+  height: 3.5rem;
+  border-radius: 10px;
+  padding: 0.5rem;
+  font-size: 1.3rem;
+  border: 1px solid #ccc;
+}
+
+.role-select option {
+  width: 100%;
+  font-size: 1.3rem;
+  padding: 1rem;
+}
+
+/* .postActions-container .card-container {
+  height: 45rem;
+} */
+
+.postActions-container .card-kebab-menu-container {
+  display: none;
+}

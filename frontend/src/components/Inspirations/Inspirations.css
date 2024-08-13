@@ -1,0 +1,141 @@
+.inspirations-container {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100vh;
+}
+
+.inspirations-header {
+  background-color: white;
+}
+
+.inspirations-logo {
+  color: black;
+}
+
+.inspirations-nav a {
+  color: black;
+}
+
+.inspirations-signin {
+  color: black;
+}
+
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  transition: background-color 0.3s ease;
+  padding: 2rem 0;
+}
+
+.popup-content {
+  position: fixed;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: space-evenly;
+  background-color: white;
+  padding: 20px;
+  border-radius: 1rem;
+  text-align: center;
+  width: 40rem;
+  height: 24rem;
+  transform: scale(0.9);
+  transition: transform 0.3s ease;
+}
+
+.popup-content h2 {
+  font-size: 2.2rem;
+  /* transition: margin-bottom 0.3s ease; */
+  font-weight: 400;
+  color: #333;
+}
+
+.popup-content p {
+  font-size: 1.8rem;
+  color: #555;
+}
+
+.popup-content:hover {
+  transform: scale(1);
+}
+
+.inspiration-fav-login-popup-buttons {
+  gap: 1rem;
+  display: flex;
+  justify-content: space-around;
+  transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+.inspiration-fav-login-popup-button {
+  width: 10rem;
+  font-size: 2rem;
+  padding: 0.5rem 1rem;
+  border-radius: 1rem;
+  cursor: pointer;
+  border: none;
+  color: white;
+  transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+.inspiration-fav-login-popup-button.btn1 {
+  background-color: #83f806;
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1);
+  color: #000;
+}
+
+.inspiration-fav-login-popup-button.btn1:hover {
+  background-color: #9cf938;
+  transform: scale(1.05);
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1);
+}
+
+.inspiration-fav-login-button.btn2 {
+  background-color: #fff;
+  color: #83f806;
+  border: 0.1rem solid #83f806;
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1);
+}
+
+.inspiration-fav-login-popup-button.btn2:hover {
+  border: 0.1rem solid #9cf938;
+  color: #9cf938;
+  transform: scale(1.05);
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1);
+}
+
+.inspiration-fav-login-popup-button.btn1:active,
+.inspiration-fav-login-popup-button.btn2:active {
+  transform: scale(0.95);
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1);
+}
+
+.popup-overlay {
+  position: absolute; /* Position the overlay absolutely within the container */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* Ensure modal is on top of other content */
+}
+
+.inspirations-container .role {
+  display: none;
+}
+
+.inspirations-container .card-kebab-menu-container {
+  display: none;
+}

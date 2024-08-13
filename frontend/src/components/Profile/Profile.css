@@ -1,0 +1,162 @@
+.profile-header {
+  background-color: white;
+  border-bottom: 1px solid rgb(226, 223, 223);
+}
+
+.profile-logo {
+  color: black;
+}
+
+.profile-nav a {
+  color: black;
+}
+
+.profile-signin {
+  color: black;
+}
+
+.profile-container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.profile-container .card-container .description {
+  color: #555;
+}
+
+.profile-heading {
+  font-size: 2rem;
+}
+
+.profile-details {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  border-bottom: 1px solid grey;
+}
+
+.profile-image img {
+  width: 18rem;
+  height: 18rem;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 20px;
+  border: 2px solid white;
+}
+
+.profile-info {
+  flex: 1;
+}
+
+.profile-info .username {
+  margin: 0;
+  font-size: 3rem;
+  font-weight: bold;
+  margin-top: 3.5rem;
+}
+
+.profile-info .name {
+  margin: 0;
+  font-size: 2rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.profile-info p {
+  margin: 5px 0;
+  font-size: 16px;
+}
+
+.posts-section {
+  margin-top: 20px;
+}
+
+.posts-section h2 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.profile-header-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.profile-header-buttons button {
+  display: flex;
+  gap: 20px;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+}
+
+.profile-header-buttons .reset-password-button {
+  background-color: green;
+  font-size: 1.5rem;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+}
+
+.profile-header-buttons .reset-password-button:hover {
+  background-color: darkgreen;
+}
+
+.profile-container .card-container .role {
+  display: none;
+}
+
+.profile-edit-button {
+  /* position: absolute;
+  top: 28.5rem; */
+  /* right: 18rem; */
+  width: 3rem;
+  height: 100%;
+  /* height: 2.5rem; */
+  border: 1px solid green;
+  cursor: pointer;
+  border-radius: 7px;
+  background-color: rgba(0, 0, 0, 0.8);
+  background-color: #fff;
+  padding: 2px;
+  fill: green;
+}
+
+.profile-delete-button {
+  /* position: absolute;
+  top: 28.5rem; */
+  /* right: 15rem; */
+  /* width: 2.5rem;
+  height: 2.5rem; */
+  width: 3rem;
+  height: 100%;
+  border: 1px solid darkred;
+  cursor: pointer;
+  border-radius: 7px;
+  background-color: rgba(0, 0, 0, 0.8);
+  background-color: #fff;
+  padding: 2px;
+  fill: darkred;
+}
+
+.profile-edit-button:hover {
+  fill: darkgreen;
+  border: 1px solid darkgreen;
+}
+
+.profile-delete-button:hover {
+  fill: red;
+  border: 1px solid red;
+}
+
+.profile-container .card-add-to-favorites {
+  display: none;
+}
+
+.profile-container .card-location-button {
+  right: 75px;
+}
