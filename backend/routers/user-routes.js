@@ -46,9 +46,9 @@ const userRouter = Router();
 userRouter.get("/", getAllUsers);
 userRouter.post("/signup", signup);
 userRouter.post("/login", login);
-userRouter.get("/:userId", getUserById);
-userRouter.get("/by-token/me", getUserByToken);
-userRouter.post("/logout", logoutUser);
+userRouter.get("/:userId", authenticateToken, getUserById);
+userRouter.get("/by-token/me", authenticateToken, getUserByToken);
+userRouter.post("/logout", authenticateToken, logoutUser);
 
 userRouter.delete("/:id", deleteUser);
 userRouter.post("/toggleFavorite", toggleFavorite);

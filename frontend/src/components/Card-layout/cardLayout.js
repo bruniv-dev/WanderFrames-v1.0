@@ -5,6 +5,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./CardLayout.css";
 import Popup from "../ErrorPages/PopupCard";
+import { useNavigate } from "react-router-dom";
 
 const CustomPrevArrow = ({ className, style, onClick }) => (
   <div
@@ -52,10 +53,10 @@ const CardLayout = ({
   const handlePopupClose = () => {
     setShowPopup(false);
   };
-
+  const navigate = useNavigate();
   const handlePopupConfirm = () => {
     if (popupConfirmText === "Log In") {
-      // Redirect to login
+      navigate("/loginSignup");
       // For example, use navigate('/login') from react-router-dom here
     } else if (popupConfirmText === "Delete") {
       if (onAdminDelete) {

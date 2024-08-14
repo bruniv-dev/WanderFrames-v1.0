@@ -1,4 +1,5 @@
 import axios from "axios";
+import { deleteCookie } from "../utils/utils";
 
 export const sendAuthRequest = async (signup, data) => {
   const endpoint = signup ? "/user/signup/" : "/user/login/";
@@ -55,7 +56,8 @@ export const checkUsernameAvailability = async (
 
 export const logoutUser = async () => {
   try {
-    await axios.post("/user/logout", {}, { withCredentials: true }); // Send request to server to clear authentication cookie
+    await axios.post("/user/logout", {}, { withCredentials: true });
+    console.log("logged out");
   } catch (error) {
     console.error("Logout failed:", error); // Handle any errors during logout
   }
@@ -111,7 +113,11 @@ export const fetchUserDetailsByToken = async () => {
 
     return response.data; // Return the entire user object
   } catch (err) {
-    console.error("Error fetching user details:", err);
+    if (err.response && err.response.status === 401) {
+      // Token is invalid or expired
+      console.error("Token expired or invalid");
+      // Optionally, redirect to login page or clear user session
+    }
     throw err;
   }
 };

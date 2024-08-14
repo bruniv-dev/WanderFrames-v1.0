@@ -41,6 +41,7 @@ const Inspirations = () => {
         const data = await getAllPosts();
         console.log("All Posts:", data.posts); // Log all posts
 
+        // Fetch user details for each post
         const postsWithUserNames = await Promise.all(
           data.posts.map(async (post) => {
             try {
@@ -74,7 +75,7 @@ const Inspirations = () => {
         setCardsData(filteredPosts);
         setFilteredCards(filteredPosts);
       } catch (e) {
-        console.log(e);
+        console.error(e);
       } finally {
         setLoading(false);
       }

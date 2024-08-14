@@ -118,6 +118,7 @@ const Card = ({
       }
     } else {
       // Notify parent component to show the popup
+
       if (onFavoriteToggle) {
         onFavoriteToggle();
       }

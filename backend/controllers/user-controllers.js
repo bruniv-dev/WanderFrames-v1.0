@@ -5,6 +5,7 @@ import path from "path";
 import crypto from "crypto";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import { NONAME } from "dns";
 export const signup = async (req, res) => {
   const {
     firstName,
@@ -75,7 +76,9 @@ export const signup = async (req, res) => {
     // Set token as HTTP-only cookie
     res.cookie("token", token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production", // Set to true if using HTTPS
+      path: "/",
+      secure: process.env.NODE_ENV === "production",
+
       maxAge: 3600000, // 1 hour
     });
 
@@ -98,7 +101,7 @@ export const login = async (req, res) => {
     const user = await User.findOne({
       $or: [{ email: identifier }, { username: identifier }],
     });
-    console.log(`login ${user._id}`);
+
     if (!user) {
       return res
         .status(404)
@@ -122,7 +125,8 @@ export const login = async (req, res) => {
     // Set token as HTTP-only cookie
     res.cookie("token", token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production", // Set to true if using HTTPS
+      path: "/",
+      secure: process.env.NODE_ENV === "production",
       maxAge: 3600000, // 1 hour
     });
 
@@ -140,7 +144,12 @@ export const login = async (req, res) => {
 
 export const logoutUser = (req, res) => {
   try {
-    res.clearCookie("token"); // Clear the token cookie
+    res.clearCookie("token", {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production", // Make sure this matches the setting used when creating the cookie
+      path: "/", // Ensure this matches the path used when creating the cookie
+    });
+
     res.status(200).json({ message: "Logged out successfully" });
     console.log("Sending logout response: Logged out successfully");
   } catch (error) {
@@ -148,6 +157,17 @@ export const logoutUser = (req, res) => {
     res.status(500).json({ message: "Failed to log out" });
   }
 };
+
+// export const logoutUser = (req, res) => {
+//   try {
+//     res.clearCookie("token"); // Clear the token cookie
+//     res.status(200).json({ message: "Logged out successfully" });
+//     console.log("Sending logout response: Logged out successfully");
+//   } catch (error) {
+//     console.error("Error during logout:", error);
+//     res.status(500).json({ message: "Failed to log out" });
+//   }
+// };
 
 //GET ALL USERS
 export const getAllUsers = async (req, res) => {

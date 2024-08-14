@@ -82,7 +82,7 @@ const Home = () => {
           confirmText="Log In"
           message={{
             title: "Please Log In.",
-            body: "You need to be signed in to add items to your favorites.",
+            body: "You need to be signed in to add posts.",
           }}
         />
       </div>
