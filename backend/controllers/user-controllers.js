@@ -138,6 +138,17 @@ export const login = async (req, res) => {
   }
 };
 
+export const logoutUser = (req, res) => {
+  try {
+    res.clearCookie("token"); // Clear the token cookie
+    res.status(200).json({ message: "Logged out successfully" });
+    console.log("Sending logout response: Logged out successfully");
+  } catch (error) {
+    console.error("Error during logout:", error);
+    res.status(500).json({ message: "Failed to log out" });
+  }
+};
+
 //GET ALL USERS
 export const getAllUsers = async (req, res) => {
   let users;

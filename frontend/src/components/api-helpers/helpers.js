@@ -38,16 +38,6 @@ export const sendAuthRequest = async (signup, data) => {
   }
 };
 
-// export const checkUsernameAvailability = async (username) => {
-//   try {
-//     const response = await axios.get(`user/check-username/${username}`);
-//     return response.data.isAvailable;
-//   } catch (error) {
-//     console.error("Error checking username availability:", error);
-//     throw error;
-//   }
-// };
-
 export const checkUsernameAvailability = async (
   username,
   includeCredentials = true
@@ -60,6 +50,14 @@ export const checkUsernameAvailability = async (
   } catch (error) {
     console.error("Error checking username availability:", error);
     throw error;
+  }
+};
+
+export const logoutUser = async () => {
+  try {
+    await axios.post("/user/logout", {}, { withCredentials: true }); // Send request to server to clear authentication cookie
+  } catch (error) {
+    console.error("Logout failed:", error); // Handle any errors during logout
   }
 };
 
@@ -107,7 +105,7 @@ export const fetchUserDetailsById = async (userId) => {
 
 export const fetchUserDetailsByToken = async () => {
   try {
-    const response = await axios.get("/user/me", {
+    const response = await axios.get("/user/by-token/me", {
       withCredentials: true, // Ensure cookies are included
     });
 

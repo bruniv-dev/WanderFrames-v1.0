@@ -22,6 +22,7 @@ import {
   requestReset,
   forgotPasswordReset,
   getUserByToken,
+  logoutUser,
 } from "../controllers/user-controllers.js";
 
 import { authenticateToken } from "../middleware/jwt.js";
@@ -45,8 +46,9 @@ const userRouter = Router();
 userRouter.get("/", getAllUsers);
 userRouter.post("/signup", signup);
 userRouter.post("/login", login);
-userRouter.get("/:userId", authenticateToken, getUserById);
-userRouter.get("/me", authenticateToken, getUserByToken);
+userRouter.get("/:userId", getUserById);
+userRouter.get("/by-token/me", getUserByToken);
+userRouter.post("/logout", logoutUser);
 
 userRouter.delete("/:id", deleteUser);
 userRouter.post("/toggleFavorite", toggleFavorite);
