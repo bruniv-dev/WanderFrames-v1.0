@@ -30,8 +30,9 @@ const postRouter = Router();
 
 // Define routes
 postRouter.get("/", getAllPosts);
+postRouter.post("/addPost", authenticateToken, uploadMultiple, addPost);
+
 postRouter.get("/:id", getPostById);
-postRouter.post("/addPost", authenticateToken, uploadMultiple, addPost); // Use multer middleware to handle multiple file uploads
 postRouter.put("/:id", updatePost);
 postRouter.delete("/:id", deletePost);
 

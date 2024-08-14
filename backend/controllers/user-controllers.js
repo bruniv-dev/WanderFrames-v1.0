@@ -172,6 +172,19 @@ export const getUserById = async (req, res) => {
   }
 };
 
+export const getUserByToken = async (req, res) => {
+  try {
+    const user = req.user; // From authenticateToken middleware
+    if (!user) {
+      return res.status(401).json({ message: "Not authenticated" });
+    }
+    res.status(200).json(user); // Send the entire user object
+  } catch (error) {
+    console.error("Failed to get user profile:", error);
+    res.status(500).json({ message: "Failed to get user", error });
+  }
+};
+
 // Delete a user and their posts
 export const deleteUser = async (req, res) => {
   const id = req.params.id;

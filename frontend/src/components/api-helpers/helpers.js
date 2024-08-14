@@ -91,21 +91,24 @@ export const getAllUsers = async () => {
   }
 };
 
-// export const fetchUserDetailsById = async (userId) => {
-//   try {
-//     const response = await axios.get(`/user/${userId}`);
-//     return response.data; // Return the entire user object
-//   } catch (err) {
-//     console.error("Error fetching user details:", err);
-//     throw err;
-//   }
-// };
-
 export const fetchUserDetailsById = async (userId) => {
   try {
     // Ensure cookies are sent with the request
     const response = await axios.get(`/user/${userId}`, {
       withCredentials: true, // This ensures that cookies, including HTTP-only cookies, are sent with the request
+    });
+
+    return response.data; // Return the entire user object
+  } catch (err) {
+    console.error("Error fetching user details:", err);
+    throw err;
+  }
+};
+
+export const fetchUserDetailsByToken = async () => {
+  try {
+    const response = await axios.get("/user/me", {
+      withCredentials: true, // Ensure cookies are included
     });
 
     return response.data; // Return the entire user object
