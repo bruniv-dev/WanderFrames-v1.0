@@ -33,7 +33,13 @@ import userRouter from "./routers/user-routes.js"; // http://localhost:3000/user
 import postRouter from "./routers/post-routes.js"; // http://localhost:3000/post
 
 // Middleware setup
-app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:3000", // Adjust as needed
+    credentials: true,
+  })
+);
+
 app.use(express.json()); // to process JSON data sent from requests
 
 // Routes

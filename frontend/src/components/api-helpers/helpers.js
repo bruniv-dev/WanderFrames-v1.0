@@ -1,5 +1,68 @@
 import axios from "axios";
 
+export const sendAuthRequest = async (signup, data) => {
+  const endpoint = signup ? "/user/signup/" : "/user/login/";
+
+  const payload = signup
+    ? {
+        email: data.email,
+        password: data.password,
+        firstName: data.firstName,
+        lastName: data.lastName,
+        username: data.username,
+        securityQuestion: data.securityQuestion,
+        securityAnswer: data.securityAnswer,
+        isAdmin: data.isAdmin,
+      }
+    : {
+        identifier: data.identifier,
+        password: data.password,
+      };
+
+  try {
+    const { status, data: responseData } = await axios.post(endpoint, payload, {
+      withCredentials: true,
+    });
+
+    if (status === 200 || status === 201) {
+      return responseData;
+    }
+
+    throw new Error(`Unexpected status code: ${status}`);
+  } catch (error) {
+    console.error(
+      "Error during authentication:",
+      error.response ? error.response.data : error.message
+    );
+    throw error;
+  }
+};
+
+// export const checkUsernameAvailability = async (username) => {
+//   try {
+//     const response = await axios.get(`user/check-username/${username}`);
+//     return response.data.isAvailable;
+//   } catch (error) {
+//     console.error("Error checking username availability:", error);
+//     throw error;
+//   }
+// };
+
+export const checkUsernameAvailability = async (
+  username,
+  includeCredentials = true
+) => {
+  try {
+    const response = await axios.get(`/user/check-username/${username}`, {
+      withCredentials: includeCredentials, // Control credentials based on the parameter
+    });
+    return response.data.isAvailable;
+  } catch (error) {
+    console.error("Error checking username availability:", error);
+    throw error;
+  }
+};
+
 export const getAllPosts = async () => {
   try {
     const res = await axios.get("/post");
@@ -190,74 +253,6 @@ export const updateUserProfile = async (userId, formData) => {
   }
 };
 
-export const sendAuthRequest = async (signup, data) => {
-  const endpoint = signup ? "/user/signup/" : "/user/login/";
-
-  const payload = signup
-    ? {
-        email: data.email,
-        password: data.password,
-        firstName: data.firstName,
-        lastName: data.lastName,
-        username: data.username,
-        securityQuestion: data.securityQuestion,
-        securityAnswer: data.securityAnswer,
-      }
-    : {
-        identifier: data.identifier,
-        password: data.password,
-      };
-
-  try {
-    const { status, data: responseData } = await axios.post(endpoint, payload);
-
-    if (status === 200 || status === 201) {
-      return responseData;
-    }
-
-    throw new Error(`Unexpected status code: ${status}`);
-  } catch (error) {
-    console.error(
-      "Error during authentication:",
-      error.response ? error.response.data : error.message
-    );
-    throw error;
-  }
-};
-
-export const loginUser = async (credentials) => {
-  try {
-    const response = await axios.post("/user/login/", credentials);
-    const data = response.data;
-
-    // Check if the token is present in the response
-    if (data.token) {
-      // Store the JWT token in localStorage
-      localStorage.setItem("token", data.token);
-      localStorage.setItem("userId", data.userId || ""); // Store userId if available
-      localStorage.setItem("isAdmin", data.isAdmin?.toString() || "false"); // Store admin status if available
-    }
-
-    return data; // Return the data from the response
-  } catch (error) {
-    console.error("Error during authentication:", error);
-
-    // Handle different types of errors
-    if (error.response) {
-      // Server responded with a status other than 2xx
-      const errorMessage =
-        error.response.data.message || "An error occurred. Please try again.";
-      throw new Error(errorMessage);
-    } else if (error.request) {
-      // No response received from the server
-      throw new Error("No response received from the server.");
-    } else {
-      // Other errors
-      throw new Error("An unexpected error occurred.");
-    }
-  }
-};
-
 export const updateUserIsAdmin = async (userId, isAdmin) => {
   try {
     const response = await axios.put(`/user/${userId}/isAdmin`, {
@@ -266,16 +261,6 @@ export const updateUserIsAdmin = async (userId, isAdmin) => {
     return response.data;
   } catch (error) {
     console.error("Error updating user role:", error);
-    throw error;
-  }
-};
-
-export const checkUsernameAvailability = async (username) => {
-  try {
-    const response = await axios.get(`user/check-username/${username}`);
-    return response.data.isAvailable;
-  } catch (error) {
-    console.error("Error checking username availability:", error);
     throw error;
   }
 };

@@ -8,7 +8,6 @@ import bcrypt from "bcrypt";
 import { uploadDir } from "../app.js";
 import fs from "fs";
 import jwt from "jsonwebtoken";
-
 export const signup = async (req, res) => {
   const {
     firstName,
@@ -75,9 +74,15 @@ export const signup = async (req, res) => {
       { expiresIn: "1h" }
     );
 
+    // Set token as HTTP-only cookie
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production", // Set to true if using HTTPS
+      maxAge: 3600000, // 1 hour
+    });
+
     return res.status(201).json({
       message: "User created successfully",
-      token,
       userId: user._id,
       isAdmin: user.isAdmin,
     });
@@ -88,7 +93,7 @@ export const signup = async (req, res) => {
 };
 
 export const login = async (req, res) => {
-  const { identifier, password } = req.body; // Renamed to `identifier` to handle both username and email
+  const { identifier, password } = req.body;
 
   try {
     // Find the user by username or email
@@ -114,9 +119,15 @@ export const login = async (req, res) => {
       { expiresIn: "1h" }
     );
 
-    // Respond with user data and token
+    // Set token as HTTP-only cookie
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production", // Set to true if using HTTPS
+      maxAge: 3600000, // 1 hour
+    });
+
+    // Respond with user data
     res.status(200).json({
-      token,
       userId: user._id,
       isAdmin: user.isAdmin,
       message: "Login successful",
@@ -126,6 +137,7 @@ export const login = async (req, res) => {
     res.status(500).json({ message: "Internal server error" });
   }
 };
+
 //GET ALL USERS
 export const getAllUsers = async (req, res) => {
   let users;
