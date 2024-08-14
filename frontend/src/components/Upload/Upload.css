@@ -4,7 +4,7 @@
 }
 
 .upload-logo {
-  color: #111;
+  color: #000;
 }
 
 .upload-nav a {
@@ -12,7 +12,7 @@
 }
 
 .upload-signin {
-  color: #111;
+  color: #fff;
 }
 
 .upload {
@@ -79,7 +79,7 @@
 }
 
 .upload-input:focus {
-  border-color: #28a745;
+  border-color: green;
   outline: none;
 }
 
@@ -90,7 +90,7 @@
 }
 
 #images[type="file"]::-webkit-file-upload-button {
-  background-color: #28a745;
+  background-color: green;
   color: #fff;
   padding: 0.8rem 1rem;
   border: none;
@@ -102,7 +102,7 @@
 }
 
 #images[type="file"]::-webkit-file-upload-button:hover {
-  background-color: #218838;
+  background-color: darkgreen;
 }
 
 #description {
@@ -150,22 +150,24 @@
 }
 
 .upload-buttons .submit-button {
-  background-color: #28a745;
+  background-color: green;
   color: #fff;
-  border: 1px solid #28a745;
+  border: 1px solid green;
 }
 
 .upload-buttons .submit-button:hover {
-  background-color: #218838;
+  background-color: darkgreen;
+  transform: scale(1.05);
 }
 
 .upload-buttons .cancel-button {
-  border: 1px solid #218838;
+  border: 1px solid green;
   background-color: #fff;
-  color: #218838;
+  color: green;
   font-size: 1.7rem;
 }
 
-.upload-buttons button:hover {
-  transform: scale(1.05);
+.upload-buttons .cancel-button:hover {
+  color: darkgreen;
+  border: 1px solid darkgreen;
 }

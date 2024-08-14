@@ -13,7 +13,7 @@
 }
 
 .edit-signin {
-  color: #111;
+  color: #fff;
 }
 
 /* Container Styles */
@@ -89,7 +89,7 @@
 }
 
 .edit-input:focus {
-  border-color: #28a745;
+  border-color: green;
   outline: none;
 }
 
@@ -100,7 +100,7 @@
 }
 
 #images[type="file"]::-webkit-file-upload-button {
-  background-color: #28a745;
+  background-color: green;
   color: #fff;
   padding: 0.8rem 1rem;
   border: none;
@@ -112,7 +112,7 @@
 }
 
 #images[type="file"]::-webkit-file-upload-button:hover {
-  background-color: #218838;
+  background-color: green;
 }
 
 #description {

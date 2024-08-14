@@ -19,7 +19,7 @@
 }
 
 .inspirations-signin {
-  color: black;
+  color: #fff;
 }
 
 .popup-overlay {
@@ -138,4 +138,12 @@
 
 .inspirations-container .card-kebab-menu-container {
   display: none;
+}
+
+.inspirations-container .no-cards-message {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 500;
+  color: #777;
+  margin-top: 10rem;
 }

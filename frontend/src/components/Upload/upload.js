@@ -39,10 +39,23 @@ const Upload = () => {
       return;
     }
 
+    // const compressedFiles = await Promise.all(
+    //   selectedFiles.map((file) =>
+    //     imageCompression(file, {
+    //       maxSizeMB: 1,
+    //       maxWidthOrHeight: 800,
+    //       useWebWorker: true,
+    //     })
+    //   )
+    // );
+
+    const maxSizeKB = 500; // Desired max file size in KB
+    const maxSizeMB = maxSizeKB / 1024; // Convert to MB
+
     const compressedFiles = await Promise.all(
       selectedFiles.map((file) =>
         imageCompression(file, {
-          maxSizeMB: 1,
+          maxSizeMB: maxSizeMB, // Set max size in MB
           maxWidthOrHeight: 800,
           useWebWorker: true,
         })

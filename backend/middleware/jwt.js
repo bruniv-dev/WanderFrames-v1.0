@@ -11,15 +11,22 @@ export const authenticateToken = async (req, res, next) => {
 
   if (!token) {
     console.log("No token provided.");
-    return res.sendStatus(401); // Unauthorized if no token is present
+    return res.status(401).json({ message: "No token provided." }); // Unauthorized if no token is present
   }
 
   try {
     // Verify the token
     jwt.verify(token, process.env.JWT_SECRET, async (err, user) => {
       if (err) {
+        if (err.name === "TokenExpiredError") {
+          console.error("Token expired:", err);
+          return res
+            .status(401)
+            .json({ message: "Token expired, please log in again." }); // Specific message for token expiration
+        }
+
         console.error("Token verification error:", err);
-        return res.sendStatus(403); // Forbidden if token is invalid or expired
+        return res.status(403).json({ message: "Invalid token." }); // Forbidden if token is invalid
       }
 
       // Log the decoded user information from the token
@@ -29,7 +36,9 @@ export const authenticateToken = async (req, res, next) => {
       const dbUser = await User.findById(user._id);
       if (!dbUser) {
         console.log("User not found in database.");
-        return res.sendStatus(403); // Forbidden if user is not found in the database
+        return res
+          .status(403)
+          .json({ message: "User not found, authentication failed." }); // Forbidden if user is not found in the database
       }
 
       // Attach user to request object
@@ -39,7 +48,7 @@ export const authenticateToken = async (req, res, next) => {
     });
   } catch (error) {
     console.error("Error in authentication middleware:", error);
-    res.sendStatus(500); // Internal Server Error
+    res.status(500).json({ message: "Internal server error." }); // Internal Server Error
   }
 };
 

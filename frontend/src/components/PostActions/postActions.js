@@ -8,7 +8,6 @@ import {
   deletePostById,
   fetchUserDetailsById,
 } from "../api-helpers/helpers.js";
-import Search from "../Search/Search.js";
 import Loading from "../Loading/Loading.js";
 
 const PostActions = () => {
@@ -134,11 +133,15 @@ const PostActions = () => {
         <button onClick={() => handleSearchAndFilter()}>Search</button>
       </div>
       <div className="postActions-container">
-        <CardLayout
-          cardsData={filteredCards}
-          onAdminDelete={handleAdminDelete}
-          isAdminContext={true}
-        />
+        {filteredCards.length > 0 ? (
+          <CardLayout
+            cardsData={filteredCards}
+            onAdminDelete={handleAdminDelete}
+            isAdminContext={true}
+          />
+        ) : (
+          <p className="no-posts-message">No posts available.</p>
+        )}
       </div>
     </>
   ) : null;

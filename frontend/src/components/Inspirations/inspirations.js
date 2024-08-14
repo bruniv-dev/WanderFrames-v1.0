@@ -43,8 +43,6 @@ const Inspirations = () => {
                 firstName: "Unknown",
                 lastName: "Unknown",
               };
-            } finally {
-              setLoading(false);
             }
           })
         );
@@ -57,6 +55,8 @@ const Inspirations = () => {
         setFilteredCards(filteredPosts);
       } catch (e) {
         console.log(e);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -118,7 +118,11 @@ const Inspirations = () => {
         <button onClick={() => handleSearch(searchTerm)}>Search</button>
       </div>
       <div className="inspirations-container">
-        <CardLayout cardsData={filteredCards} onCardClick={handleCardClick} />
+        {filteredCards.length === 0 && !loading ? (
+          <div className="no-cards-message">No cards available</div>
+        ) : (
+          <CardLayout cardsData={filteredCards} onCardClick={handleCardClick} />
+        )}
       </div>
     </>
   );

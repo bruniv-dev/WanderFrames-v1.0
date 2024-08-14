@@ -4,10 +4,10 @@ import { fetchUserProfile, fetchUserPosts } from "../api-helpers/helpers";
 import CardLayout from "../Card-layout/cardLayout";
 import "./UserProfile.css";
 import Header from "../Header/header";
-
+//TO VIEW OTHER USER PROFILE
 const UserProfile = () => {
   const location = useLocation();
-  const userId = location.state?.userId; // Retrieve userId from navigation state
+  const userId = location.state?.userId;
 
   const [user, setUser] = useState(null);
   const [posts, setPosts] = useState([]);

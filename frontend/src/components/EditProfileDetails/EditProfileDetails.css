@@ -116,11 +116,11 @@
 }
 
 .username-status-message.available {
-  color: #28a745;
+  color: green;
 }
 
 .username-status-message.taken {
-  color: #e74c3c;
+  color: red;
 }
 
 .form-buttons {
@@ -142,28 +142,28 @@
 }
 
 .form-buttons .submit-button {
-  background-color: #28a745;
+  background-color: green;
   color: #fff;
-  border: 1px solid #28a745;
+  border: 1px solid green;
 }
 
 .form-buttons .submit-button:hover {
-  background-color: #218838;
+  background-color: green;
 }
 
 .form-buttons .cancel-button {
-  border: 1px solid #218838;
+  border: 1px solid green;
   background-color: #fff;
-  color: #218838;
+  color: green;
 }
 
 .error-message,
 .success-message {
-  color: #e74c3c;
+  color: red;
   font-size: 1.4rem;
   text-align: center;
 }
 
 .success-message {
-  color: #218838;
+  color: green;
 }

@@ -169,7 +169,7 @@ const Profile = () => {
               isProfile={true}
             />
           ) : (
-            <p>No posts available</p>
+            <p className="no-posts-message">No posts available</p>
           )}
         </div>
         {isResettingPassword && (

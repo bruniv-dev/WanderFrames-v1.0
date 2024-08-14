@@ -12,7 +12,7 @@
 }
 
 .postActions-signin {
-  color: black;
+  color: #fff;
 }
 
 .role-select {
@@ -36,4 +36,12 @@
 
 .postActions-container .card-kebab-menu-container {
   display: none;
+}
+
+.postActions-container .no-posts-message {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 500;
+  color: #777;
+  margin-top: 10rem;
 }

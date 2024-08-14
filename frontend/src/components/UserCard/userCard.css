@@ -78,3 +78,7 @@
   background-color: green;
   margin-bottom: 2rem;
 }
+
+.make-admin-button:hiver {
+  background-color: darkgreen;
+}
