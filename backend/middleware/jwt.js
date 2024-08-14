@@ -3,52 +3,40 @@ import User from "../models/User.js";
 import Post from "../models/Post.js";
 
 export const authenticateToken = async (req, res, next) => {
-  // Log the entire authorization header
-  console.log("Authorization Header:", req.headers["authorization"]);
-
-  const authHeader = req.headers["authorization"];
-  const token = authHeader && authHeader.split(" ")[1]; // Extract token from 'Bearer TOKEN' format
+  console.log("Cookies:", req.cookies); // Add this line to debug
+  const token = req.cookies["token"];
 
   if (!token) {
-    console.log("No token provided.");
-    return res.status(401).json({ message: "No token provided." }); // Unauthorized if no token is present
+    return res.status(401).json({ message: "No token provided." });
   }
 
   try {
-    // Verify the token
-    jwt.verify(token, process.env.JWT_SECRET, async (err, user) => {
-      if (err) {
-        if (err.name === "TokenExpiredError") {
-          console.error("Token expired:", err);
-          return res
-            .status(401)
-            .json({ message: "Token expired, please log in again." }); // Specific message for token expiration
+    const user = await new Promise((resolve, reject) => {
+      jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(decoded);
         }
-
-        console.error("Token verification error:", err);
-        return res.status(403).json({ message: "Invalid token." }); // Forbidden if token is invalid
-      }
-
-      // Log the decoded user information from the token
-      console.log("Decoded User from Token:", user);
-
-      // Fetch user from the database
-      const dbUser = await User.findById(user._id);
-      if (!dbUser) {
-        console.log("User not found in database.");
-        return res
-          .status(403)
-          .json({ message: "User not found, authentication failed." }); // Forbidden if user is not found in the database
-      }
-
-      // Attach user to request object
-      req.user = dbUser;
-      console.log("Authenticated User:", req.user);
-      next(); // Proceed to next middleware or route handler
+      });
     });
+
+    const dbUser = await User.findById(user.userId);
+    if (!dbUser) {
+      return res
+        .status(403)
+        .json({ message: "User not found, authentication failed." });
+    }
+
+    req.user = user; // Attach user info to the request object
+    next(); // Proceed to the next middleware or route handler
   } catch (error) {
-    console.error("Error in authentication middleware:", error);
-    res.status(500).json({ message: "Internal server error." }); // Internal Server Error
+    if (error.name === "TokenExpiredError") {
+      return res
+        .status(401)
+        .json({ message: "Token expired, please log in again." });
+    }
+    return res.status(403).json({ message: "Invalid token." });
   }
 };
 

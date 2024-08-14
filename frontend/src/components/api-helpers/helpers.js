@@ -91,9 +91,23 @@ export const getAllUsers = async () => {
   }
 };
 
+// export const fetchUserDetailsById = async (userId) => {
+//   try {
+//     const response = await axios.get(`/user/${userId}`);
+//     return response.data; // Return the entire user object
+//   } catch (err) {
+//     console.error("Error fetching user details:", err);
+//     throw err;
+//   }
+// };
+
 export const fetchUserDetailsById = async (userId) => {
   try {
-    const response = await axios.get(`/user/${userId}`);
+    // Ensure cookies are sent with the request
+    const response = await axios.get(`/user/${userId}`, {
+      withCredentials: true, // This ensures that cookies, including HTTP-only cookies, are sent with the request
+    });
+
     return response.data; // Return the entire user object
   } catch (err) {
     console.error("Error fetching user details:", err);
@@ -118,6 +132,7 @@ export const addPost = async (data) => {
       headers: {
         "Content-Type": "multipart/form-data",
       },
+      withCredentials: true, // Ensure cookies are sent with the request
     });
 
     // Check if response status is 201 (Created)

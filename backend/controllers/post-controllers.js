@@ -39,46 +39,46 @@ export const getPostById = async (req, res) => {
 // Define the base URL
 const baseUrl = process.env.BASE_URL || "http://localhost:5000";
 
-export const addPost = async (req, res, next) => {
-  const { subLocation, description, location, date, user, locationUrl } =
-    req.body;
-  const imageFiles = req.files; // assuming you are using multer or a similar middleware
+// export const addPost = async (req, res, next) => {
+//   const { subLocation, description, location, date, user, locationUrl } =
+//     req.body;
+//   const imageFiles = req.files; // assuming you are using multer or a similar middleware
 
-  // Generate image URLs
-  const imageUrls = imageFiles.map(
-    (file) => `${baseUrl}/uploads/${path.basename(file.path)}`
-  );
+//   // Generate image URLs
+//   const imageUrls = imageFiles.map(
+//     (file) => `${baseUrl}/uploads/${path.basename(file.path)}`
+//   );
 
-  let post;
-  try {
-    post = new Post({
-      subLocation,
-      description,
-      location,
-      date: new Date(date),
-      user,
-      images: imageUrls.map((url) => ({ url })), // Transform image URLs into the required format
-      locationUrl,
-    });
+//   let post;
+//   try {
+//     post = new Post({
+//       subLocation,
+//       description,
+//       location,
+//       date: new Date(date),
+//       user,
+//       images: imageUrls.map((url) => ({ url })), // Transform image URLs into the required format
+//       locationUrl,
+//     });
 
-    const session = await mongoose.startSession();
-    session.startTransaction();
-    const existingUser = await User.findById(user);
-    existingUser.posts.push(post);
-    await existingUser.save({ session });
-    post = await post.save({ session });
-    await session.commitTransaction();
-    session.endSession();
-  } catch (err) {
-    return console.log(err);
-  }
+//     const session = await mongoose.startSession();
+//     session.startTransaction();
+//     const existingUser = await User.findById(user);
+//     existingUser.posts.push(post);
+//     await existingUser.save({ session });
+//     post = await post.save({ session });
+//     await session.commitTransaction();
+//     session.endSession();
+//   } catch (err) {
+//     return console.log(err);
+//   }
 
-  if (!post) {
-    return res.status(500).json({ message: "Unexpected Error Occurred" });
-  }
+//   if (!post) {
+//     return res.status(500).json({ message: "Unexpected Error Occurred" });
+//   }
 
-  return res.status(201).json({ post });
-};
+//   return res.status(201).json({ post });
+// };
 
 export const deletePost = async (req, res) => {
   const id = req.params.id;
@@ -94,6 +94,45 @@ export const deletePost = async (req, res) => {
   } catch (err) {
     console.error("Error deleting post:", err);
     return res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+// Your addPost controller function
+export const addPost = async (req, res) => {
+  const { subLocation, description, location, date, locationUrl } = req.body;
+  const user = req.user.userId; // Use the authenticated user from the middleware
+  console.log(user);
+  const imageFiles = req.files;
+
+  // Generate image URLs
+  const imageUrls = imageFiles.map(
+    (file) => `${baseUrl}/uploads/${path.basename(file.path)}`
+  );
+
+  try {
+    const post = new Post({
+      subLocation,
+      description,
+      location,
+      date: new Date(date),
+      user,
+      images: imageUrls.map((url) => ({ url })),
+      locationUrl,
+    });
+
+    const session = await mongoose.startSession();
+    session.startTransaction();
+    const existingUser = await User.findById(user);
+    existingUser.posts.push(post);
+    await existingUser.save({ session });
+    await post.save({ session });
+    await session.commitTransaction();
+    session.endSession();
+
+    return res.status(201).json({ post });
+  } catch (err) {
+    console.error("Error adding post:", err);
+    res.status(500).json({ message: "Unexpected Error Occurred" });
   }
 };
 

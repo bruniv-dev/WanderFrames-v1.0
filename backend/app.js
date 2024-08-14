@@ -13,6 +13,7 @@ import cors from "cors";
 import fs from "fs";
 import multer from "multer";
 import mongoose from "mongoose";
+import cookieParser from "cookie-parser";
 
 // Define __dirname for ES modules
 const __filename = fileURLToPath(import.meta.url);
@@ -39,6 +40,8 @@ app.use(
     credentials: true,
   })
 );
+
+app.use(cookieParser());
 
 app.use(express.json()); // to process JSON data sent from requests
 

@@ -23,6 +23,8 @@ import {
   forgotPasswordReset,
 } from "../controllers/user-controllers.js";
 
+import { authenticateToken } from "../middleware/jwt.js";
+
 // Multer setup
 const storageSingle = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -47,7 +49,8 @@ userRouter.post("/toggleFavorite", toggleFavorite);
 userRouter.get("/favorites/:userId", getFavorites);
 userRouter.get("/profile/:id", getUserProfile);
 userRouter.get("/posts/:userId", getUserPosts);
-userRouter.get("/:userId", getUserById);
+// userRouter.get("/:userId", getUserById);
+userRouter.get("/:userId", authenticateToken, getUserById);
 userRouter.delete("/:id", deleteUserAccount);
 userRouter.put(
   "/:userId",

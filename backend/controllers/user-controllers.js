@@ -1,12 +1,9 @@
-import { compareSync, hashSync } from "bcrypt";
 import User from "../models/User.js";
 import mongoose from "mongoose";
 import Post from "../models/Post.js";
 import path from "path";
 import crypto from "crypto";
 import bcrypt from "bcrypt";
-import { uploadDir } from "../app.js";
-import fs from "fs";
 import jwt from "jsonwebtoken";
 export const signup = async (req, res) => {
   const {
@@ -66,6 +63,7 @@ export const signup = async (req, res) => {
     });
 
     await user.save();
+    console.log(`signup ${user._id}`);
 
     // Create JWT token
     const token = jwt.sign(
@@ -100,6 +98,7 @@ export const login = async (req, res) => {
     const user = await User.findOne({
       $or: [{ email: identifier }, { username: identifier }],
     });
+    console.log(`login ${user._id}`);
     if (!user) {
       return res
         .status(404)
@@ -119,6 +118,7 @@ export const login = async (req, res) => {
       { expiresIn: "1h" }
     );
 
+    console.log("Generated token:", token);
     // Set token as HTTP-only cookie
     res.cookie("token", token, {
       httpOnly: true,
