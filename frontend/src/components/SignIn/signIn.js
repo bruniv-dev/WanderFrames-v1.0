@@ -502,7 +502,7 @@
 import React, { useState, useEffect } from "react";
 import "./SignIn.css";
 import { useDispatch } from "react-redux";
-import { authActions } from "../../store";
+import { authActions } from "../../store/authSlice";
 import { useNavigate } from "react-router-dom";
 import {
   sendAuthRequest,
@@ -514,7 +514,7 @@ const SignInSignUp = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [isSignUp, setIsSignUp] = useState(false);
-  const [loading, setLoading] = useState(true); // Initialize with true
+  const [loading, setLoading] = useState(true);
   const [errors, setErrors] = useState({
     firstName: "",
     lastName: "",
@@ -537,7 +537,7 @@ const SignInSignUp = () => {
     identifier: "",
   });
   const [showPassword, setShowPassword] = useState(false);
-  const [submitted, setSubmitted] = useState(false); // Track form submission
+  const [submitted, setSubmitted] = useState(false);
 
   useEffect(() => {
     setInputs({
@@ -561,7 +561,7 @@ const SignInSignUp = () => {
       identifier: "",
     });
     setUsernameStatus("");
-    setSubmitted(false); // Reset submitted state when toggling forms
+    setSubmitted(false);
   }, [isSignUp]);
 
   useEffect(() => {
@@ -578,10 +578,7 @@ const SignInSignUp = () => {
 
         try {
           setLoading(true);
-          const isAvailable = await checkUsernameAvailability(
-            inputs.username,
-            false
-          );
+          const isAvailable = await checkUsernameAvailability(inputs.username);
           setUsernameStatus(
             isAvailable
               ? "Username is available."
@@ -598,7 +595,6 @@ const SignInSignUp = () => {
     };
 
     const debounce = setTimeout(checkAvailability, 300);
-
     return () => clearTimeout(debounce);
   }, [inputs.username, isSignUp]);
 
@@ -618,45 +614,41 @@ const SignInSignUp = () => {
         /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-      // Validate password
       if (inputs.password && !passwordRegex.test(inputs.password)) {
         newErrors.password =
           "Password must include an uppercase letter, lowercase letter, digit, special character, and be over 8 characters.";
       } else {
-        delete newErrors.password; // Clear the error if password is valid
+        delete newErrors.password;
       }
 
-      // Validate email
       if (inputs.email && !emailRegex.test(inputs.email)) {
         newErrors.email = "Please enter a valid email address.";
       } else {
-        delete newErrors.email; // Clear the error if email is valid
+        delete newErrors.email;
       }
 
-      // Validate security question and answer
       if (submitted && !inputs.securityQuestion) {
         newErrors.securityQuestion = "Please select a security question.";
       } else {
-        delete newErrors.securityQuestion; // Clear the error if security question is selected
+        delete newErrors.securityQuestion;
       }
 
       if (submitted && !inputs.securityAnswer) {
         newErrors.securityAnswer = "Required";
       } else {
-        delete newErrors.securityAnswer; // Clear the error if security answer is provided
+        delete newErrors.securityAnswer;
       }
     } else {
-      // Validate login
       if (submitted && !inputs.identifier) {
         newErrors.identifier = "Please enter your username or email.";
       } else {
-        delete newErrors.identifier; // Clear the error if identifier is provided
+        delete newErrors.identifier;
       }
 
       if (submitted && !inputs.password) {
         newErrors.password = "Please enter your password.";
       } else {
-        delete newErrors.password; // Clear the error if password is provided
+        delete newErrors.password;
       }
     }
 
@@ -666,7 +658,7 @@ const SignInSignUp = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setSubmitted(true); // Set submitted state to true
+    setSubmitted(true);
 
     if (!validateInputs()) {
       return;
@@ -678,12 +670,15 @@ const SignInSignUp = () => {
 
       if (isSignUp) {
         console.log("Sign-up successful:", data);
-        toggleForm(); // Switch to login mode after successful sign-up
+        toggleForm();
       } else {
-        // Assuming the server sets HttpOnly cookies for authentication
-        const { isAdmin } = data || {};
+        const { userId, isAdmin } = data || {};
 
-        dispatch(authActions.login({ isAdmin }));
+        if (userId) {
+          dispatch(authActions.login({ userId, isAdmin }));
+        } else {
+          throw new Error("Failed to retrieve user information.");
+        }
 
         navigate("/");
       }
@@ -692,8 +687,7 @@ const SignInSignUp = () => {
       setErrors((prevErrors) => ({
         ...prevErrors,
         form:
-          err.response?.data?.message ||
-          "An error occurred HERE. Please try again.",
+          err.response?.data?.message || "An error occurred. Please try again.",
       }));
     } finally {
       setLoading(false);
@@ -707,18 +701,16 @@ const SignInSignUp = () => {
       [name]: value,
     }));
 
-    // Trigger validation on input change
     validateInputs();
   };
 
-  // Video loading handler
   const handleVideoLoad = () => {
-    setLoading(false); // Hide loader once the video is loaded
+    setLoading(false);
   };
 
   return (
     <div className="loginSignup-container">
-      {loading && <Loading />} {/* Display loading component */}
+      {loading && <Loading />}
       <h2 className="signup-logo" onClick={() => navigate("/")}>
         BRUNIV
       </h2>
@@ -728,18 +720,13 @@ const SignInSignUp = () => {
         loop
         className="loginSignup-background-video"
         preload="auto"
-        onLoadedData={handleVideoLoad} // Set loading to false when the video is ready
+        onLoadedData={handleVideoLoad}
       >
         <source src="beach3.mp4" type="video/mp4" />
       </video>
       <div className="loginSignup-form-container">
         <div className={`loginSignup-overlay ${isSignUp ? "signup" : "login"}`}>
-          <video
-            autoPlay
-            muted
-            loop
-            onLoadedData={handleVideoLoad} // Set loading to false when the video is ready
-          >
+          <video autoPlay muted loop onLoadedData={handleVideoLoad}>
             <source src="road.mp4" type="video/mp4" preload="auto" />
           </video>
           <div className="loginSignup-overlay-content">

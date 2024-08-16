@@ -5,7 +5,6 @@ import path from "path";
 import crypto from "crypto";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import { NONAME } from "dns";
 export const signup = async (req, res) => {
   const {
     firstName,
@@ -388,6 +387,7 @@ export const updateUserProfile = async (req, res) => {
     await user.save();
 
     res.json({ message: "Profile updated successfully", user });
+    
   } catch (error) {
     console.error("Error updating user profile:", error);
     res.status(500).json({ message: "Server error" });

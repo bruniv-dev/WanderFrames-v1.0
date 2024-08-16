@@ -31,9 +31,8 @@ const postRouter = Router();
 // Define routes
 postRouter.get("/", getAllPosts);
 postRouter.post("/addPost", authenticateToken, uploadMultiple, addPost);
-
-postRouter.get("/:id", getPostById);
-postRouter.put("/:id", updatePost);
-postRouter.delete("/:id", deletePost);
+postRouter.get("/:id", authenticateToken, getPostById);
+postRouter.put("/:id", authenticateToken, updatePost);
+postRouter.delete("/:id", authenticateToken, deletePost);
 
 export default postRouter;

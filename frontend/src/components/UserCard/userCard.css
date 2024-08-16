@@ -1,19 +1,19 @@
 .user-card-container {
   border: 1px solid #ddd;
   border-radius: 8px;
-  overflow: hidden;
+  /* overflow: hidden; */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   margin: 16px;
   padding: 16px;
   background-color: #fff;
   position: relative;
   width: 250px;
-  height: 350px;
+  height: 355px;
 }
 
 .profile-picture {
-  width: 100px;
-  height: 100px;
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
   object-fit: cover;
   display: block;

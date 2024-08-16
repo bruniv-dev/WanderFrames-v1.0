@@ -1,8 +1,7 @@
 import axios from "axios";
-import { deleteCookie } from "../utils/utils";
 
 export const sendAuthRequest = async (signup, data) => {
-  const endpoint = signup ? "/user/signup/" : "/user/login/";
+  const endpoint = signup ? "/user/signup" : "/user/login"; // Adjust based on your API
 
   const payload = signup
     ? {
@@ -123,9 +122,11 @@ export const fetchUserDetailsByToken = async () => {
 };
 
 export const fetchPostById = async (postId) => {
-  const res = await axios.get(`/post/${postId}`).catch((err) => {
-    console.log(err);
-  });
+  const res = await axios
+    .get(`/post/${postId}`, { withCredentials: true })
+    .catch((err) => {
+      console.log(err);
+    });
   if (res.status !== 200) {
     return console.log("Error fetching post data");
   }
@@ -154,40 +155,11 @@ export const addPost = async (data) => {
   }
 };
 
-export const toggleFavorite = async (postId) => {
-  const userId = localStorage.getItem("userId");
-  if (!userId || !postId) {
-    throw new Error("User ID or Post ID is missing");
-  }
-
-  try {
-    const res = await axios.post("/user/toggleFavorite", { userId, postId });
-    return res.data; // Data should include the updated favorites list
-  } catch (error) {
-    console.error("Error toggling favorite:", error.message);
-    throw error;
-  }
-};
-
-// Fetch favorites for the logged-in user
-export const fetchFavorites = async () => {
-  const userId = localStorage.getItem("userId");
-  if (!userId) {
-    throw new Error("User ID is missing");
-  }
-
-  try {
-    const response = await axios.get(`/user/favorites/${userId}`);
-    return response.data; // Data should include the favorites list
-  } catch (err) {
-    console.error("Error fetching favorites:", err);
-    throw err;
-  }
-};
-
 export const fetchUserProfile = async (userId) => {
   try {
-    const response = await axios.get(`/user/profile/${userId}`);
+    const response = await axios.get(`/user/profile/${userId}`, {
+      withCredentials: true,
+    });
     return response.data; // Ensure this matches the API response
   } catch (error) {
     console.error("Error fetching user profile:", error);
@@ -197,7 +169,9 @@ export const fetchUserProfile = async (userId) => {
 
 export const fetchUserPosts = async (userId) => {
   try {
-    const response = await axios.get(`/user/posts/${userId}`);
+    const response = await axios.get(`/user/posts/${userId}`, {
+      withCredentials: true,
+    });
     return response.data.posts;
   } catch (err) {
     console.error("Error fetching user posts:", err);
@@ -207,14 +181,18 @@ export const fetchUserPosts = async (userId) => {
 
 export const updatePost = async (id, data) => {
   try {
-    const response = await axios
-      .put(`/post/${id}`, {
+    const response = await axios.put(
+      `/post/${id}`,
+      {
         location: data.location,
         subLocation: data.subLocation,
         description: data.description,
         locationUrl: data.locationUrl || "",
-      })
-      .catch((err) => console.log(err));
+      },
+      {
+        withCredentials: true, // Ensure cookies are sent with the request
+      }
+    );
 
     if (response.status !== 200) {
       throw new Error("Failed to update the post");
@@ -228,9 +206,28 @@ export const updatePost = async (id, data) => {
   }
 };
 
+export const updateUserProfile = async (userId, formData) => {
+  try {
+    const response = await axios.put(`/user/${userId}`, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+      withCredentials: true,
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error updating user profile:", error);
+    throw error.response
+      ? error.response.data
+      : new Error("Error updating user profile");
+  }
+};
+
 export const deletePostById = async (id) => {
   try {
-    const response = await axios.delete(`/post/${id}`);
+    const response = await axios.delete(`/post/${id}`, {
+      withCredentials: true,
+    });
     return response.data; // Ensure this matches the API response structure
   } catch (error) {
     console.error("Error deleting post by ID:", error);
@@ -240,7 +237,9 @@ export const deletePostById = async (id) => {
 
 export const deleteUserById = async (id) => {
   try {
-    const response = await axios.delete(`/user/${id}`);
+    const response = await axios.delete(`/user/${id}`, {
+      withCredentials: true,
+    });
     return response.data; // Ensure this matches the API response structure
   } catch (error) {
     console.error("Error deleting post by ID:", error);
@@ -251,27 +250,13 @@ export const deleteUserById = async (id) => {
 // API call to delete user account
 export const deleteUserAccount = async (userId) => {
   try {
-    const response = await axios.delete(`/user/${userId}`);
+    const response = await axios.delete(`/user/${userId}`, {
+      withCredentials: true,
+    });
     return response.data;
   } catch (error) {
     console.error("Error deleting user account:", error.message);
     throw error;
-  }
-};
-
-export const updateUserProfile = async (userId, formData) => {
-  try {
-    const response = await axios.put(`/user/${userId}`, formData, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    });
-    return response.data;
-  } catch (error) {
-    console.error("Error updating user profile:", error);
-    throw error.response
-      ? error.response.data
-      : new Error("Error updating user profile");
   }
 };
 
@@ -325,4 +310,35 @@ export const forgotPasswordReset = async (userId, newPassword) => {
     newPassword,
   });
   return response.data;
+};
+
+export const toggleFavorite = async (postId) => {
+  const userId = localStorage.getItem("userId");
+  if (!userId || !postId) {
+    throw new Error("User ID or Post ID is missing");
+  }
+
+  try {
+    const res = await axios.post("/user/toggleFavorite", { userId, postId });
+    return res.data; // Data should include the updated favorites list
+  } catch (error) {
+    console.error("Error toggling favorite:", error.message);
+    throw error;
+  }
+};
+
+// Fetch favorites for the logged-in user
+export const fetchFavorites = async () => {
+  const userId = localStorage.getItem("userId");
+  if (!userId) {
+    throw new Error("User ID is missing");
+  }
+
+  try {
+    const response = await axios.get(`/user/favorites/${userId}`);
+    return response.data; // Data should include the favorites list
+  } catch (err) {
+    console.error("Error fetching favorites:", err);
+    throw err;
+  }
 };

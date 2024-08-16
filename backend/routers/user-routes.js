@@ -2,7 +2,6 @@
 import { Router } from "express";
 import multer from "multer";
 import { uploadDir } from "../app.js";
-
 import {
   getAllUsers,
   login,
@@ -41,7 +40,6 @@ const storageSingle = multer.diskStorage({
 const uploadSingle = multer({ storage: storageSingle });
 // const upload = multer({ dest: "uploads/" }); // Configure multer
 const userRouter = Router();
-
 // Define routes
 userRouter.get("/", getAllUsers);
 userRouter.post("/signup", signup);
@@ -49,18 +47,19 @@ userRouter.post("/login", login);
 userRouter.get("/:userId", authenticateToken, getUserById);
 userRouter.get("/by-token/me", authenticateToken, getUserByToken);
 userRouter.post("/logout", authenticateToken, logoutUser);
-
-userRouter.delete("/:id", deleteUser);
-userRouter.post("/toggleFavorite", toggleFavorite);
-userRouter.get("/favorites/:userId", getFavorites);
-userRouter.get("/profile/:id", getUserProfile);
-userRouter.get("/posts/:userId", getUserPosts);
-userRouter.delete("/:id", deleteUserAccount);
+userRouter.get("/profile/:id", authenticateToken, getUserProfile);
+userRouter.get("/posts/:userId", authenticateToken, getUserPosts);
 userRouter.put(
   "/:userId",
   uploadSingle.single("profileImage"),
+  authenticateToken,
   updateUserProfile
 );
+userRouter.delete("/:id", authenticateToken, deleteUserAccount);
+userRouter.delete("/:id", authenticateToken, deleteUser);
+
+userRouter.post("/toggleFavorite", toggleFavorite);
+userRouter.get("/favorites/:userId", getFavorites);
 userRouter.put("/:userId/isAdmin", updateUserIsAdmin);
 userRouter.post("/requestReset", requestReset);
 userRouter.post("/verifySecurityAnswer", verifySecurityAnswer);

@@ -8,14 +8,13 @@ import {
   deletePostById,
   fetchUserDetailsById,
 } from "../api-helpers/helpers.js";
-import Loading from "../Loading/Loading.js";
+import Search from "../Search/Search.js";
 
 const PostActions = () => {
   const [cardsData, setCardsData] = useState([]);
   const [filteredCards, setFilteredCards] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [roleFilter, setRoleFilter] = useState("all");
-  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -24,7 +23,6 @@ const PostActions = () => {
     if (!isAdmin) {
       navigate("/unauthorized");
     } else {
-      setLoading(true);
       getAllPosts()
         .then(async (data) => {
           const postsWithUserNames = await Promise.all(
@@ -50,12 +48,9 @@ const PostActions = () => {
             })
           );
           setCardsData(postsWithUserNames);
-          setFilteredCards(postsWithUserNames);
+          setFilteredCards(postsWithUserNames); // Set filtered data initially
         })
-        .catch((e) => console.log(e))
-        .finally(() => {
-          setLoading(false);
-        });
+        .catch((e) => console.log(e));
     }
   }, [navigate]);
 
@@ -107,7 +102,6 @@ const PostActions = () => {
 
   return isAdmin ? (
     <>
-      {loading && <Loading />}
       <Header
         classNameheader="postActions-header"
         classNamelogo="postActions-logo"
@@ -122,7 +116,6 @@ const PostActions = () => {
           onChange={(e) => setSearchTerm(e.target.value)}
         />
         <select
-          className="role-select"
           value={roleFilter}
           onChange={(e) => setRoleFilter(e.target.value)}
         >
@@ -133,15 +126,11 @@ const PostActions = () => {
         <button onClick={() => handleSearchAndFilter()}>Search</button>
       </div>
       <div className="postActions-container">
-        {filteredCards.length > 0 ? (
-          <CardLayout
-            cardsData={filteredCards}
-            onAdminDelete={handleAdminDelete}
-            isAdminContext={true}
-          />
-        ) : (
-          <p className="no-posts-message">No posts available.</p>
-        )}
+        <CardLayout
+          cardsData={filteredCards}
+          onAdminDelete={handleAdminDelete}
+          isAdminContext={true}
+        />
       </div>
     </>
   ) : null;
