@@ -387,7 +387,6 @@ export const updateUserProfile = async (req, res) => {
     await user.save();
 
     res.json({ message: "Profile updated successfully", user });
-    
   } catch (error) {
     console.error("Error updating user profile:", error);
     res.status(500).json({ message: "Server error" });
@@ -543,3 +542,50 @@ export const resetPassword = async (req, res) => {
     res.status(500).json({ message: "Failed to reset password" });
   }
 };
+
+// export const checkAuth = async (req, res) => {
+//   try {
+//     // Check if the JWT_SECRET environment variable is set
+//     if (!process.env.JWT_SECRET) {
+//       console.error("JWT_SECRET is not defined in environment variables");
+//       return res.status(500).json({ message: "Server configuration error" });
+//     }
+
+//     // Check if there's a token in cookies
+//     const token = req.cookies["token"];
+//     if (!token) {
+//       console.error("No token provided in cookies");
+//       return res.status(401).json({ message: "No token provided" });
+//     }
+
+//     // Verify the token
+//     let decoded;
+//     try {
+//       decoded = jwt.verify(token, process.env.JWT_SECRET);
+//     } catch (error) {
+//       console.error("Token verification failed:", error.message);
+//       return res.status(401).json({ message: "Invalid or expired token" });
+//     }
+
+//     // Ensure the decoded token has a valid userId
+//     if (!decoded.userId) {
+//       console.error("Invalid token payload: Missing userId");
+//       return res.status(400).json({ message: "Invalid token payload" });
+//     }
+
+//     // Fetch user details from the database
+//     const user = await User.findById(decoded.userId);
+//     if (!user) {
+//       console.error("User not found with ID:", decoded.userId);
+//       return res.status(401).json({ message: "User not found" });
+//     }
+
+//     // User is authenticated
+//     res
+//       .status(200)
+//       .json({ message: "User authenticated", isAdmin: user.isAdmin });
+//   } catch (error) {
+//     console.error("Error in checkAuth controller:", error.message);
+//     res.status(500).json({ message: "Server error" });
+//   }
+// };

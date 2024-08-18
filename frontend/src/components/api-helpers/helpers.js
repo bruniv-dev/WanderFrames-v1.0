@@ -140,7 +140,7 @@ export const addPost = async (data) => {
       headers: {
         "Content-Type": "multipart/form-data",
       },
-      withCredentials: true, // Ensure cookies are sent with the request
+      withCredentials: true,
     });
 
     // Check if response status is 201 (Created)
@@ -262,10 +262,15 @@ export const deleteUserAccount = async (userId) => {
 
 export const updateUserIsAdmin = async (userId, isAdmin) => {
   try {
-    const response = await axios.put(`/user/${userId}/isAdmin`, {
-      isAdmin,
-      withCredentials: true,
-    });
+    const response = await axios.put(
+      `/user/${userId}/isAdmin`,
+      {
+        isAdmin,
+      },
+      {
+        withCredentials: true,
+      }
+    );
     return response.data;
   } catch (error) {
     console.error("Error updating user role:", error);
@@ -274,11 +279,16 @@ export const updateUserIsAdmin = async (userId, isAdmin) => {
 };
 
 export const resetPassword = async (userId, oldPassword, newPassword) => {
-  const response = await axios.post(`/user/reset-password/${userId}`, {
-    oldPassword,
-    newPassword,
-    withCredentials: true,
-  });
+  const response = await axios.post(
+    `/user/reset-password/${userId}`,
+    {
+      oldPassword,
+      newPassword,
+    },
+    {
+      withCredentials: true,
+    }
+  );
   return response.data;
 };
 
@@ -321,11 +331,16 @@ export const toggleFavorite = async (postId, userId) => {
   }
 
   try {
-    const res = await axios.post("/user/toggleFavorite", {
-      userId,
-      postId,
-      withCredentials: true,
-    });
+    const res = await axios.post(
+      "/user/toggleFavorite",
+      {
+        userId,
+        postId,
+      },
+      {
+        withCredentials: true,
+      }
+    );
     return res.data; // Data should include the updated favorites list
   } catch (error) {
     console.error("Error toggling favorite:", error.message);
@@ -347,5 +362,24 @@ export const fetchFavorites = async (userId) => {
   } catch (err) {
     console.error("Error fetching favorites:", err);
     throw err;
+  }
+};
+
+export const checkAuth = async () => {
+  try {
+    // Make a GET request to the /user/check-auth endpoint
+    const response = await axios.get("/user/check-auth", {
+      withCredentials: true, // Ensure cookies are sent with the request
+    });
+
+    // If the response status is 200, consider the user as authenticated
+    if (response.status === 200) {
+      return { success: true, user: response.data.user }; // Return user data if needed
+    } else {
+      return { success: false }; // Not authenticated
+    }
+  } catch (error) {
+    console.error("Error checking authentication:", error.message);
+    return { success: false }; // If an error occurs, assume not authenticated
   }
 };

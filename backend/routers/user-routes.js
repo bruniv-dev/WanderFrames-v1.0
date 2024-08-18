@@ -63,8 +63,8 @@ userRouter.post("/toggleFavorite", authenticateToken, toggleFavorite);
 userRouter.get("/favorites/:userId", authenticateToken, getFavorites);
 userRouter.post("/reset-password/:userId", authenticateToken, resetPassword);
 userRouter.put("/:userId/isAdmin", authenticateToken, updateUserIsAdmin);
-
 userRouter.post("/requestReset", requestReset);
 userRouter.post("/forgot-password-reset/:userId", forgotPasswordReset);
 
+// userRouter.get("/check-auth", authenticateToken, checkAuth);
 export default userRouter;

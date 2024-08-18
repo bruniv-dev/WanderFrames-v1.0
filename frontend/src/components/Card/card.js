@@ -54,7 +54,7 @@ const Card = ({
   description,
   date,
   _id,
-  userId,
+  userId, // Author's userId
   locationUrl,
   onFavoriteToggle,
   onDelete,
@@ -65,25 +65,32 @@ const Card = ({
   isAdminContext,
 }) => {
   const [isFavorite, setIsFavorite] = useState(false);
-  const [userDetails, setUserDetails] = useState({});
+  const [authorDetails, setAuthorDetails] = useState({}); // For author details
   const [loggedInUserId, setLoggedInUserId] = useState(null);
   const [isHovered, setIsHovered] = useState(false);
   const [menuVisible, setMenuVisible] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Fetch user details from the token
+    // Fetch author details
+    if (userId) {
+      fetchUserDetailsById(userId)
+        .then((author) => {
+          setAuthorDetails(author); // Set author details
+        })
+        .catch((err) => console.error("Error fetching author details:", err));
+    }
+
+    // Fetch logged-in user details to handle favorites
     fetchUserDetailsByToken()
       .then((tokenData) => {
         const userId = tokenData.userId;
         setLoggedInUserId(userId); // Use tokenData.userId
 
-        // Fetch user details of the post owner
+        // Check if the card is in the logged-in user's favorites array
         if (userId) {
           fetchUserDetailsById(userId)
             .then((user) => {
-              setUserDetails(user);
-
               // Check if the card is in the user's favorites array
               if (user.favorites && user.favorites.includes(_id)) {
                 setIsFavorite(true); // Mark as favorite if the card ID is in the user's favorites array
@@ -95,7 +102,7 @@ const Card = ({
       .catch((err) =>
         console.error("Error fetching user details from token:", err)
       );
-  }, [_id]);
+  }, [_id, userId]);
 
   const handleFavoriteClick = (e) => {
     e.stopPropagation();
@@ -230,16 +237,16 @@ const Card = ({
       <div className="card-header">
         <img
           className="profile-image-card"
-          src={userDetails.profileImage}
+          src={authorDetails.profileImage || "https://placehold.co/50x50"}
           alt="profilepic"
         />
         <div className="card-user-info">
           <p className="card-username" onClick={handleUsernameClick}>
-            {userDetails.username || "Unknown User"}
+            {authorDetails.username || "Unknown User"}
           </p>
           <div className="card-last-row">
             <p className="card-role">
-              {userDetails.isAdmin ? "Admin" : "User"}
+              {authorDetails.isAdmin ? "Admin" : "User"}
             </p>
             <p className="card-date">{formatDate(date)}</p>
           </div>

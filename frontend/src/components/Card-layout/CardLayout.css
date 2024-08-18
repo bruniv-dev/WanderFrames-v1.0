@@ -6,12 +6,9 @@
   width: 100%;
   max-width: 1200px;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
-  display: flex;
-  flex-wrap: wrap;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-gap: 1.5rem;
   justify-content: center;
-  align-items: start;
 }
 
 /* Modal backdrop (black background) */
