@@ -44,6 +44,7 @@ const userRouter = Router();
 userRouter.get("/", getAllUsers);
 userRouter.post("/signup", signup);
 userRouter.post("/login", login);
+userRouter.get("/check-username/:username", checkUsernameAvailability);
 userRouter.get("/:userId", authenticateToken, getUserById);
 userRouter.get("/by-token/me", authenticateToken, getUserByToken);
 userRouter.post("/logout", authenticateToken, logoutUser);
@@ -57,14 +58,13 @@ userRouter.put(
 );
 userRouter.delete("/:id", authenticateToken, deleteUserAccount);
 userRouter.delete("/:id", authenticateToken, deleteUser);
-
-userRouter.post("/toggleFavorite", toggleFavorite);
-userRouter.get("/favorites/:userId", getFavorites);
-userRouter.put("/:userId/isAdmin", updateUserIsAdmin);
-userRouter.post("/requestReset", requestReset);
 userRouter.post("/verifySecurityAnswer", verifySecurityAnswer);
+userRouter.post("/toggleFavorite", authenticateToken, toggleFavorite);
+userRouter.get("/favorites/:userId", authenticateToken, getFavorites);
+userRouter.post("/reset-password/:userId", authenticateToken, resetPassword);
+userRouter.put("/:userId/isAdmin", authenticateToken, updateUserIsAdmin);
+
+userRouter.post("/requestReset", requestReset);
 userRouter.post("/forgot-password-reset/:userId", forgotPasswordReset);
-userRouter.post("/reset-password/:userId", resetPassword);
-userRouter.get("/check-username/:username", checkUsernameAvailability);
 
 export default userRouter;

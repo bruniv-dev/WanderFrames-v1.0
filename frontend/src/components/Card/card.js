@@ -5,18 +5,17 @@ import {
   MdEdit,
   MdMoreVert,
 } from "react-icons/md";
-
 import {
   toggleFavorite,
   fetchUserDetailsById,
   deletePostById,
+  fetchUserDetailsByToken,
 } from "../api-helpers/helpers";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./Card.css";
 import { useNavigate } from "react-router-dom";
-// import { HiMinusSm, HiPlus } from "react-icons/hi";
 import { FaRegHeart, FaHeart } from "react-icons/fa6";
 
 // Custom arrow components with event propagation stop
@@ -68,60 +67,49 @@ const Card = ({
   const [isFavorite, setIsFavorite] = useState(false);
   const [userDetails, setUserDetails] = useState({});
   const [loggedInUserId, setLoggedInUserId] = useState(null);
-  const [isHovered, setIsHovered] = useState(false); // Track hover state
-  const [menuVisible, setMenuVisible] = useState(false); // Track kebab menu visibility
+  const [isHovered, setIsHovered] = useState(false);
+  const [menuVisible, setMenuVisible] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const storedUserId = localStorage.getItem("userId");
-    setLoggedInUserId(storedUserId);
+    // Fetch user details from the token
+    fetchUserDetailsByToken()
+      .then((tokenData) => {
+        const userId = tokenData.userId;
+        setLoggedInUserId(userId); // Use tokenData.userId
 
-    const favoritesKey = `favorites_${storedUserId}`;
-    const favorites = JSON.parse(localStorage.getItem(favoritesKey)) || [];
-    setIsFavorite(favorites.includes(_id));
+        // Fetch user details of the post owner
+        if (userId) {
+          fetchUserDetailsById(userId)
+            .then((user) => {
+              setUserDetails(user);
 
-    if (userId) {
-      fetchUserDetailsById(userId)
-        .then((user) => setUserDetails(user))
-        .catch((err) => console.error("Error fetching user details:", err));
-    }
-  }, [_id, userId]);
-
-  const updateFavoritesInLocalStorage = (newFavorites) => {
-    const favoritesKey = `favorites_${loggedInUserId}`;
-    localStorage.setItem(favoritesKey, JSON.stringify(newFavorites));
-  };
+              // Check if the card is in the user's favorites array
+              if (user.favorites && user.favorites.includes(_id)) {
+                setIsFavorite(true); // Mark as favorite if the card ID is in the user's favorites array
+              }
+            })
+            .catch((err) => console.error("Error fetching user details:", err));
+        }
+      })
+      .catch((err) =>
+        console.error("Error fetching user details from token:", err)
+      );
+  }, [_id]);
 
   const handleFavoriteClick = (e) => {
     e.stopPropagation();
-    if (loggedInUserId) {
-      if (_id) {
-        toggleFavorite(_id)
-          .then(() => {
-            setIsFavorite((prevIsFavorite) => {
-              const favoritesKey = `favorites_${loggedInUserId}`;
-              const favorites =
-                JSON.parse(localStorage.getItem(favoritesKey)) || [];
-              const newFavorites = prevIsFavorite
-                ? favorites.filter((favId) => favId !== _id)
-                : [...favorites, _id];
-              updateFavoritesInLocalStorage(newFavorites);
-              if (onFavoriteToggle) {
-                onFavoriteToggle();
-              }
-              return !prevIsFavorite;
-            });
-          })
-          .catch((err) => console.log("Error in toggleFavorite:", err));
-      } else {
-        console.error("Post ID (_id) is missing");
-      }
+    if (loggedInUserId && _id) {
+      toggleFavorite(_id, loggedInUserId)
+        .then(() => {
+          setIsFavorite((prevIsFavorite) => !prevIsFavorite);
+          if (onFavoriteToggle) {
+            onFavoriteToggle(); // Notify parent component to refresh favorites
+          }
+        })
+        .catch((err) => console.error("Error in toggleFavorite:", err));
     } else {
-      // Notify parent component to show the popup
-
-      if (onFavoriteToggle) {
-        onFavoriteToggle();
-      }
+      console.error("User ID or Post ID is missing");
     }
   };
 
@@ -131,7 +119,7 @@ const Card = ({
       deletePostById(_id)
         .then(() => {
           if (onDelete) {
-            onDelete(_id);
+            onDelete(_id); // Notify parent component about deletion
           }
         })
         .catch((err) => console.error("Error deleting post:", err));
@@ -142,7 +130,7 @@ const Card = ({
     e.stopPropagation();
     if (window.confirm("Are you sure you want to delete this post?")) {
       if (onAdminDelete) {
-        onAdminDelete(_id);
+        onAdminDelete(_id); // Notify parent component about admin deletion
       }
     }
   };

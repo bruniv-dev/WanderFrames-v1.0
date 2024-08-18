@@ -7,52 +7,68 @@ import {
   getAllPosts,
   deletePostById,
   fetchUserDetailsById,
+  fetchUserDetailsByToken,
 } from "../api-helpers/helpers.js";
-import Search from "../Search/Search.js";
 
 const PostActions = () => {
   const [cardsData, setCardsData] = useState([]);
   const [filteredCards, setFilteredCards] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [roleFilter, setRoleFilter] = useState("all");
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const isAdmin = localStorage.getItem("isAdmin") === "true";
+    setLoading(true);
 
-    if (!isAdmin) {
-      navigate("/unauthorized");
-    } else {
-      getAllPosts()
-        .then(async (data) => {
-          const postsWithUserNames = await Promise.all(
-            data.posts.map(async (post) => {
-              try {
-                const user = await fetchUserDetailsById(post.user);
-                return {
-                  ...post,
-                  userName: user.username || "Unknown",
-                  lastName: user.lastName || "Unknown",
-                  firstName: user.firstName || "Unknown",
-                  role: user.role || "user", // Add role to the post data
-                };
-              } catch {
-                return {
-                  ...post,
-                  userName: "Unknown",
-                  firstName: "Unknown",
-                  lastName: "Unknown",
-                  role: "user", // Default role
-                };
-              }
-            })
-          );
-          setCardsData(postsWithUserNames);
-          setFilteredCards(postsWithUserNames); // Set filtered data initially
-        })
-        .catch((e) => console.log(e));
-    }
+    fetchUserDetailsByToken()
+      .then(async (tokenData) => {
+        const userId = tokenData.userId;
+        const userDetails = await fetchUserDetailsById(userId);
+
+        setIsAdmin(userDetails.isAdmin);
+        if (!userDetails.isAdmin) {
+          navigate("/unauthorized");
+        } else {
+          return getAllPosts();
+        }
+      })
+      .then(async (data) => {
+        const postsWithUserNames = await Promise.all(
+          data.posts.map(async (post) => {
+            try {
+              const user = await fetchUserDetailsById(post.user);
+              return {
+                ...post,
+                userName: user.username || "Unknown",
+                lastName: user.lastName || "Unknown",
+                firstName: user.firstName || "Unknown",
+                role: user.role || "user",
+              };
+            } catch {
+              return {
+                ...post,
+                userName: "Unknown",
+                firstName: "Unknown",
+                lastName: "Unknown",
+                role: "user", // Default role
+              };
+            }
+          })
+        );
+        setCardsData(postsWithUserNames);
+        setFilteredCards(postsWithUserNames);
+      })
+      .catch((e) => console.log(e))
+      .finally(() => {
+        setLoading(false);
+      });
   }, [navigate]);
+
+  useEffect(() => {
+    handleSearchAndFilter();
+  }, [searchTerm, roleFilter, cardsData]);
 
   const handleSearchAndFilter = () => {
     const lowercasedTerm = searchTerm.toLowerCase();
@@ -94,13 +110,9 @@ const PostActions = () => {
     }
   };
 
-  useEffect(() => {
-    handleSearchAndFilter();
-  }, [searchTerm, roleFilter, cardsData]);
-
-  const isAdmin = localStorage.getItem("isAdmin") === "true";
-
-  return isAdmin ? (
+  return loading ? (
+    <div>Loading...</div>
+  ) : isAdmin ? (
     <>
       <Header
         classNameheader="postActions-header"

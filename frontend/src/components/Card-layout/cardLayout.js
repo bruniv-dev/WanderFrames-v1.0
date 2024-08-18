@@ -134,7 +134,9 @@ const CardLayout = ({
           description={card.description}
           date={card.date}
           locationUrl={card.locationUrl}
-          onFavoriteToggle={() => handleFavoriteClick(card._id)}
+          onFavoriteToggle={
+            onFavoriteToggle ? () => onFavoriteToggle(card._id) : null
+          }
           onDelete={onDelete}
           onAdminDelete={onAdminDelete ? () => onAdminDelete(card._id) : null}
           onCardClick={() => openModal(card)}

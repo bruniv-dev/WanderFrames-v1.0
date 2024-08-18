@@ -816,7 +816,7 @@ const Profile = () => {
   const handlePostDelete = async (postId) => {
     try {
       setPosts((prevPosts) => prevPosts.filter((post) => post._id !== postId));
-      await fetchUserDetails(); // Refresh user details after deleting a post
+      await fetchUserDetails();
     } catch (err) {
       console.error("Error deleting post:", err);
       setError("Failed to delete post.");

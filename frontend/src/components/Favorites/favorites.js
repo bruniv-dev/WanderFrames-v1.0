@@ -2,7 +2,10 @@ import React, { useState, useEffect } from "react";
 import "./Favorites.css";
 import CardLayout from "../Card-layout/cardLayout";
 import Header from "../Header/header";
-import { fetchFavorites, fetchUserDetailsById } from "../api-helpers/helpers"; // Import the fetch function
+import {
+  fetchFavorites,
+  fetchUserDetailsByToken,
+} from "../api-helpers/helpers";
 import Loading from "../Loading/Loading";
 
 const Favorites = () => {
@@ -12,35 +15,21 @@ const Favorites = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  // Fetch user's favorite posts
   const refreshFavorites = async () => {
     try {
-      setLoading(true); // Start loading
-      const data = await fetchFavorites();
+      setLoading(true);
+      const tokenData = await fetchUserDetailsByToken();
+      const userId = tokenData.userId;
+
+      const data = await fetchFavorites(userId);
       const favoritesList = data.favorites;
 
-      // Fetch user details for each favorite
-      const userDetailsPromises = favoritesList.map((favorite) =>
-        fetchUserDetailsById(favorite.user)
-          .then((user) => ({
-            ...favorite,
-            userName: user.username || "Unknown",
-            lastName: user.lastName || "Unknown",
-            firstName: user.firstName || "Unknown", // Set userName to "Unknown" if not available
-          }))
-          .catch(() => ({
-            ...favorite,
-            userName: "Unknown",
-            firstName: "Unknown",
-            lastName: "Unknown", // Default value on error
-          }))
-      );
-
-      const favoritesWithUserNames = await Promise.all(userDetailsPromises);
-      setFavorites(favoritesWithUserNames);
-      setFilteredFavorites(favoritesWithUserNames);
+      setFavorites(favoritesList);
+      setFilteredFavorites(favoritesList);
     } catch (err) {
       setError("Error fetching favorites. Please try again.");
-      console.log("Error fetching favorites:", err);
+      console.error("Error fetching favorites:", err);
     } finally {
       setLoading(false);
     }
@@ -50,23 +39,15 @@ const Favorites = () => {
     refreshFavorites();
   }, []);
 
+  // Handle search
   const handleSearch = (term) => {
     const lowercasedTerm = term.toLowerCase();
     const filtered = favorites.filter((favorite) => {
-      const userName = favorite.userName || ""; // Ensure userName exists
-      const firstName = favorite.firstName || "";
-      const lastName = favorite.lastName || "";
       const location = favorite.location || "";
       const subLocation = favorite.subLocation || "";
-      const fullName = `${favorite.firstName} ${favorite.lastName}` || "";
-
       return (
-        userName.toLowerCase().includes(lowercasedTerm) ||
-        lastName.toLowerCase().includes(lowercasedTerm) ||
-        firstName.toLowerCase().includes(lowercasedTerm) ||
         location.toLowerCase().includes(lowercasedTerm) ||
-        subLocation.toLowerCase().includes(lowercasedTerm) ||
-        fullName.toLowerCase().includes(lowercasedTerm)
+        subLocation.toLowerCase().includes(lowercasedTerm)
       );
     });
     setFilteredFavorites(filtered);
@@ -88,7 +69,7 @@ const Favorites = () => {
       <div className="search-container">
         <input
           type="text"
-          placeholder="Search by username, location, or sublocation"
+          placeholder="Search by location or sublocation"
           value={searchTerm}
           onChange={(e) => {
             setSearchTerm(e.target.value);
@@ -103,7 +84,7 @@ const Favorites = () => {
         ) : (
           <CardLayout
             cardsData={filteredFavorites}
-            onFavoriteToggle={refreshFavorites} // Pass callback to refresh favorites
+            onFavoriteToggle={refreshFavorites}
           />
         )}
       </div>

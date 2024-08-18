@@ -264,6 +264,7 @@ export const updateUserIsAdmin = async (userId, isAdmin) => {
   try {
     const response = await axios.put(`/user/${userId}/isAdmin`, {
       isAdmin,
+      withCredentials: true,
     });
     return response.data;
   } catch (error) {
@@ -276,10 +277,12 @@ export const resetPassword = async (userId, oldPassword, newPassword) => {
   const response = await axios.post(`/user/reset-password/${userId}`, {
     oldPassword,
     newPassword,
+    withCredentials: true,
   });
   return response.data;
 };
 
+//forgotpassword
 export const sendResetPasswordRequest = async (identifier) => {
   try {
     const response = await axios.post("/user/requestReset", { identifier });
@@ -312,14 +315,17 @@ export const forgotPasswordReset = async (userId, newPassword) => {
   return response.data;
 };
 
-export const toggleFavorite = async (postId) => {
-  const userId = localStorage.getItem("userId");
+export const toggleFavorite = async (postId, userId) => {
   if (!userId || !postId) {
     throw new Error("User ID or Post ID is missing");
   }
 
   try {
-    const res = await axios.post("/user/toggleFavorite", { userId, postId });
+    const res = await axios.post("/user/toggleFavorite", {
+      userId,
+      postId,
+      withCredentials: true,
+    });
     return res.data; // Data should include the updated favorites list
   } catch (error) {
     console.error("Error toggling favorite:", error.message);
@@ -328,14 +334,15 @@ export const toggleFavorite = async (postId) => {
 };
 
 // Fetch favorites for the logged-in user
-export const fetchFavorites = async () => {
-  const userId = localStorage.getItem("userId");
+export const fetchFavorites = async (userId) => {
   if (!userId) {
     throw new Error("User ID is missing");
   }
 
   try {
-    const response = await axios.get(`/user/favorites/${userId}`);
+    const response = await axios.get(`/user/favorites/${userId}`, {
+      withCredentials: true,
+    });
     return response.data; // Data should include the favorites list
   } catch (err) {
     console.error("Error fetching favorites:", err);
