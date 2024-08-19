@@ -759,7 +759,7 @@ import {
   fetchUserDetailsByToken,
   fetchUserDetailsById,
   fetchUserPosts,
-  deleteUserAccount,
+  deleteUserById,
   resetPassword,
 } from "../api-helpers/helpers";
 import CardLayout from "../Card-layout/cardLayout";
@@ -832,7 +832,7 @@ const Profile = () => {
         if (!user || !user._id) {
           throw new Error("User ID is not available.");
         }
-        await deleteUserAccount(user._id);
+        await deleteUserById(user._id);
         dispatch(authActions.logout());
         navigate("/loginSignup");
       } catch (err) {

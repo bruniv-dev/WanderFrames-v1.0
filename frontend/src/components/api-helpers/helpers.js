@@ -234,7 +234,7 @@ export const deletePostById = async (id) => {
     throw error;
   }
 };
-
+//actions -- admin
 export const deleteUserById = async (id) => {
   try {
     const response = await axios.delete(`/user/${id}`, {
@@ -247,18 +247,18 @@ export const deleteUserById = async (id) => {
   }
 };
 
-// API call to delete user account
-export const deleteUserAccount = async (userId) => {
-  try {
-    const response = await axios.delete(`/user/${userId}`, {
-      withCredentials: true,
-    });
-    return response.data;
-  } catch (error) {
-    console.error("Error deleting user account:", error.message);
-    throw error;
-  }
-};
+// // API call to delete user account
+// export const deleteUserAccount = async (userId) => {
+//   try {
+//     const response = await axios.delete(`/user/${userId}`, {
+//       withCredentials: true,
+//     });
+//     return response.data;
+//   } catch (error) {
+//     console.error("Error deleting user account:", error.message);
+//     throw error;
+//   }
+// };
 
 export const updateUserIsAdmin = async (userId, isAdmin) => {
   try {

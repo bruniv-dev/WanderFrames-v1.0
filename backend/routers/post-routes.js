@@ -13,7 +13,7 @@ import {
 
 import { authenticateToken } from "../middleware/jwt.js";
 
-import { checkPostOwnership } from "../middleware/jwt.js";
+import { checkPostOwnershipAndAdminPrivileges } from "../middleware/jwt.js";
 
 // Multer setup for multiple file uploads
 const storageMultiple = multer.diskStorage({
@@ -33,7 +33,18 @@ postRouter.get("/", getAllPosts);
 postRouter.post("/addPost", authenticateToken, uploadMultiple, addPost);
 postRouter.get("/:id", authenticateToken, getPostById);
 
-postRouter.put("/:id", authenticateToken, checkPostOwnership, updatePost);
-postRouter.delete("/:id", authenticateToken, deletePost);
+postRouter.put(
+  "/:id",
+  authenticateToken,
+  checkPostOwnershipAndAdminPrivileges,
+  updatePost
+);
+
+postRouter.delete(
+  "/:id",
+  authenticateToken,
+  checkPostOwnershipAndAdminPrivileges,
+  deletePost
+);
 
 export default postRouter;

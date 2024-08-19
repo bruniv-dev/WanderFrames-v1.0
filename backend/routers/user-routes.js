@@ -24,7 +24,11 @@ import {
   logoutUser,
 } from "../controllers/user-controllers.js";
 
-import { authenticateToken } from "../middleware/jwt.js";
+import {
+  authenticateToken,
+  checkProfileOwnershipAndAdminPrivileges,
+  checkAdminPrivileges,
+} from "../middleware/jwt.js";
 
 // Multer setup
 const storageSingle = multer.diskStorage({
@@ -54,11 +58,18 @@ userRouter.put(
   "/:userId",
   uploadSingle.single("profileImage"),
   authenticateToken,
+  checkProfileOwnershipAndAdminPrivileges,
   updateUserProfile
 );
 
-userRouter.delete("/:id", authenticateToken, deleteUserAccount);
-userRouter.delete("/:id", authenticateToken, deleteUser);
+// userRouter.delete("/:id", authenticateToken, deleteUserAccount);
+userRouter.delete(
+  "/:id",
+  authenticateToken,
+  checkProfileOwnershipAndAdminPrivileges,
+  deleteUser
+);
+
 userRouter.post("/verifySecurityAnswer", verifySecurityAnswer);
 userRouter.post("/toggleFavorite", authenticateToken, toggleFavorite);
 userRouter.get("/favorites/:userId", authenticateToken, getFavorites);
@@ -66,7 +77,7 @@ userRouter.post("/reset-password/:userId", authenticateToken, resetPassword);
 userRouter.put(
   "/:userId/isAdmin",
   authenticateToken,
-
+  checkAdminPrivileges,
   updateUserIsAdmin
 );
 userRouter.post("/requestReset", requestReset);
