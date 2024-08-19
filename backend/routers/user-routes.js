@@ -16,7 +16,7 @@ import {
   updateUserProfile,
   verifySecurityAnswer,
   resetPassword,
-  updateUserIsAdmin,
+  updateUserOrAdminRole,
   checkUsernameAvailability,
   requestReset,
   forgotPasswordReset,
@@ -78,7 +78,7 @@ userRouter.put(
   "/:userId/isAdmin",
   authenticateToken,
   checkAdminPrivileges,
-  updateUserIsAdmin
+  updateUserOrAdminRole
 );
 userRouter.post("/requestReset", requestReset);
 userRouter.post("/forgot-password-reset/:userId", forgotPasswordReset);

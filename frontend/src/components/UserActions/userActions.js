@@ -189,9 +189,9 @@ import { useNavigate } from "react-router-dom";
 import {
   getAllUsers,
   deleteUserById,
-  updateUserIsAdmin,
   fetchUserDetailsByToken,
   fetchUserDetailsById,
+  updateUserOrAdminRole,
 } from "../api-helpers/helpers";
 import UserCard from "../UserCard/userCard";
 import "./UserActions.css";
@@ -282,11 +282,16 @@ const UserActions = () => {
 
   const makeAdmin = (userId) => {
     if (window.confirm("Are you sure you want to make this user an admin?")) {
-      updateUserIsAdmin(userId, true)
+      // Set isAdmin to true and role to 'Admin'
+      updateUserOrAdminRole(userId, true, "Admin")
         .then((updatedUser) => {
           const updatedUsers = usersData.map((user) =>
             user._id === userId
-              ? { ...user, isAdmin: updatedUser.isAdmin }
+              ? {
+                  ...user,
+                  isAdmin: updatedUser.isAdmin,
+                  role: updatedUser.role,
+                }
               : user
           );
           setUsersData(updatedUsers);
@@ -301,11 +306,16 @@ const UserActions = () => {
         "Are you sure you want to remove admin privileges from this user?"
       )
     ) {
-      updateUserIsAdmin(userId, false)
+      // Set isAdmin to false and role to 'User' or other default role
+      updateUserOrAdminRole(userId, false, "User")
         .then((updatedUser) => {
           const updatedUsers = usersData.map((user) =>
             user._id === userId
-              ? { ...user, isAdmin: updatedUser.isAdmin }
+              ? {
+                  ...user,
+                  isAdmin: updatedUser.isAdmin,
+                  role: updatedUser.role,
+                }
               : user
           );
           setUsersData(updatedUsers);

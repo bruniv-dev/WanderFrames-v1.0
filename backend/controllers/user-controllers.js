@@ -393,16 +393,39 @@ export const updateUserProfile = async (req, res) => {
   }
 };
 
-// Update user isADMIB
-export const updateUserIsAdmin = async (req, res) => {
+// // Update user isADMIB
+// export const updateUserIsAdmin = async (req, res) => {
+//   const { userId } = req.params;
+//   const { isAdmin } = req.body;
+
+//   try {
+//     // Find user by ID and update the role
+//     const user = await User.findByIdAndUpdate(
+//       userId,
+//       { isAdmin },
+//       { new: true } // Return the updated document
+//     );
+
+//     if (!user) {
+//       return res.status(404).json({ message: "User not found" });
+//     }
+
+//     res.json(user);
+//   } catch (error) {
+//     console.error("Error updating user role:", error);
+//     res.status(500).json({ message: "Server error" });
+//   }
+// };
+
+export const updateUserOrAdminRole = async (req, res) => {
   const { userId } = req.params;
-  const { isAdmin } = req.body;
+  const { isAdmin, role } = req.body; // Destructure role from request body
 
   try {
-    // Find user by ID and update the role
+    // Find user by ID and update both isAdmin and role
     const user = await User.findByIdAndUpdate(
       userId,
-      { isAdmin },
+      { isAdmin, role }, // Update both fields
       { new: true } // Return the updated document
     );
 

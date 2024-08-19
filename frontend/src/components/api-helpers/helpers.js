@@ -260,12 +260,13 @@ export const deleteUserById = async (id) => {
 //   }
 // };
 
-export const updateUserIsAdmin = async (userId, isAdmin) => {
+export const updateUserOrAdminRole = async (userId, isAdmin, role) => {
   try {
     const response = await axios.put(
       `/user/${userId}/isAdmin`,
       {
         isAdmin,
+        role, // Send role along with isAdmin
       },
       {
         withCredentials: true,
