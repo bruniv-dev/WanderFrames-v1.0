@@ -12,7 +12,8 @@ import {
 } from "../controllers/post-controllers.js";
 
 import { authenticateToken } from "../middleware/jwt.js";
-import { authorizePostEdit } from "../middleware/jwt.js";
+
+import { checkPostOwnership } from "../middleware/jwt.js";
 
 // Multer setup for multiple file uploads
 const storageMultiple = multer.diskStorage({
@@ -28,11 +29,11 @@ const uploadMultiple = multer({ storage: storageMultiple }).array("images", 3); 
 
 const postRouter = Router();
 
-// Define routes
 postRouter.get("/", getAllPosts);
 postRouter.post("/addPost", authenticateToken, uploadMultiple, addPost);
 postRouter.get("/:id", authenticateToken, getPostById);
-postRouter.put("/:id", authenticateToken, updatePost);
+
+postRouter.put("/:id", authenticateToken, checkPostOwnership, updatePost);
 postRouter.delete("/:id", authenticateToken, deletePost);
 
 export default postRouter;

@@ -28,7 +28,8 @@ export const authenticateToken = async (req, res, next) => {
         .json({ message: "User not found, authentication failed." });
     }
 
-    req.user = user; // Attach user info to the request object
+    req.user = user;
+    console.log(req.user);
     next(); // Proceed to the next middleware or route handler
   } catch (error) {
     if (error.name === "TokenExpiredError") {
@@ -40,50 +41,45 @@ export const authenticateToken = async (req, res, next) => {
   }
 };
 
-export const authorizePostEdit = async (req, res, next) => {
-  console.log("ab");
-  const postId = req.params._id;
-  const userId = req.user._id;
-
-  console.log("User ID:", req.user.id);
-  console.log("Post ID:", req.params.id);
-
+export const checkPostOwnership = async (req, res, next) => {
+  const postId = req.params.id;
+  const userId = req.user.userId; // Assumes `req.user` contains the authenticated user info
+  console.log(`userID from token put ${userId}`);
   try {
-    const post = await Post.findById(postId);
-
-    if (!post) return res.status(404).json({ message: "Post not found" });
-
+    const post = await Post.findById(postId); // Replace with your ORM or DB query
+    if (!post) {
+      return res.sendStatus(404); // Post not found
+    }
+    console.log(`user id from fetched post ${post.user}`);
     if (post.user.toString() !== userId.toString()) {
-      return res.status(403).json({
-        message: "Forbidden: You are not authorized to edit this post",
-      });
+      return res.sendStatus(403); // Forbidden if not the owner and not an admin
     }
 
-    next(); // User is authorized to edit this post
+    next(); // Proceed to the controller if ownership or admin check passes
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Server error" });
+    console.error("Error checking ownership:", error);
+    res.sendStatus(500); // Internal server error
   }
 };
 
-export const refreshToken = (req, res) => {
-  const { refreshToken } = req.body;
+// export const refreshToken = (req, res) => {
+//   const { refreshToken } = req.body;
 
-  if (!refreshToken)
-    return res.status(401).json({ message: "No refresh token provided" });
+//   if (!refreshToken)
+//     return res.status(401).json({ message: "No refresh token provided" });
 
-  jwt.verify(refreshToken, process.env.JWT_REFRESH_SECRET, (err, user) => {
-    if (err) return res.status(403).json({ message: "Invalid refresh token" });
+//   jwt.verify(refreshToken, process.env.JWT_REFRESH_SECRET, (err, user) => {
+//     if (err) return res.status(403).json({ message: "Invalid refresh token" });
 
-    const accessToken = jwt.sign(
-      { userId: user.userId },
-      process.env.JWT_SECRET,
-      { expiresIn: "1h" } // Access token expires in 1 hour
-    );
+//     const accessToken = jwt.sign(
+//       { userId: user.userId },
+//       process.env.JWT_SECRET,
+//       { expiresIn: "1h" } // Access token expires in 1 hour
+//     );
 
-    res.status(200).json({
-      accessToken,
-      message: "Access token refreshed successfully",
-    });
-  });
-};
+//     res.status(200).json({
+//       accessToken,
+//       message: "Access token refreshed successfully",
+//     });
+//   });
+// };
