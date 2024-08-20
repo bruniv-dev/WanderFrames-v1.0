@@ -28,6 +28,7 @@ import {
   authenticateToken,
   checkProfileOwnershipAndAdminPrivileges,
   checkAdminPrivileges,
+  validateToken,
 } from "../middleware/jwt.js";
 
 // Multer setup
@@ -82,6 +83,6 @@ userRouter.put(
 );
 userRouter.post("/requestReset", requestReset);
 userRouter.post("/forgot-password-reset/:userId", forgotPasswordReset);
-
+userRouter.post("/validate-token", validateToken);
 // userRouter.get("/check-auth", authenticateToken, checkAuth);
 export default userRouter;

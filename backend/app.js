@@ -33,11 +33,30 @@ app.use("/uploads", express.static(uploadDir));
 import userRouter from "./routers/user-routes.js"; // http://localhost:3000/user
 import postRouter from "./routers/post-routes.js"; // http://localhost:3000/post
 
+// // Middleware setup
+// app.use(
+//   cors({
+//     origin: "*", // Adjust as needed
+//     credentials: true,
+//   })
+// );
+
+const allowedOrigins = [
+  "http://localhost:3000", // Development frontend
+  "https://wanderframes.netlify.app", // Production frontend
+];
+
 // Middleware setup
 app.use(
   cors({
-    origin: "http://localhost:3000", // Adjust as needed
-    credentials: true,
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    credentials: true, // Allow credentials
   })
 );
 

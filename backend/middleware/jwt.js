@@ -97,6 +97,38 @@ export const checkAdminPrivileges = (req, res, next) => {
   return res.status(403).json({ message: "Forbidden: Admins only." }); // Respond with forbidden if not an admin
 };
 
+export const validateToken = (req, res) => {
+  const { token } = req.body;
+
+  if (!token) {
+    return res
+      .status(400)
+      .json({ isValid: false, message: "No token provided" });
+  }
+
+  // Verify the token
+  jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+    if (err) {
+      // Check if the error is due to token expiry
+      if (err.name === "TokenExpiredError") {
+        return res
+          .status(401)
+          .json({ isValid: false, message: "Token expired" });
+      }
+
+      // Handle other JWT errors (e.g., signature issues)
+      return res.status(401).json({ isValid: false, message: "Invalid token" });
+    }
+
+    // Token is valid
+    res.status(200).json({
+      isValid: true,
+      userId: decoded.userId,
+      isAdmin: decoded.isAdmin,
+    });
+  });
+};
+
 // export const refreshToken = (req, res) => {
 //   const { refreshToken } = req.body;
 

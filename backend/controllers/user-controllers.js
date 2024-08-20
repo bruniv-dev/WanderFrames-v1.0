@@ -76,8 +76,8 @@ export const signup = async (req, res) => {
     res.cookie("token", token, {
       httpOnly: true,
       path: "/",
-      secure: process.env.NODE_ENV === "production",
-
+      secure: true,
+      sameSite: "None",
       maxAge: 3600000, // 1 hour
     });
 
@@ -125,7 +125,8 @@ export const login = async (req, res) => {
     res.cookie("token", token, {
       httpOnly: true,
       path: "/",
-      secure: process.env.NODE_ENV === "production",
+      sameSite: "None",
+      secure: true,
       maxAge: 3600000, // 1 hour
     });
 
@@ -147,7 +148,8 @@ export const logoutUser = (req, res) => {
   try {
     res.clearCookie("token", {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production", // Make sure this matches the setting used when creating the cookie
+      sameSite: "None",
+      secure: true, // Make sure this matches the setting used when creating the cookie
       path: "/", // Ensure this matches the path used when creating the cookie
     });
 
