@@ -69,7 +69,7 @@
 import React from "react";
 import axios from "axios";
 import ReactDOM from "react-dom/client";
-import { BrowserRouter as Router } from "react-router-dom";
+import { BrowserRouter, BrowserRouter as Router } from "react-router-dom";
 import { Provider } from "react-redux";
 import App from "./App"; // Ensure correct import path
 import store from "./store/store";
@@ -81,7 +81,9 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App />
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
     </Provider>
   </React.StrictMode>
 );

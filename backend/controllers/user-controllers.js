@@ -69,7 +69,7 @@ export const signup = async (req, res) => {
     const token = jwt.sign(
       { userId: user._id, isAdmin: user.isAdmin },
       process.env.JWT_SECRET,
-      { expiresIn: "1h" }
+      { expiresIn: "1m" }
     );
 
     // Set token as HTTP-only cookie
@@ -78,7 +78,7 @@ export const signup = async (req, res) => {
       path: "/",
       secure: true,
       sameSite: "None",
-      maxAge: 3600000, // 1 hour
+      maxAge: 60000, // 1 hour
     });
 
     return res.status(201).json({
@@ -117,7 +117,7 @@ export const login = async (req, res) => {
     const token = jwt.sign(
       { userId: user._id, isAdmin: user.isAdmin },
       process.env.JWT_SECRET,
-      { expiresIn: "1h" }
+      { expiresIn: "1m" }
     );
 
     console.log("Generated token:", token);
@@ -127,7 +127,7 @@ export const login = async (req, res) => {
       path: "/",
       sameSite: "None",
       secure: true,
-      maxAge: 3600000, // 1 hour
+      maxAge: 60000, // 1 hour
     });
 
     // Respond with user data
