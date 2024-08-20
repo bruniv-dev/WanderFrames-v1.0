@@ -134,6 +134,8 @@ export const login = async (req, res) => {
       userId: user._id,
       isAdmin: user.isAdmin,
       message: "Login successful",
+      isLoggedIn: true,
+      token,
     });
   } catch (error) {
     console.error("Error during login:", error);

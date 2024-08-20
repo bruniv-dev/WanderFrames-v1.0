@@ -167,19 +167,40 @@ const SignInSignUp = () => {
       setLoading(true);
       const data = await sendAuthRequest(isSignUp, inputs);
 
+      // if (isSignUp) {
+      //   console.log("Sign-up successful:", data);
+      //   toggleForm();
+      // } else {
+      //   const { userId, isAdmin } = data || {};
+
+      //   if (userId) {
+      //     dispatch(authActions.login({ userId, isAdmin }));
+      //   } else {
+      //     throw new Error("Failed to retrieve user information.");
+      //   }
+
+      //   navigate("/");
+      // }
       if (isSignUp) {
         console.log("Sign-up successful:", data);
         toggleForm();
       } else {
-        const { userId, isAdmin } = data || {};
+        const { userId, isAdmin, token, isLoggedIn } = data || {};
 
-        if (userId) {
-          dispatch(authActions.login({ userId, isAdmin }));
+        if (userId && isLoggedIn) {
+          // Store token and isLoggedIn in localStorage
+          localStorage.setItem("token", token);
+          localStorage.setItem("isAdmin", isAdmin);
+          localStorage.setItem("isLoggedIn", isLoggedIn.toString()); // Convert to string
+
+          // Update Redux state
+          dispatch(authActions.login({ userId, isAdmin, token }));
+
+          // Redirect to home or dashboard
+          navigate("/");
         } else {
           throw new Error("Failed to retrieve user information.");
         }
-
-        navigate("/");
       }
     } catch (err) {
       console.error("Authentication error:", err);

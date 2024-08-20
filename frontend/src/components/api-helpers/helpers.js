@@ -1,4 +1,43 @@
 import axios from "axios";
+import { authActions } from "../../store/authSlice";
+
+// export const sendAuthRequest = async (signup, data) => {
+//   const endpoint = signup ? "/user/signup" : "/user/login"; // Adjust based on your API
+
+//   const payload = signup
+//     ? {
+//         email: data.email,
+//         password: data.password,
+//         firstName: data.firstName,
+//         lastName: data.lastName,
+//         username: data.username,
+//         securityQuestion: data.securityQuestion,
+//         securityAnswer: data.securityAnswer,
+//         isAdmin: data.isAdmin,
+//       }
+//     : {
+//         identifier: data.identifier,
+//         password: data.password,
+//       };
+
+//   try {
+//     const { status, data: responseData } = await axios.post(endpoint, payload, {
+//       withCredentials: true,
+//     });
+
+//     if (status === 200 || status === 201) {
+//       return responseData;
+//     }
+
+//     throw new Error(`Unexpected status code: ${status}`);
+//   } catch (error) {
+//     console.error(
+//       "Error during authentication:",
+//       error.response ? error.response.data : error.message
+//     );
+//     throw error;
+//   }
+// };
 
 export const sendAuthRequest = async (signup, data) => {
   const endpoint = signup ? "/user/signup" : "/user/login"; // Adjust based on your API
@@ -20,21 +59,30 @@ export const sendAuthRequest = async (signup, data) => {
       };
 
   try {
-    const { status, data: responseData } = await axios.post(endpoint, payload, {
+    const response = await axios.post(endpoint, payload, {
       withCredentials: true,
     });
 
-    if (status === 200 || status === 201) {
-      return responseData;
-    }
+    const { status, data: responseData } = response;
 
-    throw new Error(`Unexpected status code: ${status}`);
+    if (status >= 200 && status < 300) {
+      // Return the token and isLoggedIn status along with other response data
+      // console.log(responseData, responseData.token, responseData.isLoggedIn);
+      return {
+        ...responseData,
+        isLoggedIn: responseData.isLoggedIn,
+        token: responseData.token,
+      };
+    } else {
+      throw new Error(`Unexpected status code: ${status}`);
+    }
   } catch (error) {
-    console.error(
-      "Error during authentication:",
-      error.response ? error.response.data : error.message
-    );
-    throw error;
+    const errorMessage = error.response
+      ? `Error: ${error.response.data.message || error.response.data}`
+      : `Error: ${error.message}`;
+
+    console.error("Error during authentication:", errorMessage);
+    throw new Error(errorMessage);
   }
 };
 
@@ -53,12 +101,19 @@ export const checkUsernameAvailability = async (
   }
 };
 
-export const logoutUser = async () => {
+export const logoutUser = () => async (dispatch) => {
   try {
     await axios.post("/user/logout", {}, { withCredentials: true });
-    console.log("logged out");
+
+    // Clear localStorage
+    localStorage.removeItem("token");
+    localStorage.removeItem("isLoggedIn");
+    localStorage.removeItem("isAdmin");
+
+    // Update Redux state
+    dispatch(authActions.logout());
   } catch (error) {
-    console.error("Logout failed:", error); // Handle any errors during logout
+    console.error("Logout failed:", error);
   }
 };
 

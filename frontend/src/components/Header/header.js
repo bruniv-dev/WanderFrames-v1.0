@@ -1,7 +1,7 @@
 import React from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { authActions, logoutUser } from "../../store/authSlice"; // Ensure correct import path
+import { authActions } from "../../store/authSlice"; // Ensure correct import path
 import "./Header.css";
 import { Link } from "react-router-dom";
 
@@ -22,10 +22,16 @@ const Header = ({
 
   const handleLogout = async () => {
     try {
-      await dispatch(logoutUser()); // Dispatch the logout action
-      document.cookie = "token=; Max-Age=0; path=/"; // Force clear the cookie
-      dispatch(authActions.logout()); // Clear auth state in Redux
-      navigate("/loginSignup"); // Redirect to login/signup page
+      // Clear auth state in Redux
+      dispatch(authActions.logout());
+
+      // Clear localStorage
+      localStorage.removeItem("token");
+      localStorage.removeItem("isLoggedIn");
+      localStorage.removeItem("isAdmin");
+
+      // Redirect to login/signup page
+      navigate("/loginSignup");
     } catch (error) {
       console.error("Logout failed:", error);
     }
