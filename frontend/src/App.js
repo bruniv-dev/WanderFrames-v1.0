@@ -89,56 +89,65 @@ import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute.js";
 import EditProfileDetails from "./components/EditProfileDetails/editProfileDetails.js";
 import { initializeAuth } from "./store/authSlice.js"; // Ensure the correct import
 import "./App.css";
-import useTokenChecker from "./components/utils/utils.js";
+import useTokenChecker from "./components/utils/TokenChecker.js";
+import SessionTimeout from "./components/utils/sessionTimeout.js";
 
 const App = () => {
   const dispatch = useDispatch();
+
   useTokenChecker();
+
   useEffect(() => {
     // Initialize auth state from token stored in cookies
     dispatch(initializeAuth());
   }, [dispatch]);
 
   return (
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/inspirations" element={<Inspirations />} />
-      <Route
-        path="/profile"
-        element={<ProtectedRoute element={<Profile />} />}
-      />
-      <Route
-        path="/userProfile"
-        element={<ProtectedRoute element={<UserProfile />} />}
-      />
-      <Route path="/upload" element={<ProtectedRoute element={<Upload />} />} />
-      <Route
-        path="/favorites"
-        element={<ProtectedRoute element={<Favorites />} />}
-      />
-      <Route
-        path="/editPost"
-        element={<ProtectedRoute element={<EditPost />} />}
-      />
-      <Route
-        path="/editProfile"
-        element={<ProtectedRoute element={<EditProfileDetails />} />}
-      />
-      <Route path="/forgot-password" element={<ForgotPassword />} />
-      <Route path="/reset-password/:token" element={<ResetPassword />} />
-      <Route
-        path="/post-actions"
-        element={<ProtectedRoute element={<PostActions />} />}
-      />
-      <Route
-        path="/user-actions"
-        element={<ProtectedRoute element={<UserActions />} />}
-      />
-      <Route path="/loginSignup" element={<SignIn />} />
-      <Route path="/please-login" element={<PleaseLogin />} />
-      <Route path="*" element={<PageNotFound />} />
-      <Route path="/unauthorized" element={<UnAuthorizedPage />} />
-    </Routes>
+    <>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/inspirations" element={<Inspirations />} />
+        <Route
+          path="/profile"
+          element={<ProtectedRoute element={<Profile />} />}
+        />
+        <Route
+          path="/userProfile"
+          element={<ProtectedRoute element={<UserProfile />} />}
+        />
+        <Route
+          path="/upload"
+          element={<ProtectedRoute element={<Upload />} />}
+        />
+        <Route
+          path="/favorites"
+          element={<ProtectedRoute element={<Favorites />} />}
+        />
+        <Route
+          path="/editPost"
+          element={<ProtectedRoute element={<EditPost />} />}
+        />
+        <Route
+          path="/editProfile"
+          element={<ProtectedRoute element={<EditProfileDetails />} />}
+        />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/reset-password/:token" element={<ResetPassword />} />
+        <Route
+          path="/post-actions"
+          element={<ProtectedRoute element={<PostActions />} />}
+        />
+        <Route
+          path="/user-actions"
+          element={<ProtectedRoute element={<UserActions />} />}
+        />
+        <Route path="/loginSignup" element={<SignIn />} />
+        <Route path="/please-login" element={<PleaseLogin />} />
+        <Route path="*" element={<PageNotFound />} />
+        <Route path="/unauthorized" element={<UnAuthorizedPage />} />
+      </Routes>
+      <SessionTimeout />
+    </>
   );
 };
 

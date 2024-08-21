@@ -25,61 +25,79 @@
   color: #555;
 }
 
-.profile-heading {
-  font-size: 2rem;
-}
-
-.profile-details {
-  display: flex;
+.profile-container .profile-details {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 0.5fr 1fr 1fr;
+  justify-content: center;
   align-items: center;
-  margin-bottom: 20px;
-  border-bottom: 1px solid grey;
+  border-bottom: 1px solid #00000013;
 }
 
-.profile-image img {
+.profile-container .profile-image img {
   width: 18rem;
   height: 18rem;
   border-radius: 50%;
   object-fit: cover;
-  margin-right: 20px;
+  margin-bottom: 10px;
   border: 2px solid white;
 }
 
-.profile-info {
-  flex: 1;
+.profile-container .profile-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-self: center;
+  gap: 0.05rem;
 }
 
-.profile-info .username {
-  margin: 0;
-  font-size: 3rem;
-  font-weight: bold;
-  margin-top: 3.5rem;
-}
-
-.profile-info .name {
-  margin: 0;
+.profile-container .profile-info .username {
   font-size: 2rem;
   font-weight: bold;
+  letter-spacing: 2px;
+}
+
+.profile-container .profile-info .name {
+  font-size: 1.5rem;
+  font-weight: 500;
   color: #333;
 }
 
-.profile-info p {
-  margin: 5px 0;
-  font-size: 16px;
+.profile-container .profile-info .email {
+  font-size: 1.3rem;
+  color: #777;
 }
 
-.posts-section {
-  margin-top: 20px;
+.profile-container .profile-info .bio {
+  font-size: 1.5rem;
+  color: #555;
+  margin: 0.8rem 0;
 }
 
-.posts-section h2 {
+.profile-container .profile-info .role {
+  color: #777;
+  font-size: 1.2rem;
+}
+
+.profile-container .profile-info .joined {
+  color: #999;
+  font-size: 1.2rem;
+}
+
+.profile-container .posts-section {
+  margin-top: 10px;
+}
+
+.profile-container .posts-section h2 {
   font-size: 20px;
-  margin-bottom: 10px;
+  color: #999;
+  font-weight: 500;
 }
 
 .profile-header-buttons {
   display: flex;
   justify-content: flex-end;
+  align-self: flex-start;
   gap: 10px;
   margin-bottom: 20px;
 }
@@ -92,28 +110,41 @@
   border-radius: 5px;
   color: white;
   cursor: pointer;
+  width: 15rem;
 }
 
 .profile-header-buttons .reset-password-button {
-  background-color: green;
   font-size: 1.5rem;
   align-items: center;
   justify-content: center;
-  color: #fff;
+  color: green;
+  border: 1px solid lightgrey;
+}
+
+.profile-header-buttons .profile-edit-button {
+  font-size: 1.5rem;
+  align-items: center;
+  justify-content: center;
+  color: green;
+  border: 1px solid lightgrey;
+}
+
+.profile-header-buttons .profile-delete-button {
+  font-size: 1.5rem;
+  align-items: center;
+  justify-content: center;
+  color: darkred;
+  border: 1px solid lightgrey;
 }
 
 .profile-header-buttons .reset-password-button:hover {
-  background-color: darkgreen;
+  border: 1px solid darkgreen;
+  color: darkgreen;
 }
 
-.profile-container .card-container .role {
-  display: none;
-}
-
-.profile-edit-button {
+/* .profile-edit-button {
   width: 3rem;
   height: 100%;
-
   border: 1px solid green;
   cursor: pointer;
   border-radius: 7px;
@@ -133,7 +164,7 @@
   background-color: #fff;
   padding: 2px;
   fill: darkred;
-}
+} */
 
 .profile-edit-button:hover {
   fill: darkgreen;
@@ -159,4 +190,8 @@
   font-weight: 500;
   color: #777;
   margin-top: 10rem;
+}
+
+.profile-container .card-layout {
+  margin-top: 0;
 }

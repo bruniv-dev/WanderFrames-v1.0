@@ -194,7 +194,7 @@ const SignInSignUp = () => {
           localStorage.setItem("isLoggedIn", isLoggedIn.toString()); // Convert to string
 
           // Update Redux state
-          dispatch(authActions.login({ userId, isAdmin, token }));
+          dispatch(authActions.login({ isAdmin, token }));
 
           // Redirect to home or dashboard
           navigate("/");

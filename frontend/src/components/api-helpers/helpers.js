@@ -66,8 +66,13 @@ export const sendAuthRequest = async (signup, data) => {
     const { status, data: responseData } = response;
 
     if (status >= 200 && status < 300) {
-      // Return the token and isLoggedIn status along with other response data
-      // console.log(responseData, responseData.token, responseData.isLoggedIn);
+      const token = responseData.token;
+
+      if (token) {
+        localStorage.setItem("token", token);
+      } else {
+        throw new Error("Token not found in response.");
+      }
       return {
         ...responseData,
         isLoggedIn: responseData.isLoggedIn,
