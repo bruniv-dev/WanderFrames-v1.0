@@ -117,7 +117,7 @@ export const login = async (req, res) => {
     const token = jwt.sign(
       { userId: user._id, isAdmin: user.isAdmin },
       process.env.JWT_SECRET,
-      { expiresIn: "2m" }
+      { expiresIn: "1h" }
     );
 
     console.log("Generated token:", token);
@@ -127,7 +127,7 @@ export const login = async (req, res) => {
       path: "/",
       sameSite: "None",
       secure: true,
-      maxAge: 120000, // 1 hour
+      maxAge: 3600000, // 1 hour
     });
 
     // Respond with user data

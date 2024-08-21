@@ -303,6 +303,7 @@ import {
   fetchUserDetailsById,
   deletePostById,
   fetchUserDetailsByToken,
+  updatePost,
 } from "../api-helpers/helpers";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -435,9 +436,30 @@ const Card = ({
     }
   };
 
-  const handleEditClick = (e) => {
+  // const handleEditClick = (e) => {
+  //   e.stopPropagation();
+  //   navigate("/editPost", { state: { postId: _id } });
+  // };
+
+  const handleEditClick = async (e) => {
     e.stopPropagation();
-    navigate("/editPost", { state: { postId: _id } });
+
+    try {
+      await updatePost(_id, {
+        location,
+        subLocation,
+        description,
+        locationUrl,
+      });
+      navigate("/editPost", { state: { postId: _id } });
+    } catch (error) {
+      if (error.message === "Unauthorized access") {
+        navigate("/unauthorized"); // Redirect to unauthorized page
+      } else {
+        console.error("Update failed:", error.message);
+        // Optionally, you can show an error message to the user
+      }
+    }
   };
 
   const handleUsernameClick = (e) => {
