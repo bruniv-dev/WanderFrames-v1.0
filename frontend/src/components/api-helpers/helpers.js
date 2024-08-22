@@ -239,6 +239,62 @@ export const fetchUserPosts = async (userId) => {
   }
 };
 
+// export const updatePost = async (id, data) => {
+//   try {
+//     const response = await axios.put(
+//       `/post/${id}`,
+//       {
+//         location: data.location,
+//         subLocation: data.subLocation,
+//         description: data.description,
+//         locationUrl: data.locationUrl || "",
+//       },
+//       {
+//         withCredentials: true, // Ensure cookies are sent with the request
+//       }
+//     );
+
+//     if (response.status !== 200) {
+//       throw new Error("Failed to update the post");
+//     }
+
+//     const resData = await response.data;
+//     return resData;
+//   } catch (error) {
+//     console.error("Error updating post:", error.message);
+//     throw error;
+//   }
+// };
+
+// export const updatePost = async (id, data) => {
+//   try {
+//     const response = await axios.put(
+//       `/post/${id}`,
+//       {
+//         location: data.location,
+//         subLocation: data.subLocation,
+//         description: data.description,
+//         locationUrl: data.locationUrl || "",
+//       },
+//       {
+//         withCredentials: true, // Ensure cookies are sent with the request
+//       }
+//     );
+
+//     // Check if the response indicates a successful update
+//     if (response.status === 200) {
+//       return response.data;
+//     } else if (response.status === 403) {
+//       throw new Error("Unauthorized access - redirect to /unauthorized");
+//     } else {
+//       throw new Error("Failed to update the post");
+//     }
+//   } catch (error) {
+//     console.error("Error updating post:", error.message);
+//     throw error;
+//   }
+// };
+
 export const updatePost = async (id, data) => {
   try {
     const response = await axios.put(
@@ -254,12 +310,14 @@ export const updatePost = async (id, data) => {
       }
     );
 
-    if (response.status !== 200) {
+    // Handle the response status
+    if (response.status === 200) {
+      return response.data;
+    } else if (response.status === 403) {
+      throw new Error("Unauthorized access"); // Specific error message for 403
+    } else {
       throw new Error("Failed to update the post");
     }
-
-    const resData = await response.data;
-    return resData;
   } catch (error) {
     console.error("Error updating post:", error.message);
     throw error;

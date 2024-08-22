@@ -436,11 +436,6 @@ const Card = ({
     }
   };
 
-  // const handleEditClick = (e) => {
-  //   e.stopPropagation();
-  //   navigate("/editPost", { state: { postId: _id } });
-  // };
-
   const handleEditClick = async (e) => {
     e.stopPropagation();
 
@@ -453,11 +448,10 @@ const Card = ({
       });
       navigate("/editPost", { state: { postId: _id } });
     } catch (error) {
-      if (error.message === "Unauthorized access") {
-        navigate("/unauthorized"); // Redirect to unauthorized page
-      } else {
+      console.log("Caught error:", error.message); // Debugging line
+      if (error.response && error.response.status === 403) {
+        navigate("/unauthorized");
         console.error("Update failed:", error.message);
-        // Optionally, you can show an error message to the user
       }
     }
   };
