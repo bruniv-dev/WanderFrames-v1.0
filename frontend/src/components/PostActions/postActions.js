@@ -100,14 +100,12 @@ const PostActions = () => {
   };
 
   const handleAdminDelete = (postId) => {
-    if (window.confirm("Are you sure you want to delete this post?")) {
-      deletePostById(postId)
-        .then(() => {
-          setCardsData(cardsData.filter((post) => post._id !== postId));
-          setFilteredCards(filteredCards.filter((post) => post._id !== postId));
-        })
-        .catch((e) => console.log(e));
-    }
+    deletePostById(postId)
+      .then(() => {
+        setCardsData(cardsData.filter((post) => post._id !== postId));
+        setFilteredCards(filteredCards.filter((post) => post._id !== postId));
+      })
+      .catch((e) => console.log(e));
   };
 
   return loading ? (

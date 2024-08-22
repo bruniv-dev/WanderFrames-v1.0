@@ -85,6 +85,7 @@ export const signup = async (req, res) => {
       message: "User created successfully",
       userId: user._id,
       isAdmin: user.isAdmin,
+      token,
     });
   } catch (err) {
     console.error("Error in signup controller:", err);
