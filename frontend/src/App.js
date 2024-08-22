@@ -82,7 +82,6 @@ import ResetPassword from "./components/ResetPassword/resetPassword.js";
 import PostActions from "./components/PostActions/postActions.js";
 import UserActions from "./components/UserActions/userActions.js";
 import UserProfile from "./components/UserProfile/userProfile.js";
-import PleaseLogin from "./components/ErrorPages/PleaseLogin.js";
 import PageNotFound from "./components/ErrorPages/PageNotFound.js";
 import UnAuthorizedPage from "./components/ErrorPages/UnAuthorizedPage.js";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute.js";
@@ -142,7 +141,6 @@ const App = () => {
           element={<ProtectedRoute element={<UserActions />} />}
         />
         <Route path="/loginSignup" element={<SignIn />} />
-        <Route path="/please-login" element={<PleaseLogin />} />
         <Route path="*" element={<PageNotFound />} />
         <Route path="/unauthorized" element={<UnAuthorizedPage />} />
       </Routes>

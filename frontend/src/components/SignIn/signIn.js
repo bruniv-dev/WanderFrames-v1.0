@@ -8,6 +8,7 @@ import {
   checkUsernameAvailability,
 } from "../api-helpers/helpers";
 import Loading from "../Loading/Loading";
+import { useRef } from "react";
 
 const SignInSignUp = () => {
   const dispatch = useDispatch();
@@ -37,6 +38,7 @@ const SignInSignUp = () => {
   });
   const [showPassword, setShowPassword] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const debounceTimeout = useRef(null);
 
   useEffect(() => {
     setInputs({
@@ -76,7 +78,6 @@ const SignInSignUp = () => {
         }
 
         try {
-          setLoading(true);
           const isAvailable = await checkUsernameAvailability(inputs.username);
           setUsernameStatus(
             isAvailable
@@ -85,17 +86,55 @@ const SignInSignUp = () => {
           );
         } catch (err) {
           setUsernameStatus("Error checking username availability.");
-        } finally {
-          setLoading(false);
         }
       } else {
         setUsernameStatus("");
       }
     };
 
-    const debounce = setTimeout(checkAvailability, 300);
-    return () => clearTimeout(debounce);
+    // Clear any existing timeout before setting a new one
+    clearTimeout(debounceTimeout.current);
+
+    // Set a new timeout to delay the API call
+    debounceTimeout.current = setTimeout(checkAvailability, 300);
+
+    // Cleanup the timeout if the component unmounts or the dependencies change
+    return () => clearTimeout(debounceTimeout.current);
   }, [inputs.username, isSignUp]);
+
+  // useEffect(() => {
+  //   const checkAvailability = async () => {
+  //     const usernameRegex = /^[a-zA-Z0-9._]{6,}$/;
+
+  //     if (isSignUp && inputs.username) {
+  //       if (!usernameRegex.test(inputs.username)) {
+  //         setUsernameStatus(
+  //           "Username can only contain letters, numbers, underscores (_), and periods (.) and be over 6 characters"
+  //         );
+  //         return;
+  //       }
+
+  //       try {
+  //         setLoading(true);
+  //         const isAvailable = await checkUsernameAvailability(inputs.username);
+  //         setUsernameStatus(
+  //           isAvailable
+  //             ? "Username is available."
+  //             : "Username is already taken."
+  //         );
+  //       } catch (err) {
+  //         setUsernameStatus("Error checking username availability.");
+  //       } finally {
+  //         setLoading(false);
+  //       }
+  //     } else {
+  //       setUsernameStatus("");
+  //     }
+  //   };
+
+  //   const debounce = setTimeout(checkAvailability, 300);
+  //   return () => clearTimeout(debounce);
+  // }, [inputs.username, isSignUp]);
 
   const toggleForm = () => {
     setIsSignUp(!isSignUp);
