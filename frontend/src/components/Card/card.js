@@ -311,6 +311,7 @@ import "slick-carousel/slick/slick-theme.css";
 import "./Card.css";
 import { useNavigate } from "react-router-dom";
 import { FaRegHeart, FaHeart } from "react-icons/fa6";
+import Popup from "../ErrorPages/PopupCard";
 
 // Custom arrow components with event propagation stop
 const CustomPrevArrow = (props) => {
@@ -363,6 +364,7 @@ const Card = ({
   const [loggedInUserId, setLoggedInUserId] = useState(null);
   const [isHovered, setIsHovered] = useState(false);
   const [menuVisible, setMenuVisible] = useState(false);
+  const [showPopup, setShowPopup] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -410,7 +412,7 @@ const Card = ({
         })
         .catch((err) => console.error("Error in toggleFavorite:", err));
     } else {
-      console.error("User ID or Post ID is missing");
+      setShowPopup(true);
     }
   };
 
@@ -514,109 +516,130 @@ const Card = ({
     setMenuVisible(false);
   };
 
+  const handleClosePopup = () => {
+    setShowPopup(false);
+  };
+
+  const handleLoginRedirect = () => {
+    handleClosePopup();
+    navigate("/loginSignup");
+  };
+
   return (
-    <div
-      className="card-container"
-      onClick={onCardClick}
-      onMouseEnter={() => setIsHovered(true)} // Start autoplay on hover
-      onMouseLeave={() => {
-        setIsHovered(false); // Stop autoplay when not hovering
-        closeMenu(); // Close menu when not hovering
-      }}
-    >
-      <div className="card-image-slider">
-        {uniqueImages.length > 0 ? (
-          <Slider {...sliderSettings}>
-            {uniqueImages.map((img, index) => (
-              <img
-                key={index}
-                className="card-slider-image"
-                src={img.url}
-                alt={`Slide ${index + 1}`}
-              />
-            ))}
-          </Slider>
-        ) : (
-          <img
-            className="card-slider-image"
-            src="https://placehold.co/600x400"
-            alt="Placeholder"
-          />
-        )}
-      </div>
-      <div className="card-content">
-        <div className="loc-name-nav">
-          <p className="card-location">{location}</p>
-          {locationUrl && (
-            <a href={locationUrl} target="_blank" rel="noopener noreferrer">
-              <MdLocationOn className="card-location-button" />
-            </a>
+    <>
+      <div
+        className="card-container"
+        onClick={onCardClick}
+        onMouseEnter={() => setIsHovered(true)} // Start autoplay on hover
+        onMouseLeave={() => {
+          setIsHovered(false); // Stop autoplay when not hovering
+          closeMenu(); // Close menu when not hovering
+        }}
+      >
+        <div className="card-image-slider">
+          {uniqueImages.length > 0 ? (
+            <Slider {...sliderSettings}>
+              {uniqueImages.map((img, index) => (
+                <img
+                  key={index}
+                  className="card-slider-image"
+                  src={img.url}
+                  alt={`Slide ${index + 1}`}
+                />
+              ))}
+            </Slider>
+          ) : (
+            <img
+              className="card-slider-image"
+              src="https://placehold.co/600x400"
+              alt="Placeholder"
+            />
           )}
         </div>
-        <p className="card-sub-location">{subLocation}</p>
-        <p className={"card-description"}>{description}</p>
-      </div>
+        <div className="card-content">
+          <div className="loc-name-nav">
+            <p className="card-location">{location}</p>
+            {locationUrl && (
+              <a href={locationUrl} target="_blank" rel="noopener noreferrer">
+                <MdLocationOn className="card-location-button" />
+              </a>
+            )}
+          </div>
+          <p className="card-sub-location">{subLocation}</p>
+          <p className={"card-description"}>{description}</p>
+        </div>
 
-      <div className="card-header">
-        {loggedInUserId && (
-          <>
-            <img
-              className="profile-image-card"
-              src={authorDetails.profileImage || "https://placehold.co/50x50"}
-              alt="profilepic"
-            />
-            <div className="card-user-info">
-              <p className="card-username" onClick={handleUsernameClick}>
-                {authorDetails.username || "Login to view user details"}
-              </p>
-              <div className="card-last-row">
-                <p className="card-role">
-                  {authorDetails.isAdmin ? "Admin" : "User"}
+        <div className="card-header">
+          {loggedInUserId && (
+            <>
+              <img
+                className="profile-image-card"
+                src={authorDetails.profileImage || "https://placehold.co/50x50"}
+                alt="profilepic"
+              />
+              <div className="card-user-info">
+                <p className="card-username" onClick={handleUsernameClick}>
+                  {authorDetails.username || "Login to view user details"}
                 </p>
-                <p className="card-date">{formatDate(date)}</p>
+                <div className="card-last-row">
+                  <p className="card-role">
+                    {authorDetails.isAdmin ? "Admin" : "User"}
+                  </p>
+                  <p className="card-date">{formatDate(date)}</p>
+                </div>
+              </div>
+            </>
+          )}
+        </div>
+
+        {!isAdminContext && (
+          <button
+            className={`card-add-to-favorites ${isFavorite ? "favorite" : ""}`}
+            onClick={handleFavoriteClick}
+          >
+            {isFavorite ? (
+              <FaHeart className="isfav" />
+            ) : (
+              <FaRegHeart className="notfav" />
+            )}
+          </button>
+        )}
+
+        <div className="card-kebab-menu-container">
+          <MdMoreVert className="card-kebab-menu-icon" onClick={toggleMenu} />
+          {menuVisible && (
+            <div className="card-kebab-menu">
+              <div
+                className="card-kebab-menu-item edit"
+                onClick={handleEditClick}
+              >
+                <MdEdit className="card-kebab-menu-icon" /> Edit
+              </div>
+              <div className="card-kebab-menu-item" onClick={handleDeleteClick}>
+                <MdDeleteForever className="card-kebab-menu-icon" /> Delete
               </div>
             </div>
-          </>
-        )}
-      </div>
-
-      {!isAdminContext && (
-        <button
-          className={`card-add-to-favorites ${isFavorite ? "favorite" : ""}`}
-          onClick={handleFavoriteClick}
-        >
-          {isFavorite ? (
-            <FaHeart className="isfav" />
-          ) : (
-            <FaRegHeart className="notfav" />
           )}
-        </button>
-      )}
+        </div>
 
-      <div className="card-kebab-menu-container">
-        <MdMoreVert className="card-kebab-menu-icon" onClick={toggleMenu} />
-        {menuVisible && (
-          <div className="card-kebab-menu">
-            <div
-              className="card-kebab-menu-item edit"
-              onClick={handleEditClick}
-            >
-              <MdEdit className="card-kebab-menu-icon" /> Edit
-            </div>
-            <div className="card-kebab-menu-item" onClick={handleDeleteClick}>
-              <MdDeleteForever className="card-kebab-menu-icon" /> Delete
-            </div>
-          </div>
+        {onAdminDelete && (
+          <MdDeleteForever
+            className="card-admin-delete-button"
+            onClick={handleAdminDeleteClick}
+          ></MdDeleteForever>
         )}
       </div>
-
-      {onAdminDelete && (
-        <MdDeleteForever
-          className="card-admin-delete-button"
-          onClick={handleAdminDeleteClick}
-        ></MdDeleteForever>
-      )}
-    </div>
+      <Popup
+        showPopup={showPopup}
+        onClose={handleClosePopup}
+        onConfirm={handleLoginRedirect}
+        confirmText="Log In"
+        message={{
+          title: "Please Log In.",
+          body: "You need to be signed in to add favorites.",
+        }}
+      />
+    </>
   );
 };
 

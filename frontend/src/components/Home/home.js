@@ -11,7 +11,7 @@ const Home = () => {
   const navigate = useNavigate();
 
   const handleShareJourneyClick = () => {
-    const isLoggedIn = Boolean(localStorage.getItem("userId"));
+    const isLoggedIn = Boolean(localStorage.getItem("token"));
     if (isLoggedIn) {
       navigate("/upload");
     } else {

@@ -68,7 +68,7 @@ export const checkProfileOwnershipAndAdminPrivileges = async (
   res,
   next
 ) => {
-  const userIdFromParams = req.params.userId; // ID from the URL params
+  const userIdFromParams = req.params.id; // ID from the URL params
   const userIdFromToken = req.user.userId; // ID from the authenticated token
   const isAdmin = req.user.isAdmin;
   console.log(
