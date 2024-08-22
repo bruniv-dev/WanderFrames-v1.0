@@ -341,17 +341,37 @@ export const updateUserProfile = async (userId, formData) => {
   }
 };
 
+// export const deletePostById = async (id) => {
+//   try {
+//     const response = await axios.delete(`/post/${id}`, {
+//       withCredentials: true,
+//     });
+//     return response.data; // Ensure this matches the API response structure
+//   } catch (error) {
+//     console.error("Error deleting post by ID:", error);
+//     throw error;
+//   }
+// };
+
 export const deletePostById = async (id) => {
   try {
     const response = await axios.delete(`/post/${id}`, {
-      withCredentials: true,
+      withCredentials: true, // Ensures cookies are sent with the request
     });
-    return response.data; // Ensure this matches the API response structure
+
+    if (response.status === 200) {
+      return response.data; // Return the API response data if the delete is successful
+    } else if (response.status === 403) {
+      throw new Error("Unauthorized access"); // Throw a specific error if the status is 403
+    } else {
+      throw new Error("Failed to delete the post"); // Handle any other non-success status codes
+    }
   } catch (error) {
-    console.error("Error deleting post by ID:", error);
-    throw error;
+    console.error("Error deleting post by ID:", error.message);
+    throw error; // Re-throw the error so it can be handled by the calling function
   }
 };
+
 //actions -- admin
 export const deleteUserById = async (id) => {
   try {

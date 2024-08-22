@@ -414,16 +414,29 @@ const Card = ({
     }
   };
 
-  const handleDeleteClick = (e) => {
+  const handleDeleteClick = async (e) => {
     e.stopPropagation();
-    if (window.confirm("Are you sure you want to delete this post?")) {
-      deletePostById(_id)
-        .then(() => {
-          if (onDelete) {
-            onDelete(_id); // Notify parent component about deletion
-          }
-        })
-        .catch((err) => console.error("Error deleting post:", err));
+
+    // Show confirmation dialog
+    const confirmed = window.confirm(
+      "Are you sure you want to delete this post?"
+    );
+
+    if (confirmed) {
+      try {
+        // Perform the delete action only if confirmed
+        await deletePostById(_id);
+
+        if (onDelete) {
+          onDelete(_id);
+        }
+      } catch (error) {
+        console.error("Error deleting post:", error);
+
+        if (error.response && error.response.status === 403) {
+          navigate("/unauthorized");
+        }
+      }
     }
   };
 
@@ -431,7 +444,7 @@ const Card = ({
     e.stopPropagation();
     if (window.confirm("Are you sure you want to delete this post?")) {
       if (onAdminDelete) {
-        onAdminDelete(_id); // Notify parent component about admin deletion
+        onAdminDelete(_id);
       }
     }
   };
@@ -543,6 +556,7 @@ const Card = ({
         <p className="card-sub-location">{subLocation}</p>
         <p className={"card-description"}>{description}</p>
       </div>
+
       <div className="card-header">
         {loggedInUserId && (
           <>
@@ -565,6 +579,7 @@ const Card = ({
           </>
         )}
       </div>
+
       {!isAdminContext && (
         <button
           className={`card-add-to-favorites ${isFavorite ? "favorite" : ""}`}
@@ -577,6 +592,7 @@ const Card = ({
           )}
         </button>
       )}
+
       <div className="card-kebab-menu-container">
         <MdMoreVert className="card-kebab-menu-icon" onClick={toggleMenu} />
         {menuVisible && (
@@ -593,6 +609,7 @@ const Card = ({
           </div>
         )}
       </div>
+
       {onAdminDelete && (
         <MdDeleteForever
           className="card-admin-delete-button"

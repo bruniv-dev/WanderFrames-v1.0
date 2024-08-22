@@ -15,7 +15,6 @@
 }
 
 .popup-content {
-  /* position: fixed; */
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -24,8 +23,8 @@
   padding: 20px;
   border-radius: 1rem;
   text-align: center;
-  width: 40rem;
-  height: 15rem;
+  width: 10rem;
+  height: 5rem;
   transform: scale(0.9);
   transition: transform 0.3s ease;
 }
