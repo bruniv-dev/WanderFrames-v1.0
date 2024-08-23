@@ -7,7 +7,8 @@ const UnAuthorizedPage = () => {
     <div className="unauthorized-container">
       <h1 className="unauthorized-title">403: Unauthorized</h1>
       <p className="unauthorized-message">
-        Sorry, you don’t have permission to access this page.
+        Sorry, You do not have permission to access this page or perform this
+        action.
       </p>
       <Link to="/inspirations" className="unauthorized-back-btn">
         Back to Inspirations

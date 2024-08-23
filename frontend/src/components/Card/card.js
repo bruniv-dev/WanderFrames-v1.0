@@ -763,6 +763,7 @@ const Card = ({
         .catch((err) => console.error("Error in toggleFavorite:", err));
     } else {
       setShowPopup(true);
+      setPopupMessage("You need to login to add to favorites");
     }
   };
 
@@ -990,7 +991,7 @@ const Card = ({
         onConfirm={handlePopupConfirm}
         confirmText="Confirm"
         message={{
-          title: "Confirmation",
+          title: "",
           body: popupMessage,
         }}
       />
