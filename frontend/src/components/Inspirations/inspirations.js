@@ -163,6 +163,7 @@ import {
 } from "../api-helpers/helpers.js";
 import Loading from "../Loading/Loading.js";
 import Search from "../Search/Search.js";
+import Footer from "../footer/footer.js";
 
 const Inspirations = () => {
   const [cardsData, setCardsData] = useState([]);
@@ -259,6 +260,7 @@ const Inspirations = () => {
           <CardLayout cardsData={filteredCards} onCardClick={handleCardClick} />
         )}
       </div>
+      <Footer />
     </>
   );
 };

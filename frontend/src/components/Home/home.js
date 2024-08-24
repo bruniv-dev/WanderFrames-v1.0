@@ -9,13 +9,14 @@ const Home = () => {
   const [showPopup, setShowPopup] = useState(false);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
-
+  const [confirmBtnText, setConfirmBtnText] = useState("");
   const handleShareJourneyClick = () => {
     const isLoggedIn = Boolean(localStorage.getItem("token"));
     if (isLoggedIn) {
       navigate("/upload");
     } else {
       setShowPopup(true);
+      setConfirmBtnText("Log In");
     }
   };
 
@@ -71,15 +72,15 @@ const Home = () => {
               Share Your Journey
             </button>
           </div>
-          <h6 className="slogan">
+          <p className="slogan">
             CAPTURE <span>.</span> SHARE <span>.</span> INSPIRE
-          </h6>
+          </p>
         </div>
         <Popup
           showPopup={showPopup}
           onClose={handleClosePopup}
           onConfirm={handleLoginRedirect}
-          confirmText="Log In"
+          confirmBtnText={confirmBtnText}
           message={{
             title: "Please Log In.",
             body: "You need to be signed in to add posts.",

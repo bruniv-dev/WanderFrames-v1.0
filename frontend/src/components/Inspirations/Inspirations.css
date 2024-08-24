@@ -22,56 +22,6 @@
   color: #fff;
 }
 
-.inspiration-fav-login-popup-buttons {
-  gap: 1rem;
-  display: flex;
-  justify-content: space-around;
-  transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
-}
-
-.inspiration-fav-login-popup-button {
-  width: 10rem;
-  font-size: 2rem;
-  padding: 0.5rem 1rem;
-  border-radius: 1rem;
-  cursor: pointer;
-  border: none;
-  color: white;
-  transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
-}
-
-.inspiration-fav-login-popup-button.btn1 {
-  background-color: #83f806;
-  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1);
-  color: #000;
-}
-
-.inspiration-fav-login-popup-button.btn1:hover {
-  background-color: #9cf938;
-  transform: scale(1.05);
-  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1);
-}
-
-.inspiration-fav-login-button.btn2 {
-  background-color: #fff;
-  color: #83f806;
-  border: 0.1rem solid #83f806;
-  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1);
-}
-
-.inspiration-fav-login-popup-button.btn2:hover {
-  border: 0.1rem solid #9cf938;
-  color: #9cf938;
-  transform: scale(1.05);
-  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1);
-}
-
-.inspiration-fav-login-popup-button.btn1:active,
-.inspiration-fav-login-popup-button.btn2:active {
-  transform: scale(0.95);
-  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1);
-}
-
 .inspirations-container .role {
   display: none;
 }
@@ -82,8 +32,8 @@
 
 .inspirations-container .no-cards-message {
   text-align: center;
-  font-size: 2rem;
+  font-size: 2.4rem;
   font-weight: 500;
   color: #777;
-  margin-top: 10rem;
+  margin-top: 8rem;
 }

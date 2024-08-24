@@ -714,7 +714,9 @@ const Card = ({
   const [isHovered, setIsHovered] = useState(false);
   const [menuVisible, setMenuVisible] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
-  const [popupMessage, setPopupMessage] = useState(""); // To manage popup message
+  const [popupMessage, setPopupMessage] = useState("");
+  const [popupTitle, setPopupTitle] = useState("");
+  const [confirmBtnText, setConfirmBtnText] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -764,6 +766,11 @@ const Card = ({
     } else {
       setShowPopup(true);
       setPopupMessage("You need to login to add to favorites");
+      setPopupTitle("Please Log In");
+      setConfirmBtnText("Log In");
+      setPopupConfirmHandler(() => () => {
+        navigate("/loginSignUp");
+      });
     }
   };
 
@@ -847,7 +854,7 @@ const Card = ({
     slidesToScroll: 1,
     autoplay: isHovered && hasMultipleImages, // Enable autoplay only on hover
     autoplaySpeed: 3000,
-    customPaging: (i) => <div className="card-custom-dot" />,
+    customPaging: (i) => <div className="small-card-custom-dot" />,
     dotsClass: "slick-dots card-custom-dots",
     prevArrow: hasMultipleImages ? <CustomPrevArrow /> : null,
     nextArrow: hasMultipleImages ? <CustomNextArrow /> : null,
@@ -989,9 +996,9 @@ const Card = ({
         showPopup={showPopup}
         onClose={handleClosePopup}
         onConfirm={handlePopupConfirm}
-        confirmText="Confirm"
+        confirmBtnText={confirmBtnText}
         message={{
-          title: "",
+          title: popupTitle,
           body: popupMessage,
         }}
       />

@@ -1,7 +1,7 @@
 // import React, { useEffect, useRef } from "react";
 import "./PopupCard.css";
 
-const Popup = ({ showPopup, onClose, onConfirm, confirmText, message }) => {
+const Popup = ({ showPopup, onClose, onConfirm, confirmBtnText, message }) => {
   // const popupRef = useRef();
 
   // const handleClickOutside = (event) => {
@@ -31,7 +31,7 @@ const Popup = ({ showPopup, onClose, onConfirm, confirmText, message }) => {
         <p>{message.body}</p>
         <div className="popup-buttons">
           <button onClick={onConfirm} className="popup-button btn1">
-            {confirmText}
+            {confirmBtnText}
           </button>
           <button onClick={onClose} className="popup-button btn2">
             Close
