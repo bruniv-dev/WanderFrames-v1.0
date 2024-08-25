@@ -1,4 +1,5 @@
 .header {
+  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -10,17 +11,14 @@
 
 .logo-nav {
   text-decoration: none;
-  height: 100%;
   display: flex;
   align-items: center;
 }
 
 .logo {
-  color: #fff;
+  color: black;
   font-weight: 700;
   font-size: 2rem;
-  text-align: justify;
-  align-items: center;
   letter-spacing: 1.5px;
   margin: 0;
 }
@@ -30,14 +28,71 @@
   justify-content: center;
   align-items: center;
   gap: 1.5rem;
-  height: 100%;
   transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+.hamburger {
+  display: none;
+  font-size: 2rem;
+  cursor: pointer;
+  color: #000;
+}
+
+/* For smaller screens */
+@media (max-width: 500px) {
+  .header {
+    justify-content: start;
+  }
+
+  .header .sign-in,
+  .header .sign-out {
+    position: absolute;
+    right: 1rem;
+  }
+
+  .header .nav {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 3rem;
+    left: 0;
+    width: 50%;
+    background-color: #fff;
+    border-radius: 4px;
+    padding: 1rem;
+  }
+
+  .nav.open {
+    display: flex;
+    background-color: #fff;
+  }
+
+  .hamburger {
+    display: block;
+    margin-right: 1rem;
+  }
+
+  .home-header .nav a {
+    color: #000;
+  }
+
+  .nav a {
+    text-align: center;
+    width: 100%;
+    box-sizing: border-box;
+    color: #000;
+  }
+
+  .nav a:hover {
+    color: var(--hover);
+    text-decoration: underline;
+  }
 }
 
 .nav a {
   text-decoration: none;
   font-size: 1rem;
-  color: white;
+  color: black;
   display: flex;
   align-items: center;
   height: 100%;
@@ -45,9 +100,8 @@
 }
 
 .nav a:hover {
-  color: var(--primary-color);
+  color: var(--hover);
   text-decoration: underline;
-  transform: scale(1.02);
 }
 
 .nav a.active {
@@ -65,7 +119,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  box-sizing: border-box;
   background-color: var(--primary-color);
   color: #fff;
   box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1);
@@ -76,12 +129,10 @@
 .sign-out:hover {
   background-color: var(--hover);
   transform: scale(1.05);
-  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1);
 }
 
 .sign-in:active,
 .sign-out:active {
   background-color: var(--primary-color);
   transform: scale(0.95);
-  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1);
 }

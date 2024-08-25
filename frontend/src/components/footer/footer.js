@@ -58,7 +58,7 @@ const Footer = () => {
               </a>
               <br />
               <a className="footer__link" href="mailto:hello@omnifood.com">
-                hello@omnifood.com
+                hello@wanderframes.com
               </a>
             </p>
           </address>
@@ -74,7 +74,7 @@ const Footer = () => {
             </li>
             <li>
               <a className="footer__link" href="/">
-                Sign In
+                Log In
               </a>
             </li>
             <li>
@@ -95,7 +95,7 @@ const Footer = () => {
           <ul className="footer__nav">
             <li>
               <a className="footer__link" href="/">
-                About Omnifood
+                About WanderFrames
               </a>
             </li>
             <li>
@@ -105,12 +105,12 @@ const Footer = () => {
             </li>
             <li>
               <a className="footer__link" href="/">
-                Cooking Partners
+                Business Partners
               </a>
             </li>
             <li>
               <a className="footer__link" href="/">
-                Career
+                Invest
               </a>
             </li>
           </ul>
@@ -121,7 +121,7 @@ const Footer = () => {
           <ul className="footer__nav">
             <li>
               <a className="footer__link" href="/">
-                Recipe Directory
+                Travel Directory
               </a>
             </li>
             <li>

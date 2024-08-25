@@ -1,56 +1,54 @@
 .card-container {
+  width: 100%;
   position: relative;
-  width: 280px;
+  max-width: 280px;
   display: flex;
-  gap: 0.8rem;
+  gap: 0.5rem;
   flex-direction: column;
-  border-radius: 10px;
+  border-radius: 4px;
   box-shadow: 0px 7px 14px 0px rgba(0, 0, 0, 0.06);
   background-color: #ffffff;
-  /* padding: 0.5rem; */
-  /* border: 1px solid rgba(0, 0, 0, 0.1); */
-  padding: 0.8rem;
+  padding: 0.5rem;
+  margin: 0 auto;
 }
 
 .card-image-slider {
   width: 100%;
   overflow: hidden;
-  border-radius: 10px;
+  border-radius: 4px;
+  height: 240px;
 }
 
 .card-slider-image {
   width: 100%;
   height: 240px;
   object-fit: cover;
-  border-radius: 10px;
+  border-radius: 4px;
 }
 
 .card-add-to-favorites {
   position: absolute;
   top: 15px;
   right: 15px;
-  /* border: 1px solid #83f806; */
   border: none;
   width: 24px;
   height: 24px;
   font-weight: 600;
   fill: #000;
-  font-size: 1.6rem;
+  font-size: 1rem;
   display: flex;
   align-items: center;
   justify-content: center;
   justify-self: center;
   cursor: pointer;
-  border-radius: 8px;
-  /* background-color: rgba(0, 0, 0, 0.7); */
+  border-radius: 4px;
   margin: 0 auto;
-  padding: 1.6px;
   box-sizing: border-box;
   background-color: transparent;
 }
 
 .card-add-to-favorites .notfav {
-  font-size: 2.4rem;
+  font-size: 1.5rem;
   font-weight: 700;
   fill: #fff;
 }
@@ -63,14 +61,14 @@
 .card-add-to-favorites .isfav {
   width: 24px;
   height: 24px;
-  font-size: 2.4rem;
+  font-size: 1.5rem;
   font-weight: 700;
   fill: palevioletred;
 }
 
 /* .card-add-to-favorites:hover,
 .card-add-to-favorites.favorite:hover {
-  background-color: #9cf938;
+ 
   fill: #000;
 } */
 
@@ -81,25 +79,22 @@
 }
 
 .card-location-button {
-  width: 24px;
-  height: 24px;
-  border: 1px solid green;
-  /* border: none; */
+  width: 20px;
+  height: 20px;
+  border: 1px solid var(--primary-color);
   cursor: pointer;
-  border-radius: 8px;
-  /* background-color: rgba(0, 0, 0, 0.7); */
-  padding: 0.8px;
-  fill: green;
+  border-radius: 4px;
+  padding: 1px;
+  fill: var(--primary-color);
 }
 
 .card-location-button:hover {
-  background-color: darkgreen;
+  background-color: var(--hover);
   fill: #fff;
 }
 
 .card-custom-prev-arrow,
 .card-custom-next-arrow {
-  /* display: block; */
   border-radius: 50%;
   z-index: 2;
 }
@@ -107,13 +102,14 @@
 .card-custom-prev-arrow {
   left: 0;
 }
+
 .card-custom-next-arrow {
   right: 0;
 }
 
 .slick-prev:before,
 .slick-next:before {
-  font-size: 1.6rem;
+  font-size: 1rem;
   text-align: center;
 }
 
@@ -143,14 +139,14 @@
 }
 
 .card-custom-dots .slick-active .small-card-custom-dot {
-  background-color: #008000;
+  background-color: var(--primary-color);
 }
 
 .card-content {
   display: flex;
   flex-direction: column;
-  gap: 0.4rem;
   justify-content: center;
+  gap: 0.25rem;
 }
 
 .loc-name-nav {
@@ -160,16 +156,21 @@
 }
 
 .card-location {
-  font-size: 1.6rem;
+  font-size: 1rem;
   font-weight: 700;
-  line-height: 2rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1;
 }
 
 .card-sub-location {
-  font-size: 1.2rem;
-  line-height: 1.6rem;
-  color: green;
+  font-size: 0.75rem;
+  color: var(--primary-color);
   font-weight: 600;
+  line-height: 1;
 }
 
 .card-description {
@@ -179,15 +180,14 @@
   overflow: hidden;
   text-overflow: ellipsis;
   color: #555;
-  font-size: 1.2rem;
-  margin: 0.4rem 0;
-  line-height: 1.6rem;
-  height: 32px;
+  font-size: 0.75rem;
+  margin: 0.2rem 0;
+  height: 36px;
 }
 
 .card-header {
   display: flex;
-  gap: 0.4rem;
+  gap: 0.2rem;
   width: 100%;
   /* padding-top: 1rem; */
   /* border-top: 1px solid #e9e9e9; */
@@ -208,27 +208,26 @@
 }
 
 .card-date {
-  font-size: 1rem;
+  font-size: 0.75rem;
   color: #777;
 }
 
 .card-role {
-  font-size: 1rem;
+  font-size: 0.75rem;
   color: #777;
   letter-spacing: 0.5px;
 }
 
 .card-username {
   color: #000;
-  font-size: 1.2rem;
+  font-size: 0.75rem;
   font-weight: 600;
   cursor: pointer;
-  line-height: 1.6rem;
 }
 
 .profile-image-card {
-  width: 4rem;
-  height: 4rem;
+  width: 3rem;
+  height: 3rem;
   border-radius: 50%;
   object-fit: cover;
   border: 1.6px solid #fff;
@@ -248,13 +247,13 @@
   right: 45px;
   width: 25px;
   height: 25px;
-  border: 1px solid #83f806;
+  border: 1px solid var(--primary-color);
   cursor: pointer;
-  border-radius: 7px;
+  border-radius: 4px;
   background-color: rgba(0, 0, 0, 0.8);
   background-color: transparent;
   padding: 2px;
-  fill: #83f806;
+  fill: var(--primary-color);
 }
 
 .card-delete-button {
@@ -263,7 +262,6 @@
   right: 15px;
   width: 25px;
   height: 25px;
-  /* border: 1px solid #83f806; */
   border: none;
   cursor: pointer;
   border-radius: 7px;
@@ -276,7 +274,7 @@
 .card-delete-button:hover,
 .card-edit-button:hover,
 .card-admin-delete-button:hover {
-  background-color: #83f806;
+  background-color: var(--hover);
   fill: #000;
 }
 
@@ -286,7 +284,6 @@
   right: 15px;
   width: 25px;
   height: 25px;
-  /* border: 1px solid #83f806; */
   border: none;
   cursor: pointer;
   border-radius: 7px;
@@ -309,14 +306,14 @@
   width: 25px;
   height: 25px;
   cursor: pointer;
-  fill: green;
+  fill: var(--primary-color);
   transition: fill 0.3s ease;
   border-radius: 8px;
   background-color: #fff;
 }
 
 .card-kebab-menu-icon:hover {
-  fill: darkgreen;
+  fill: var(--hover);
 }
 
 /* Kebab Menu Dropdown */
@@ -345,9 +342,10 @@
 }
 
 .card-kebab-menu-item:hover {
-  background-color: green;
+  background-color: var(--primary-color);
   color: #000;
 }
+
 .card-kebab-menu-item .card-kebab-menu-icon {
   fill: #333;
   width: 20px;

@@ -36,14 +36,13 @@ const Home = () => {
   return (
     <>
       {loading && <Loading />}
-      <header>
-        <Header
-          classNameheader="header home-header"
-          classNamelogo="logo home-logo"
-          classNamenav="nav home-nav"
-          classNamesignin="signin home-signin"
-        />
-      </header>
+      <Header
+        classNameheader="home-header"
+        classNamelogo="home-logo"
+        classNamenav="home-nav"
+        classNamesignin="home-signin"
+        classNameHamburger="home-ham"
+      />
       <div className="home-container">
         <video autoPlay loop muted playsInline onLoadedData={handleVideoLoad}>
           <source

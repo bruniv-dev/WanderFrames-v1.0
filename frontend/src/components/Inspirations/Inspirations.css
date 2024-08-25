@@ -2,8 +2,8 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  height: 100%;
   width: 100%;
-  height: 100vh;
 }
 
 .inspirations-header {
@@ -32,8 +32,8 @@
 
 .inspirations-container .no-cards-message {
   text-align: center;
-  font-size: 2.4rem;
+  font-size: 1rem;
   font-weight: 500;
   color: #777;
-  margin-top: 8rem;
+  margin-top: 5rem;
 }

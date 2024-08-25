@@ -19,7 +19,7 @@
 .dot {
   width: 15px;
   height: 15px;
-  background-color: green;
+  background-color: var(--primary-color);
   border-radius: 50%;
   animation: dotPulse 1s infinite ease-in-out;
 }

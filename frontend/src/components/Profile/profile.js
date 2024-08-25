@@ -974,6 +974,7 @@ import { authActions } from "../../store/authSlice";
 import ResetPassword from "../ResetPassword/resetPassword";
 import Popup from "../ErrorPages/PopupCard";
 import Loading from "../Loading/Loading";
+import Footer from "../footer/footer";
 
 const Profile = () => {
   const [user, setUser] = useState(null);
@@ -1146,6 +1147,7 @@ const Profile = () => {
             <p className="no-posts-message">No posts available</p>
           )}
         </div>
+
         {isResettingPassword && (
           <ResetPassword
             onClose={() => setIsResettingPassword(false)}
@@ -1166,6 +1168,7 @@ const Profile = () => {
           }}
         />
       </div>
+      <Footer />
     </>
   );
 };

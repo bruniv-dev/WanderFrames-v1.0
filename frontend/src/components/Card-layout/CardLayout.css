@@ -2,15 +2,16 @@
 
 /* Grid layout for cards */
 .card-layout {
-  margin: 3rem auto;
   width: 100%;
   max-width: 1200px;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  grid-gap: 1.5rem;
+  /* grid-template-columns: 1fr 1fr 1fr 1fr; */
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1rem;
+  margin: 0 auto;
+  padding: 0 1rem;
   justify-content: center;
-  height: auto;
-  padding-bottom: 3rem;
+  box-sizing: border-box;
 }
 
 /* Modal backdrop (black background) */
@@ -30,8 +31,8 @@
 /* Modal content (centered in the viewport) */
 .modal-content {
   background: #fff;
-  padding: 20px;
-  border-radius: 10px;
+  padding: 1.25rem;
+  border-radius: 4px;
   width: 80%;
   max-width: 900px;
   overflow-y: auto;
@@ -77,7 +78,7 @@
 
 .custom-prev-arrow:hover,
 .custom-next-arrow:hover {
-  color: green;
+  color: var(--primary-color);
 }
 
 .custom-prev-arrow:before,
@@ -104,7 +105,7 @@
 }
 
 .card-custom-dots .slick-active .card-custom-dot {
-  background-color: green;
+  background-color: var(--primary-color);
 }
 
 .modal-content h2 {

@@ -105,6 +105,7 @@ import {
 } from "../api-helpers/helpers";
 import Loading from "../Loading/Loading";
 import Search from "../Search/Search";
+import Footer from "../footer/footer";
 
 const Favorites = () => {
   const [favorites, setFavorites] = useState([]);
@@ -188,6 +189,7 @@ const Favorites = () => {
           />
         )}
       </div>
+      <Footer />
     </>
   );
 };

@@ -209,6 +209,7 @@ import { addPost } from "../api-helpers/helpers";
 import { useNavigate } from "react-router-dom";
 import imageCompression from "browser-image-compression";
 import Loading from "../Loading/Loading";
+import Footer from "../footer/footer";
 
 const Upload = () => {
   const navigate = useNavigate();
@@ -305,101 +306,104 @@ const Upload = () => {
         classNamesignin="upload-signin"
       />
       <div className="upload">
-        <div className="upload-container">
-          <form
-            className="upload-form"
-            onSubmit={handleSubmit}
-            encType="multipart/form-data"
-          >
-            <div className="left-section">
-              <label htmlFor="images" className="upload-label">
-                Images (up to 3)
-                <input
-                  type="file"
-                  id="images"
-                  name="images"
-                  onChange={handleImageChange}
-                  multiple
-                  ref={fileInputRef}
-                />
-              </label>
-              <label htmlFor="date" className="date upload-label">
-                Date
-                <input
-                  type="date"
-                  id="upload-date"
-                  name="date"
-                  value={formData.date}
-                  onChange={handleInputChange}
-                  className="upload-input date"
-                  required
-                  max={today}
-                />
-              </label>
-              <label htmlFor="locationUrl" className="locationUrl upload-label">
-                Google Maps URL
-                <input
-                  type="url"
-                  id="locationUrl"
-                  name="locationUrl"
-                  value={formData.locationUrl}
-                  onChange={handleInputChange}
-                  className="upload-input url"
-                />
-              </label>
-            </div>
-            <div className="right-section">
-              <label htmlFor="location" className="upload-label">
-                Location
-                <input
-                  type="text"
-                  id="location"
-                  name="location"
-                  value={formData.location}
-                  onChange={handleInputChange}
-                  className="upload-input"
-                  required
-                />
-              </label>
-              <label htmlFor="subLocation" className="upload-label">
-                Sub-Location
-                <input
-                  type="text"
-                  id="subLocation"
-                  name="subLocation"
-                  value={formData.subLocation}
-                  onChange={handleInputChange}
-                  className="upload-input"
-                  required
-                />
-              </label>
-              <label htmlFor="description" className="upload-label">
-                Description
-                <textarea
-                  id="description"
-                  name="description"
-                  value={formData.description}
-                  onChange={handleInputChange}
-                  className="upload-input"
-                  required
-                />
-              </label>
-            </div>
-            <div className="upload-buttons">
-              <button type="submit" className="submit-button">
-                Add
-              </button>
-              <button
-                type="button"
-                className="cancel-button"
-                onClick={handleCancel}
-              >
-                Cancel
-              </button>
-            </div>
-          </form>
-        </div>
+        <form
+          className="upload-form"
+          onSubmit={handleSubmit}
+          encType="multipart/form-data"
+        >
+          <div className="upload-left-section">
+            <label htmlFor="upload-images" className="image upload-label">
+              Images (up to 3)
+              <input
+                className="upload-choose-file upload-input"
+                type="file"
+                id="upload-images"
+                name="images"
+                onChange={handleImageChange}
+                multiple
+                ref={fileInputRef}
+              />
+            </label>
+            <label htmlFor="upload-date" className="date upload-label">
+              Date
+              <input
+                type="date"
+                id="upload-date"
+                name="date"
+                value={formData.date}
+                onChange={handleInputChange}
+                className="upload-input date"
+                required
+                max={today}
+              />
+            </label>
+            <label
+              htmlFor="upload-locationUrl"
+              className="locationUrl upload-label"
+            >
+              Google Maps URL
+              <input
+                type="url"
+                id="upload-locationUrl"
+                name="locationUrl"
+                value={formData.locationUrl}
+                onChange={handleInputChange}
+                className="upload-input url"
+              />
+            </label>
+          </div>
+          <div className="upload-right-section">
+            <label htmlFor="upload-location" className="upload-label">
+              Location
+              <input
+                type="text"
+                id="upload-location"
+                name="location"
+                value={formData.location}
+                onChange={handleInputChange}
+                className="upload-input"
+                required
+              />
+            </label>
+            <label htmlFor="upload-subLocation" className="upload-label">
+              Sub-Location
+              <input
+                type="text"
+                id="upload-subLocation"
+                name="subLocation"
+                value={formData.subLocation}
+                onChange={handleInputChange}
+                className="upload-input"
+                required
+              />
+            </label>
+            <label htmlFor="upload-description" className="upload-label">
+              Description
+              <textarea
+                id="upload-description"
+                name="description"
+                value={formData.description}
+                onChange={handleInputChange}
+                className="upload-input"
+                required
+              />
+            </label>
+          </div>
+          <div className="upload-buttons">
+            <button type="submit" className="submit-button">
+              Add
+            </button>
+            <button
+              type="button"
+              className="cancel-button"
+              onClick={handleCancel}
+            >
+              Cancel
+            </button>
+          </div>
+        </form>
       </div>
+      <Footer />
     </>
   );
 };

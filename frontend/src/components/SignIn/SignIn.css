@@ -1,14 +1,3 @@
-* {
-  font-size: 62.5%;
-  box-sizing: border-box;
-  color: #000;
-}
-
-body {
-  margin: 0;
-  font-family: "Poppins", sans-serif;
-}
-
 .loginSignup-container {
   position: relative;
   height: 100vh;
@@ -32,11 +21,11 @@ body {
 
 .loginSignup-form-container {
   position: relative;
-  width: 90rem;
-  height: 55rem;
+  width: 56.25rem;
+  height: 34.375rem;
   display: flex;
   overflow: hidden;
-  border-radius: 10px;
+  border-radius: 4px;
   border: 5px solid white;
   box-sizing: border-box;
 }
@@ -48,17 +37,17 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  border-radius: 10px;
+  border-radius: 4px;
   box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.8);
   pointer-events: none;
 }
 
 .loginSignup-overlay {
   position: absolute;
-  width: 45rem;
-  height: 55rem;
+  width: 28.125rem;
+  height: 34.375rem;
   top: 0;
-  left: 45.1rem;
+  left: 28.1875rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -68,12 +57,12 @@ body {
 
 .loginSignup-overlay-content {
   text-align: center;
-  padding: 2rem;
+  padding: 1rem;
 }
 
 .loginSignup-overlay-content .overlay-line-1 {
-  margin-bottom: 2rem;
-  font-size: 4rem;
+  margin-bottom: 1rem;
+  font-size: 2rem;
   color: #e0fccc;
   /* color: green; */
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
@@ -81,22 +70,21 @@ body {
 }
 
 .loginSignup-overlay-content .overlay-line-2 {
-  margin-bottom: 2rem;
-  font-size: 2rem;
+  margin-bottom: 1rem;
+  font-size: 1rem;
   color: rgba(255, 255, 255, 0.6);
   font-weight: 400;
   margin: 0 3.5rem;
 }
 
 .loginSignup-overlay-content button {
-  width: 12rem;
   padding: 0.5rem 1rem;
-  border-radius: 10px;
+  border-radius: 4px;
   background-color: rgba(255, 255, 255, 0.1);
   color: #fff;
   cursor: pointer;
-  font-size: 2rem;
-  margin-top: 4rem;
+  font-size: 1rem;
+  margin-top: 2rem;
   border: 1.5px solid green;
   font-weight: 500;
   transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
@@ -136,8 +124,8 @@ body {
 }
 
 .loginSignup-login-form h2 {
-  font-size: 2.5rem;
-  margin-bottom: 4rem;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
   color: #333;
   font-weight: 500;
 }
@@ -145,27 +133,26 @@ body {
 .loginSignup-login-form .loginSignup-form-group {
   display: flex;
   flex-direction: column;
-  font-size: 1rem;
-  padding: 0 3rem;
+  padding: 0 2rem;
   width: 100%;
 }
 
 .loginSignup-login-form input {
-  border-radius: 10px;
+  border-radius: 4px;
   border: 1px solid #555;
-  font-size: 1.5rem;
-  height: 3.5rem;
+  font-size: 1rem;
+  height: 2rem;
   padding: 1rem;
 }
 
 .loginSignup-login-form label {
   color: #333;
-  font-size: 1.5rem;
+  font-size: 1rem;
 }
 
 .loginSignup-forgot-password {
   color: #555;
-  font-size: 1.5rem;
+  font-size: 1rem;
 }
 
 input[type="password"]::-ms-reveal,
@@ -174,16 +161,14 @@ input[type="password"]::-ms-clear {
 }
 
 .loginSignup-auth-btn {
-  width: 12rem;
-  height: 3.5rem;
   padding: 0.5rem 1rem;
-  font-size: 2rem;
+  font-size: 1rem;
   border: none;
-  border-radius: 10px;
+  border-radius: 4px;
   background-color: green;
   color: #fff;
   cursor: pointer;
-  margin-top: 4rem;
+  margin-top: 1rem;
   box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1);
   font-weight: 500;
   transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
@@ -201,7 +186,7 @@ input[type="password"]::-ms-clear {
   justify-content: center;
   align-items: center;
   position: relative;
-  gap: 2.5rem;
+  gap: 1rem;
 }
 
 .loginSignup-signup-form .loginSignup-form-group {
@@ -216,43 +201,43 @@ input[type="password"]::-ms-clear {
 }
 
 .loginSignup-signup-form h2 {
-  font-size: 2.5rem;
+  font-size: 1.5rem;
   color: #333;
   font-weight: 500;
   margin-bottom: 1rem;
 }
 
 .loginSignup-signup-form input {
-  font-size: 1.4rem;
-  border-radius: 10px;
+  font-size: 1rem;
+  border-radius: 4px;
   border: 1px solid #777;
   color: #000;
-  height: 3rem;
+  height: 2rem;
   width: 100%;
   padding: 0.5rem;
 }
 
 .loginSignup-signup-form select {
   width: 100%;
-  border-radius: 10px;
-  height: 3rem;
-  font-size: 1.2rem;
+  border-radius: 4px;
+  height: 2rem;
+  font-size: 0.75rem;
   border: 1px solid #555;
   color: #000;
 }
 
 .loginSignup-signup-form option {
-  font-size: 1.2rem;
+  font-size: 1rem;
 }
 
 .loginSignup-signup-form option:nth-child(1) {
-  font-size: 1.2rem;
+  font-size: 1rem;
   color: #555;
   pointer-events: none;
 }
 
 .loginSignup-signup-form label {
-  font-size: 1.3rem;
+  font-size: 0.75rem;
   color: #333;
 }
 
@@ -269,8 +254,8 @@ input[type="password"]::-ms-clear {
 }
 
 .loginSignup-overlay.login video {
-  border-top-right-radius: 10px;
-  border-bottom-right-radius: 10px;
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
 }
 
 .loginSignup-overlay.signup {
@@ -294,24 +279,23 @@ input[type="password"]::-ms-clear {
   left: 1%;
   color: #fff;
   cursor: pointer;
-  font-size: 3.2rem;
+  font-size: 2rem;
   letter-spacing: 1px;
 }
 
-.loginSignup-signup-form .loginSignup-auth-btn {
+/* .loginSignup-signup-form .loginSignup-auth-btn {
   width: 12rem;
   padding: 0.5rem 1rem;
   border: none;
   border-radius: 10px;
   background-color: green;
   color: #fff;
-
   cursor: pointer;
-  font-size: 1.8rem;
+  font-size: 1rem;
   box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1);
   font-weight: 500;
   transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
-}
+} */
 
 .loginSignup-auth-btn:hover {
   transform: scale(1.05);
@@ -324,24 +308,24 @@ input[type="password"]::-ms-clear {
 
 .loginSignup-error-message {
   color: red;
-  font-size: 1.2rem;
+  font-size: 1rem;
 }
 
 .loginSignup-error-message.login {
   color: red;
-  font-size: 1.4rem;
+  font-size: 1rem;
 }
 
 .loginSignup-error-message.signup-top {
   position: absolute;
-  font-size: 1.4rem;
+  font-size: 1rem;
   color: red;
   top: 15%;
 }
 
 /* Username availability status */
 .loginSignup-username-status {
-  font-size: 1.2rem;
+  font-size: 1rem;
 }
 
 .loginSignup-username-status.available {
@@ -368,7 +352,7 @@ input[type="password"]::-ms-clear {
   right: 10px;
   cursor: pointer;
   color: #333;
-  font-size: 1rem;
+  font-size: 0.75rem;
 }
 
 .forgot-password {
