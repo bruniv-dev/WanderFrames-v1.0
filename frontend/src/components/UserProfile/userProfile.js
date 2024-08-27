@@ -4,6 +4,7 @@ import { fetchUserProfile, fetchUserPosts } from "../api-helpers/helpers";
 import CardLayout from "../Card-layout/cardLayout";
 import "./UserProfile.css";
 import Header from "../Header/header";
+import Footer from "../footer/footer";
 //TO VIEW OTHER USER PROFILE
 const UserProfile = () => {
   const location = useLocation();
@@ -50,7 +51,6 @@ const UserProfile = () => {
         classNamesignin="user-profile-signin"
       />
       <div className="user-profile-container">
-        <h1>{`${user.username}'s Profile`}</h1>
         {user ? (
           <div className="user-profile-details">
             <div className="user-profile-image">
@@ -61,16 +61,21 @@ const UserProfile = () => {
               <h3
                 style={{ color: "gray" }}
               >{`${user.firstName} ${user.lastName}`}</h3>
-              <p>Email: {user.email}</p>
-              <p>Bio: {user.bio || "No bio available"}</p>
-              <p>Joined: {new Date(user.createdAt).toLocaleDateString()}</p>
+              <p className="user-profile-email">Email: {user.email}</p>
+              <p className="user-profile-bio">
+                {" "}
+                {user.bio || "No bio available"}
+              </p>
+              <p className="user-profile-role">{user.role}</p>
+              <p className="user-profile-joined">
+                Joined: {new Date(user.createdAt).toLocaleDateString()}
+              </p>
             </div>
           </div>
         ) : (
           <p>No user data available</p>
         )}
         <div className="user-posts-section">
-          <h2>{user ? `${user.username}'s Posts` : "Posts"}</h2>
           {posts.length > 0 ? (
             <CardLayout cardsData={posts} />
           ) : (
@@ -79,6 +84,7 @@ const UserProfile = () => {
         </div>
         {error && <div className="error-message">{error}</div>}
       </div>
+      <Footer />
     </>
   );
 };

@@ -15,21 +15,6 @@
   color: #fff;
 }
 
-.role-select {
-  width: 7rem;
-  height: 3.5rem;
-  border-radius: 10px;
-  padding: 0.5rem;
-  font-size: 1.3rem;
-  border: 1px solid #ccc;
-}
-
-.role-select option {
-  width: 100%;
-  font-size: 1.3rem;
-  padding: 1rem;
-}
-
 .postActions-container .card-kebab-menu-container {
   display: none;
 }

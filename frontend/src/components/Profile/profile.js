@@ -975,6 +975,8 @@ import ResetPassword from "../ResetPassword/resetPassword";
 import Popup from "../ErrorPages/PopupCard";
 import Loading from "../Loading/Loading";
 import Footer from "../footer/footer";
+import { MdDelete, MdEdit } from "react-icons/md";
+import { RiKey2Fill } from "react-icons/ri";
 
 const Profile = () => {
   const [user, setUser] = useState(null);
@@ -1116,6 +1118,7 @@ const Profile = () => {
                 }
                 className="profile-edit-button"
               >
+                <MdEdit className="mdedit" />
                 Edit Profile
               </button>
 
@@ -1123,12 +1126,14 @@ const Profile = () => {
                 onClick={() => setIsResettingPassword(true)}
                 className="reset-password-button"
               >
+                <RiKey2Fill className="resetpasswordicon" />
                 Reset Password
               </button>
               <button
                 onClick={() => setShowDeletePopup(true)}
                 className="profile-delete-button"
               >
+                <MdDelete className="mddelete" />
                 Delete Account
               </button>
             </div>
@@ -1144,7 +1149,7 @@ const Profile = () => {
               isProfile={true}
             />
           ) : (
-            <p className="no-posts-message">No posts available</p>
+            <p className="no-posts-message">No posts yet</p>
           )}
         </div>
 

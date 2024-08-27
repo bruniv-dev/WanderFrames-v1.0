@@ -1,6 +1,7 @@
 .card-container {
   width: 100%;
   position: relative;
+  width: 280px;
   max-width: 280px;
   display: flex;
   gap: 0.5rem;
@@ -272,25 +273,13 @@
 }
 
 .card-delete-button:hover,
-.card-edit-button:hover,
 .card-admin-delete-button:hover {
-  background-color: var(--hover);
-  fill: #000;
+  fill: red;
 }
 
-.card-admin-delete-button {
-  position: absolute;
-  top: 15px;
-  right: 15px;
-  width: 25px;
-  height: 25px;
-  border: none;
-  cursor: pointer;
-  border-radius: 7px;
-  /* background-color: rgba(0, 0, 0, 0.8); */
-  /* background-color: white; */
-  padding: 2px;
-  fill: red;
+.card-edit-button:hover {
+  background-color: var(--hover);
+  fill: #000;
 }
 
 /* Kebab Menu Container */
@@ -319,31 +308,29 @@
 /* Kebab Menu Dropdown */
 .card-kebab-menu {
   position: absolute;
-  top: 35px; /* Adjust to position below the kebab icon */
+  top: 1.5rem;
   right: 0;
   background-color: white;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  width: 120px;
+  border: 0.5px solid #ddd;
+  border-radius: 4px;
   z-index: 10;
 }
 
 /* Kebab Menu Items */
 .card-kebab-menu-item {
-  padding: 8px 10px;
+  padding: 0.5rem 1rem;
   display: flex;
   align-items: center;
   gap: 4px;
-  font-size: 1.2rem;
+  font-size: 0.75rem;
   color: #333;
   cursor: pointer;
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .card-kebab-menu-item:hover {
-  background-color: var(--primary-color);
-  color: #000;
+  color: var(--primary-color);
+  text-decoration: underline;
 }
 
 .card-kebab-menu-item .card-kebab-menu-icon {
@@ -353,7 +340,7 @@
 }
 
 .card-kebab-menu-item:hover .card-kebab-menu-icon {
-  fill: #000;
+  fill: var(--primary-color);
 }
 
 .card-admin-delete-button {

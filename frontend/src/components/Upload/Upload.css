@@ -22,16 +22,15 @@
   align-items: center;
   justify-content: center;
   padding: 1rem;
-  margin: 2rem auto;
+  margin: 4rem auto;
 }
 
 .upload-form {
-  width: 70%;
-  max-width: 1000px;
+  width: 60%;
   min-width: 400px;
   display: flex;
   flex-wrap: wrap;
-  padding: 2rem;
+  padding: 1rem;
   border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 4px;
   box-sizing: border-box;
@@ -47,13 +46,14 @@
   flex-direction: column;
   min-width: 350px;
   margin: 0 auto;
+  gap: 0.75rem;
 }
 
 .upload-label {
   display: block;
-  font-weight: 500;
-  color: #333;
-  font-size: 1rem;
+  font-weight: 400;
+  color: #555;
+  font-size: 0.875rem;
 }
 
 .upload-input {
@@ -77,13 +77,13 @@
   font-size: 1rem;
   color: #777;
   padding: 0.5rem 1rem;
-  border: 1px solid ghostwhite;
+  border: 1px solid #ddd;
   border-radius: 4px;
   box-sizing: border-box;
 }
 
 #upload-images::-webkit-file-upload-button {
-  background-color: green;
+  background-color: var(--primary-color);
   color: #fff;
   padding: 0.5rem 1rem;
   border: none;
@@ -119,7 +119,7 @@
 .upload-buttons {
   display: flex;
   gap: 1rem;
-  margin: 1rem auto 0;
+  margin: 1rem auto;
   justify-content: center;
   width: 100%;
   box-sizing: border-box;

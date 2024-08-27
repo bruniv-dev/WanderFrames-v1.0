@@ -245,27 +245,29 @@ const UserCard = ({
         <p className="role" style={{ color: isAdmin ? "red" : "black" }}>
           {role}
         </p>
+        <p className="email"> {email}</p>
         <p className="joined">Joined: {formatDate(createdAt)}</p>
-        <p className="email">Email: {email}</p>
-        <p className="bio">{bio || "No bio available"}</p>
+
+        {/* <p className="bio">{bio || "No bio available"}</p> */}
+
+        {loggedInUserId !== userId && currentUserIsAdmin && (
+          <>
+            {!isAdmin ? (
+              <button className="make-admin-button" onClick={makeAdmin}>
+                Make Admin
+              </button>
+            ) : (
+              <button className="remove-admin-button" onClick={removeAdmin}>
+                Remove Admin
+              </button>
+            )}
+            <MdDeleteForever
+              className="admin-delete-button"
+              onClick={onAdminDelete}
+            />
+          </>
+        )}
       </div>
-      {loggedInUserId !== userId && currentUserIsAdmin && (
-        <>
-          {!isAdmin ? (
-            <button className="make-admin-button" onClick={makeAdmin}>
-              Make Admin
-            </button>
-          ) : (
-            <button className="remove-admin-button" onClick={removeAdmin}>
-              Remove Admin
-            </button>
-          )}
-          <MdDeleteForever
-            className="admin-delete-button"
-            onClick={onAdminDelete}
-          />
-        </>
-      )}
     </div>
   );
 };

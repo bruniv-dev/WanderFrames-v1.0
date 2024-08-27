@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import "./EditPost.css";
 import Header from "../Header/header";
 import { fetchPostById, updatePost } from "../api-helpers/helpers";
+import Footer from "../footer/footer";
 
 const EditPost = () => {
   const location = useLocation();
@@ -105,7 +106,7 @@ const EditPost = () => {
         {post && (
           <form className="edit-form" onSubmit={handleSubmit}>
             <div className="left-section">
-              <label className="edit-label images">Images:</label>
+              <p className="edit-label images">Images:</p>
               <div className="image-slider">
                 {formData.images.length > 0 && (
                   <>
@@ -226,6 +227,7 @@ const EditPost = () => {
           </form>
         )}
       </div>
+      <Footer />
     </>
   );
 };

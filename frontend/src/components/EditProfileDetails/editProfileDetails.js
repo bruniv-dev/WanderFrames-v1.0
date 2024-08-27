@@ -9,10 +9,11 @@ import {
 import "./EditProfileDetails.css";
 import { useNavigate, useLocation } from "react-router-dom";
 import Header from "../Header/header";
+import Footer from "../footer/footer";
 
 const EditProfileDetails = () => {
   const location = useLocation();
-  const { userId } = location.state || {}; // Access userId from location state
+  const { userId } = location.state || {};
   const [user, setUser] = useState(null);
   const [username, setUserName] = useState("");
   const [firstName, setFirstName] = useState("");
@@ -208,9 +209,9 @@ const EditProfileDetails = () => {
                   <input
                     type="file"
                     accept="image/*"
-                    id="images"
+                    className="images"
                     onChange={handleImageChange}
-                    className="editProfileDetails-choose-file"
+                    id="upload-image-editprofile"
                   />
                   {error && <p className="error-message">{error}</p>}
                   {successMessage && (
@@ -241,31 +242,28 @@ const EditProfileDetails = () => {
                 </p>
               </div>
               <div className="form-group">
-                <div className="first-last">
-                  <div>
-                    <label htmlFor="firstName">First Name</label>
-                    <input
-                      name="firstName"
-                      value={firstName}
-                      onChange={(e) => setFirstName(e.target.value)}
-                      type="text"
-                      id="firstName"
-                      required
-                    />
-                  </div>
-                  <div>
-                    <label htmlFor="lastName">Last Name</label>
-                    <input
-                      name="lastName"
-                      value={lastName}
-                      onChange={(e) => setLastName(e.target.value)}
-                      type="text"
-                      id="lastName"
-                      required
-                    />
-                  </div>
-                </div>
+                <label htmlFor="firstName">First Name</label>
+                <input
+                  name="firstName"
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
+                  type="text"
+                  id="firstName"
+                  required
+                />
               </div>
+              <div className="form-group">
+                <label htmlFor="lastName">Last Name</label>
+                <input
+                  name="lastName"
+                  value={lastName}
+                  onChange={(e) => setLastName(e.target.value)}
+                  type="text"
+                  id="lastName"
+                  required
+                />
+              </div>
+
               <div className="form-group">
                 <label>Bio</label>
                 <textarea
@@ -274,26 +272,27 @@ const EditProfileDetails = () => {
                   placeholder="Write a little about yourself..."
                 />
               </div>
-              <div className="form-buttons">
-                <button
-                  type="submit"
-                  disabled={loading}
-                  className="submit-button"
-                >
-                  {loading ? "Saving..." : "Save"}
-                </button>
-                <button
-                  type="button"
-                  onClick={handleCancel}
-                  className="cancel-button"
-                >
-                  Cancel
-                </button>
-              </div>
+            </div>
+            <div className="form-buttons">
+              <button
+                type="submit"
+                disabled={loading}
+                className="submit-button"
+              >
+                {loading ? "Saving..." : "Save"}
+              </button>
+              <button
+                type="button"
+                onClick={handleCancel}
+                className="cancel-button"
+              >
+                Cancel
+              </button>
             </div>
           </form>
         </div>
       </div>
+      <Footer />
     </>
   );
 };

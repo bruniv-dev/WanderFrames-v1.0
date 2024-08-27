@@ -1,23 +1,8 @@
 .user-actions-container {
   display: flex;
   flex-wrap: wrap;
-  gap: 16px;
-  padding: 16px;
+  gap: 1rem;
+  padding: 1rem;
   align-items: center;
   justify-content: center;
-}
-
-.role-select {
-  width: 7rem;
-  height: 3.5rem;
-  border-radius: 10px;
-  padding: 0.5rem;
-  font-size: 1.3rem;
-  border: 1px solid #ccc;
-}
-
-.role-select option {
-  width: 100%;
-  font-size: 1.3rem;
-  padding: 1rem;
 }

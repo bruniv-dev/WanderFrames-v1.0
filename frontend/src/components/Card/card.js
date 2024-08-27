@@ -776,7 +776,9 @@ const Card = ({
 
   const handleDeleteClick = async (e) => {
     e.stopPropagation();
+    setPopupTitle("Please Confirm");
     setPopupMessage("Are you sure you want to delete this post?");
+    setConfirmBtnText("Delete");
     setShowPopup(true);
     setPopupConfirmHandler(() => async () => {
       try {
@@ -795,8 +797,10 @@ const Card = ({
 
   const handleAdminDeleteClick = (e) => {
     e.stopPropagation();
+    setPopupTitle("Please Confirm");
     setPopupMessage("Are you sure you want to delete this post?");
     setShowPopup(true);
+    setConfirmBtnText("Delete");
     setPopupConfirmHandler(() => () => {
       if (onAdminDelete) {
         onAdminDelete(_id);

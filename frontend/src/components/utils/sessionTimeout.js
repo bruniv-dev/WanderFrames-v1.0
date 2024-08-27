@@ -162,7 +162,7 @@ const SessionTimeout = () => {
       showPopup={showPopup}
       onClose={handleClose}
       onConfirm={handleConfirm}
-      confirmText="Login"
+      confirmBtnText="Login"
       message={{
         title: "Session Expired",
         body: "Your session has expired. Please log in again to continue.",

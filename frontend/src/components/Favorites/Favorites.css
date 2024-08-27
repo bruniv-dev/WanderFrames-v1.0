@@ -22,9 +22,9 @@
 
 .no-favorites-message {
   text-align: center;
-  font-size: 1rem;
+  font-size: 1.25rem;
   font-weight: 500;
-  color: #777;
+  color: #aaa;
   margin-top: 10rem;
 }
 

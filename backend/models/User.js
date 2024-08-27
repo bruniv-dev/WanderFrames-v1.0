@@ -71,7 +71,7 @@ const userSchema = new Schema({
   },
   role: {
     type: String,
-    default: "user",
+    default: "User",
   },
   // resetToken: String,
   // resetTokenExpiration: Date,
