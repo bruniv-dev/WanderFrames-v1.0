@@ -9,21 +9,22 @@
 }
 
 .footer__container {
-  /* display: grid;
-  grid-template-columns: 1.5fr 1.5fr 1fr 1fr 1fr; */
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   width: 100%;
   margin: 0 auto;
-  padding: 0 1rem;
   box-sizing: border-box;
+  justify-content: space-around;
+  gap: 1rem;
 }
 
 .footer__logo {
   display: block;
   font-size: 1.5rem;
   font-weight: 700;
+  text-decoration: none;
+  line-height: 1;
+  margin-bottom: 1rem;
 }
 
 .footer__social-links {
@@ -41,14 +42,14 @@
   font-size: 0.75rem;
   color: #767676;
   line-height: 1.6;
-  margin-top: auto;
+  margin-top: 1rem;
 }
 
 .footer__contacts {
   font-style: normal;
   font-size: 0.75rem;
   line-height: 1.6;
-  margin-right: 2rem;
+  margin-right: 1rem;
 }
 
 .footer__address {
@@ -59,7 +60,7 @@
 .footer__heading {
   font-size: 0.75rem;
   font-weight: 500;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
 }
 
 .footer__nav {

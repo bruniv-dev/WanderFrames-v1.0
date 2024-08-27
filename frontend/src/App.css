@@ -6,8 +6,8 @@
   box-sizing: border-box;
   font-family: "Poppins", sans-serif;
   color: black;
-  --primary-color: green;
-  --hover: darkgreen;
+  --primary-color: #78b500;
+  --hover: #588506;
 }
 
 html {

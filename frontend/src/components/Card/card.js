@@ -697,6 +697,7 @@ const Card = ({
   subLocation,
   description,
   date,
+  postedAt,
   _id,
   userId, // Author's userId
   locationUrl,
@@ -718,6 +719,20 @@ const Card = ({
   const [popupTitle, setPopupTitle] = useState("");
   const [confirmBtnText, setConfirmBtnText] = useState("");
   const navigate = useNavigate();
+
+  const formatPostDate = (dateString) => {
+    if (!dateString) {
+      return "Date not available"; // Fallback if the date is invalid or undefined
+    }
+
+    const date = new Date(dateString);
+    if (isNaN(date.getTime())) {
+      return "Invalid date"; // Handle cases where dateString cannot be converted to a valid date
+    }
+
+    const options = { day: "2-digit", month: "long", year: "numeric" };
+    return new Intl.DateTimeFormat("en-GB", options).format(date);
+  };
 
   useEffect(() => {
     // Fetch author details
@@ -833,17 +848,6 @@ const Card = ({
     navigate("/userProfile", { state: { userId } });
   };
 
-  const formatDate = (dateString) => {
-    const options = {
-      day: "2-digit",
-      month: "long",
-      year: "numeric",
-    };
-    return new Intl.DateTimeFormat("en-GB", options).format(
-      new Date(dateString)
-    );
-  };
-
   const uniqueImages = Array.from(new Set(images.map((img) => img.url))).map(
     (url) => images.find((img) => img.url === url)
   );
@@ -952,7 +956,8 @@ const Card = ({
                   <p className="card-role">
                     {authorDetails.isAdmin ? "Admin" : "User"}
                   </p>
-                  <p className="card-date">{formatDate(date)}</p>
+
+                  <p className="card-date">{formatPostDate(postedAt)}</p>
                 </div>
               </div>
             </>

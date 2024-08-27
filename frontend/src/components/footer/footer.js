@@ -50,11 +50,11 @@ const Footer = () => {
           <p className="footer__heading">Contact Us</p>
           <address className="footer__contacts">
             <p className="footer__address">
-              623 Harrison St., 2nd Floor, San Francisco, CA 94107
+              1608 Abcdef St., 2nd Floor, Ghijkel 635-110
             </p>
             <p>
-              <a className="footer__link" href="tel:415-201-6370">
-                415-201-6370
+              <a className="footer__link" href="tel:123-456-7890">
+                123-456-7890
               </a>
               <br />
               <a className="footer__link" href="mailto:hello@omnifood.com">

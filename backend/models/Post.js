@@ -31,5 +31,9 @@ const postSchema = new mongoose.Schema({
     required: true,
   },
   locationUrl: { type: String },
+  postedAt: {
+    type: Date,
+    default: Date.now,
+  },
 });
 export default mongoose.model("Post", postSchema);

@@ -27,7 +27,7 @@
 
 .upload-form {
   width: 60%;
-  min-width: 400px;
+  min-width: 350px;
   display: flex;
   flex-wrap: wrap;
   padding: 1rem;
@@ -39,12 +39,12 @@
 
 .upload-left-section,
 .upload-right-section {
-  width: 48%; /* Allows slight gap between sections */
+  width: 48%;
   padding: 1rem;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  min-width: 350px;
+  min-width: 300px;
   margin: 0 auto;
   gap: 0.75rem;
 }
@@ -74,7 +74,7 @@
 
 #upload-images {
   width: 100%;
-  font-size: 1rem;
+  font-size: 0.875rem;
   color: #777;
   padding: 0.5rem 1rem;
   border: 1px solid #ddd;
@@ -155,4 +155,7 @@
 .upload-buttons .cancel-button:hover {
   color: var(--hover);
   border: 1px solid var(--hover);
+}
+
+@media (max-width: 600px) {
 }

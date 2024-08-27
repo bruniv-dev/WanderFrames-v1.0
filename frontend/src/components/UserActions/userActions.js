@@ -1112,6 +1112,12 @@ const UserActions = () => {
 
       return matchesRole && matchesSearchQuery;
     });
+
+    filtered.sort((a, b) => {
+      if (a._id === loggedInUserId) return -1; // Logged-in user comes first
+      if (b._id === loggedInUserId) return 1;
+      return 0;
+    });
     setFilteredUsers(filtered);
   }, [searchQuery, filterCategory, usersData]);
 

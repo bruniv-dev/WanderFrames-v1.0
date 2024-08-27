@@ -133,6 +133,7 @@ const CardLayout = ({
           subLocation={card.subLocation}
           description={card.description}
           date={card.date}
+          postedAt={card.postedAt}
           locationUrl={card.locationUrl}
           onFavoriteToggle={
             onFavoriteToggle ? () => onFavoriteToggle(card._id) : null

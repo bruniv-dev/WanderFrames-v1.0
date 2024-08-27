@@ -46,7 +46,7 @@ const Home = () => {
       <div className="home-container">
         <video autoPlay loop muted playsInline onLoadedData={handleVideoLoad}>
           <source
-            src={`${process.env.PUBLIC_URL}/darkwoodsclip.mp4`}
+            src={`${process.env.PUBLIC_URL}/beach3.mp4`}
             type="video/mp4"
           />
           Your browser does not support the video tag.

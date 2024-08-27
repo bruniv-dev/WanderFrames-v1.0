@@ -493,12 +493,12 @@ const Header = ({
 
   const adminLink = [
     {
-      name: "User Actions",
+      name: "Users",
       id: "user-actions",
       path: "/user-actions",
     },
     {
-      name: "Post Actions",
+      name: "Posts",
       id: "post-actions",
       path: "/post-actions",
     },

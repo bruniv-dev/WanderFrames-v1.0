@@ -3,17 +3,9 @@
   justify-content: center;
   align-items: center;
   width: 100%;
+  margin: 0 auto;
   box-sizing: border-box;
-}
-
-.edit-profile-content {
-  background-color: #fff;
-  width: 70%;
-  min-width: 350px;
-  padding: 2rem;
-  border-radius: 4px;
-  border: 0.5px solid #aaa;
-  margin: 3rem auto;
+  overflow: hidden;
 }
 
 .edit-profile-form {
@@ -21,25 +13,34 @@
   justify-content: space-between;
   gap: 1rem;
   flex-wrap: wrap;
+  background-color: #fff;
+  width: 90%;
+  min-width: 350px;
+  padding: 2rem;
+  border-radius: 4px;
+  border: 0.5px solid #aaa;
+  margin: 3rem auto;
 }
 
-.left-section {
-  width: 40%;
+.edit-profile-form .left-section {
+  width: 48%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding-left: 1rem;
+  /* padding-left: 1rem; */
   margin: 0 auto;
+  min-width: 300px;
 }
 
-.right-section {
+.edit-profile-form .right-section {
   display: flex;
   flex-direction: column;
-  width: 55%;
+  width: 48%;
   padding-right: 1rem;
   justify-content: center;
   margin: 0 auto;
+  min-width: 300px;
 }
 
 .scale-controls {
@@ -82,6 +83,8 @@
   border: 1px solid #ddd;
   border-radius: 4px;
   box-sizing: border-box;
+  min-width: 250px;
+  max-width: 300px;
 }
 
 #upload-image-editprofile::-webkit-file-upload-button {
@@ -119,6 +122,8 @@
   border: 1px solid #ddd;
   border-radius: 4px;
   font-size: 1rem;
+  min-width: 300px;
+  max-width: 500px;
 }
 
 .form-group textarea {
@@ -145,6 +150,7 @@
   gap: 1rem;
   margin: 0.5rem auto 0;
   align-items: center;
+  min-width: 300px;
 }
 
 .form-buttons button {

@@ -209,18 +209,23 @@
   }
 
   .white.open {
-    display: block; /* Display the container when the menu is open */
-    height: 100vh; /* Auto height to fit content */
+    display: block;
+    height: 100vh;
+    overflow: hidden;
   }
 
   .nav {
     display: flex;
-    flex-direction: column; /* Stack items vertically */
-    align-items: flex-start; /* Align items to the start */
-    gap: 1rem; /* Space between items */
-    padding: 0; /* Remove padding if any */
-    margin: 0; /* Remove margin if any */
-    width: 100%; /* Ensure full width for the container */
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 0;
+    margin: 0;
+    width: 50%;
+  }
+
+  .nav.home-nav a {
+    color: #000;
   }
 
   .nav a {

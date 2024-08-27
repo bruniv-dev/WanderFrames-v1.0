@@ -25,7 +25,7 @@ video {
   height: 100vh;
   object-fit: cover;
   z-index: -1;
-  filter: brightness(70%);
+  filter: brightness(40%);
 }
 
 .header.home-header {
