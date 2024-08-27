@@ -363,6 +363,10 @@ input[type="password"]::-ms-clear {
   text-align: center;
 }
 
+.mobile-overlay-alternative {
+  display: none;
+}
+
 @media (max-width: 950px) {
   .loginSignup-container {
     flex-direction: column;
@@ -401,7 +405,18 @@ input[type="password"]::-ms-clear {
     top: 1%;
   }
 
-  .loginSignup-signup-form {
+  .mobile-overlay-alternative {
+    display: flex;
+    gap: 0.75rem;
+  }
+
+  .mobile-overlay {
+    border: none;
+    background: transparent;
+    color: var(--primary-color);
+  }
+
+  .hidden {
     display: none;
   }
 }

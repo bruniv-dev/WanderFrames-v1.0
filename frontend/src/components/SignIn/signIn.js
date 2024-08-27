@@ -39,6 +39,7 @@ const SignInSignUp = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const debounceTimeout = useRef(null);
+  const [mobileLogin, setMobileLogin] = useState(false);
 
   useEffect(() => {
     setInputs({
@@ -267,6 +268,10 @@ const SignInSignUp = () => {
     setLoading(false);
   };
 
+  const handleMobileOverlayForLogin = () => {
+    setMobileLogin(!mobileLogin);
+  };
+
   return (
     <div className="loginSignup-container">
       {loading && <Loading />}
@@ -283,7 +288,7 @@ const SignInSignUp = () => {
       >
         <source src="beach3.mp4" type="video/mp4" />
       </video>
-      <div className="loginSignup-form-container">
+      <div className="loginSignup-form-container ">
         <div className={`loginSignup-overlay ${isSignUp ? "signup" : "login"}`}>
           <video autoPlay muted loop onLoadedData={handleVideoLoad}>
             <source src="road.mp4" type="video/mp4" preload="auto" />
@@ -313,7 +318,9 @@ const SignInSignUp = () => {
           </div>
         </div>
         <div className="loginSignup-forms">
-          <div className="loginSignup-login-form">
+          <div
+            className={`loginSignup-login-form ${mobileLogin ? "hidden" : ""}`}
+          >
             <h2>Log In</h2>
             {errors.form && (
               <p className="loginSignup-error-message login">{errors.form}</p>
@@ -370,9 +377,22 @@ const SignInSignUp = () => {
             >
               Log In
             </button>
+            <div className="mobile-overlay-alternative">
+              <p>Don't have an account?</p>
+              <button
+                type="button"
+                className="mobile-overlay"
+                onClick={handleMobileOverlayForLogin}
+              >
+                Sign Up
+              </button>
+            </div>
           </div>
-
-          <div className="loginSignup-signup-form">
+          <div
+            className={`loginSignup-signup-form ${
+              !mobileLogin ? "hidden" : ""
+            }`}
+          >
             <h2>Sign Up</h2>
             {errors.form && (
               <p className="loginSignup-error-message signup-top">
@@ -535,6 +555,16 @@ const SignInSignUp = () => {
             >
               Sign Up
             </button>
+            <div className="mobile-overlay-alternative">
+              <p>already have an account?</p>
+              <button
+                type="button"
+                className="mobile-overlay"
+                onClick={handleMobileOverlayForLogin}
+              >
+                Log In
+              </button>
+            </div>
           </div>
         </div>
       </div>
