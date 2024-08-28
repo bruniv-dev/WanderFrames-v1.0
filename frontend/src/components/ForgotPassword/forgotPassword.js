@@ -33,7 +33,6 @@ const ForgotPassword = () => {
       const response = await sendResetPasswordRequest(identifier);
       setSecurityQuestion(response.securityQuestion);
       setUserId(response.userId);
-      localStorage.setItem("userId", response.userId); // Store userId in local storage
       setIsLoading(false);
     } catch (err) {
       console.error("Error requesting password reset:", err);
@@ -78,7 +77,7 @@ const ForgotPassword = () => {
     setErrorMessage(""); // Clear error message before attempting reset
     setPasswordError(""); // Clear password error message before attempting reset
     try {
-      const userId = localStorage.getItem("userId");
+      // const userId = localStorage.getItem("userId");
       if (!userId) {
         setErrorMessage("User ID is missing. Please request a new reset.");
         return;
@@ -113,9 +112,12 @@ const ForgotPassword = () => {
 
   return (
     <>
-      <h2 className="forgotpassword-logo" onClick={() => navigate("/")}>
-        BRUNIV
-      </h2>
+      <img
+        className="signup-logo"
+        src={`${process.env.PUBLIC_URL}/Logo_green.svg`}
+        alt="Wander Frames Logo"
+        onClick={() => navigate("/")}
+      />
       <div className="container forgotPassword">
         {errorMessage && <div className="error-message">{errorMessage}</div>}
         {passwordError && <div className="error-message">{passwordError}</div>}
@@ -167,13 +169,13 @@ const ForgotPassword = () => {
                 onChange={(e) => setNewPassword(e.target.value)}
                 required
               />
-              <button
+              <p
                 type="button"
                 onClick={toggleNewPasswordVisibility}
                 className="toggle-password"
               >
                 {showNewPassword ? "Hide" : "Show"}
-              </button>
+              </p>
             </div>
             <div className="password-field">
               <label htmlFor="confirmPassword">Confirm New Password:</label>
@@ -184,13 +186,13 @@ const ForgotPassword = () => {
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 required
               />
-              <button
+              <p
                 type="button"
                 onClick={toggleConfirmPasswordVisibility}
                 className="toggle-password"
               >
                 {showConfirmPassword ? "Hide" : "Show"}
-              </button>
+              </p>
             </div>
             <button type="submit">Reset Password</button>
           </form>

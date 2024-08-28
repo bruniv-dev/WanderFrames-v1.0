@@ -13,6 +13,11 @@
   box-sizing: border-box;
 }
 
+.card-layout > * {
+  justify-self: stretch;
+  align-self: stretch;
+}
+
 /* Modal backdrop (black background) */
 .modal-backdrop {
   position: fixed;

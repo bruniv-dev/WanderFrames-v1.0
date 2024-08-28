@@ -1095,6 +1095,7 @@ const Profile = () => {
         classNamelogo="profile-logo"
         classNamenav="profile-nav"
         classNamesignin="profile-signin"
+        logoSrc={`Logo_green.svg`}
       />
       <div className="profile-container">
         {user ? (

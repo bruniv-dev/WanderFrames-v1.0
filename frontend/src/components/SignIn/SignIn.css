@@ -38,7 +38,7 @@
   width: 100%;
   height: 100%;
   border-radius: 4px;
-  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.8);
+  box-shadow: inset 0 0 2px rgba(0, 0, 0, 0.8);
   pointer-events: none;
 }
 
@@ -63,18 +63,19 @@
 .loginSignup-overlay-content .overlay-line-1 {
   margin-bottom: 1rem;
   font-size: 2rem;
+  color: var(--primary-color);
   color: #e0fccc;
-  /* color: green; */
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.9);
   letter-spacing: 0.5px;
 }
 
 .loginSignup-overlay-content .overlay-line-2 {
   margin-bottom: 1rem;
   font-size: 1rem;
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(255, 255, 255, 0.8);
+  /* color: #e0fccc; */
   font-weight: 400;
-  margin: 0 3.5rem;
+  margin: 0 2rem;
 }
 
 .loginSignup-overlay-content button {
@@ -85,7 +86,7 @@
   cursor: pointer;
   font-size: 1rem;
   margin-top: 2rem;
-  border: 1.5px solid green;
+  border: 1.5px solid var(--primary-color);
   font-weight: 500;
   transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
 }
@@ -103,13 +104,14 @@
   display: flex;
   width: 100%;
   height: 100%;
+  position: relative;
 }
 
 .loginSignup-login-form,
 .loginSignup-signup-form {
   width: 50%;
   height: 100%;
-  padding: 20px;
+  padding: 2rem;
   box-sizing: border-box;
 }
 
@@ -117,23 +119,29 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 1rem;
   justify-content: center;
   align-items: center;
   background: rgba(255, 255, 255);
 }
 
-.loginSignup-login-form h2 {
-  font-size: 1.5rem;
-  margin-bottom: 1rem;
+.loginSignup-login-form h2,
+.loginSignup-signup-form h2 {
+  font-size: 1.25rem;
   color: #333;
   font-weight: 500;
+  margin-bottom: 1.25rem;
+  position: relative;
+}
+
+.loginSignup-login-form h2 {
+  margin-bottom: 1.5rem;
 }
 
 .loginSignup-login-form .loginSignup-form-group {
   display: flex;
   flex-direction: column;
-  padding: 0 2rem;
+  /* padding: 0 2rem; */
   width: 100%;
 }
 
@@ -143,11 +151,14 @@
   font-size: 1rem;
   height: 2rem;
   padding: 1rem;
+  background-color: #fff;
 }
 
-.loginSignup-login-form label {
-  color: #333;
-  font-size: 1rem;
+.loginSignup-login-form label,
+.loginSignup-signup-form label {
+  color: #555;
+  font-size: 0.75rem;
+  margin-bottom: 0.5rem;
 }
 
 .loginSignup-forgot-password {
@@ -165,10 +176,9 @@ input[type="password"]::-ms-clear {
   font-size: 1rem;
   border: none;
   border-radius: 4px;
-  background-color: green;
+  background-color: var(--primary-color);
   color: #fff;
   cursor: pointer;
-  margin-top: 1rem;
   box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1);
   font-weight: 500;
   transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
@@ -200,13 +210,6 @@ input[type="password"]::-ms-clear {
   grid-template-columns: repeat(2, 1fr);
 }
 
-.loginSignup-signup-form h2 {
-  font-size: 1.5rem;
-  color: #333;
-  font-weight: 500;
-  margin-bottom: 1rem;
-}
-
 .loginSignup-signup-form input {
   font-size: 1rem;
   border-radius: 4px;
@@ -236,15 +239,11 @@ input[type="password"]::-ms-clear {
   pointer-events: none;
 }
 
-.loginSignup-signup-form label {
-  font-size: 0.75rem;
-  color: #333;
-}
-
 .loginSignup-security-first-last {
   display: grid;
   gap: 1rem;
   grid-template-columns: 1fr 0.5fr;
+  width: 100%;
 }
 
 .loginSignup-overlay.login {
@@ -281,25 +280,12 @@ input[type="password"]::-ms-clear {
   cursor: pointer;
   font-size: 2rem;
   letter-spacing: 1px;
+  width: 10rem;
 }
-
-/* .loginSignup-signup-form .loginSignup-auth-btn {
-  width: 12rem;
-  padding: 0.5rem 1rem;
-  border: none;
-  border-radius: 10px;
-  background-color: green;
-  color: #fff;
-  cursor: pointer;
-  font-size: 1rem;
-  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1);
-  font-weight: 500;
-  transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
-} */
 
 .loginSignup-auth-btn:hover {
   transform: scale(1.05);
-  background-color: darkgreen;
+  background-color: var(--hover);
 }
 
 .loginSignup-auth-btn:active {
@@ -308,28 +294,30 @@ input[type="password"]::-ms-clear {
 
 .loginSignup-error-message {
   color: red;
-  font-size: 1rem;
+  font-size: 0.5rem;
 }
 
 .loginSignup-error-message.login {
   color: red;
-  font-size: 1rem;
+  font-size: 0.75rem;
+  position: absolute;
+  top: 28%;
 }
 
 .loginSignup-error-message.signup-top {
   position: absolute;
-  font-size: 1rem;
+  font-size: 0.75rem;
   color: red;
   top: 15%;
 }
 
 /* Username availability status */
 .loginSignup-username-status {
-  font-size: 1rem;
+  font-size: 0.5rem;
 }
 
 .loginSignup-username-status.available {
-  color: green;
+  color: var(--primary-color);
 }
 
 .loginSignup-username-status.unavailable {
@@ -351,7 +339,7 @@ input[type="password"]::-ms-clear {
   position: absolute;
   right: 10px;
   cursor: pointer;
-  color: #333;
+  color: #555;
   font-size: 0.75rem;
 }
 
@@ -370,7 +358,6 @@ input[type="password"]::-ms-clear {
 @media (max-width: 950px) {
   .loginSignup-container {
     flex-direction: column;
-    padding: 3rem 2rem 1rem;
   }
 
   .loginSignup-form-container {
@@ -380,19 +367,27 @@ input[type="password"]::-ms-clear {
     border: none;
     box-shadow: none;
     position: relative;
+    max-width: 700px;
+  }
+
+  .loginSignup-form-container::after {
+    display: none;
   }
 
   .loginSignup-forms {
     flex-direction: column;
-    width: 100%;
+    width: 90%;
     height: auto;
+    margin: 0 auto;
+    position: relative;
   }
 
   .loginSignup-login-form,
   .loginSignup-signup-form {
     width: 100%;
-    padding: 10px;
+    padding: 0.5rem 3rem;
     height: auto;
+    border-radius: 4px;
   }
 
   .loginSignup-overlay {
@@ -400,23 +395,43 @@ input[type="password"]::-ms-clear {
   }
 
   .signup-logo {
-    font-size: 1.5rem;
-    left: 2%;
-    top: 1%;
+    width: 10rem;
+    left: 50%;
+    transform: translate(-50%);
+    top: 2%;
   }
 
   .mobile-overlay-alternative {
     display: flex;
     gap: 0.75rem;
+    margin-bottom: 1rem;
   }
 
-  .mobile-overlay {
+  .mobile-overlay-btn {
     border: none;
     background: transparent;
     color: var(--primary-color);
   }
 
+  .mobile-overlay-text {
+    font-size: 0.75rem;
+    color: #555;
+  }
+
   .hidden {
     display: none;
+  }
+
+  .loginSignup-login-form h2,
+  .loginSignup-signup-form h2 {
+    margin: 0.5rem auto;
+  }
+
+  .loginSignup-error-message.login {
+    top: 12%;
+  }
+
+  .loginSignup-error-message.signup-top {
+    top: 10%;
   }
 }

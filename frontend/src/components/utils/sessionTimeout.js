@@ -149,12 +149,12 @@ const SessionTimeout = () => {
 
   const handleConfirm = () => {
     setShowPopup(false);
-    navigate("/loginSignup"); // Redirect to login page
+    navigate("/loginSignup");
   };
 
   const handleClose = () => {
     setShowPopup(false);
-    navigate("/"); // Redirect to home page
+    navigate("/");
   };
 
   return (
@@ -162,7 +162,7 @@ const SessionTimeout = () => {
       showPopup={showPopup}
       onClose={handleClose}
       onConfirm={handleConfirm}
-      confirmBtnText="Login"
+      confirmBtnText="Log In"
       message={{
         title: "Session Expired",
         body: "Your session has expired. Please log in again to continue.",

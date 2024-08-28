@@ -16,11 +16,9 @@
 }
 
 .profile-container {
-  padding: 1rem 2rem;
-  margin: 0 auto;
+  padding: 0;
+  margin: 0;
   width: 100%;
-  height: 100%;
-  overflow: hidden;
 }
 
 .profile-container .card-container .description {
@@ -34,7 +32,7 @@
   justify-content: center;
   align-items: center;
   border-bottom: 1px solid #00000013;
-  padding: 1rem;
+  padding: 1rem 2rem;
   gap: 1rem;
 }
 
@@ -196,15 +194,23 @@
   margin: 3rem;
 }
 
+.profile-container .posts-section {
+  width: 100%;
+  height: 100%;
+}
+
 .profile-container .card-layout {
   margin: 1rem 0;
   gap: 0.75rem;
   box-sizing: border-box;
+  width: 100%;
 }
 
 @media (max-width: 600px) {
   .profile-container {
     padding: 1rem;
+    width: 100%;
+    height: 100%;
   }
   .profile-container .profile-details {
     display: grid;
@@ -267,7 +273,7 @@
   .profile-header-buttons button {
     font-size: 0.5rem;
     padding: 0.4rem 0.5rem;
-    min-width: 90px;
+    min-width: 92px;
     font-weight: 500;
   }
 }

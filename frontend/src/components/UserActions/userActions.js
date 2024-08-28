@@ -1191,6 +1191,7 @@ const UserActions = () => {
         classNamelogo="postActions-logo"
         classNamenav="postActions-nav"
         classNamesignin="postActions-signin"
+        logoSrc={`Logo_green.svg`}
       />
       <div className="user-actions-header">
         <Search

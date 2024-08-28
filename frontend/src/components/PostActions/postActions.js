@@ -370,6 +370,7 @@ const PostActions = () => {
         classNamelogo="postActions-logo"
         classNamenav="postActions-nav"
         classNamesignin="postActions-signin"
+        logoSrc={`Logo_green.svg`}
       />
 
       <Search

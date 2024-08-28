@@ -99,6 +99,7 @@ const EditPost = () => {
         classNamelogo="edit-logo"
         classNamenav="edit-nav"
         classNamesignin="edit-signin"
+        logoSrc={`Logo_green.svg`}
       />
 
       <div className="edit-container">

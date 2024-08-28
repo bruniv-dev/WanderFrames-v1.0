@@ -454,6 +454,7 @@ const Header = ({
   classNamenav,
   classNamesignin,
   classNameHamburger,
+  logoSrc,
 }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const authState = useSelector((state) => state.auth);
@@ -520,7 +521,11 @@ const Header = ({
         &#9776;
       </div>
       <Link to="/" className="logo-nav">
-        <h3 className={`logo ${classNamelogo}`}>BRUNIV</h3>
+        <img
+          className={`logo ${classNamelogo}`}
+          src={`${process.env.PUBLIC_URL}/${logoSrc}`}
+          alt="Wander Frames Logo"
+        />
       </Link>
       <div className={`white ${isMenuOpen ? "open" : ""}`}>
         <nav className={`nav ${classNamenav}`}>
@@ -536,18 +541,20 @@ const Header = ({
           ))}
         </nav>
       </div>
-      {isLoggedIn ? (
-        <button className="sign-out" onClick={handleLogout}>
-          Log Out
-        </button>
-      ) : (
-        <button
-          className={`sign-in ${classNamesignin}`}
-          onClick={() => navigate("/loginSignup")}
-        >
-          Log In
-        </button>
-      )}
+      <div>
+        {isLoggedIn ? (
+          <button className="sign-out" onClick={handleLogout}>
+            Log Out
+          </button>
+        ) : (
+          <button
+            className={`sign-in ${classNamesignin}`}
+            onClick={() => navigate("/loginSignup")}
+          >
+            Log In
+          </button>
+        )}
+      </div>
     </div>
   );
 };

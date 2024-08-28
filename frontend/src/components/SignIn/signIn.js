@@ -221,9 +221,23 @@ const SignInSignUp = () => {
 
       //   navigate("/");
       // }
-      if (isSignUp) {
-        console.log("Sign-up successful:", data);
-        toggleForm();
+      // if (isSignUp) {
+      // const { isAdmin, token } = data || {};
+      // console.log("Sign-up successful:", data);
+      // toggleForm();
+      // dispatch(authActions.login({ isAdmin, token }));
+      // navigate("/");
+      // }
+      // Automatically log in the user after successful sign-up
+      const { userId, isAdmin, token } = data || {};
+
+      if (userId && token) {
+        localStorage.setItem("token", token);
+        localStorage.setItem("isAdmin", isAdmin);
+        localStorage.setItem("isLoggedIn", "true");
+
+        dispatch(authActions.login({ isAdmin, token }));
+        navigate("/");
       } else {
         const { userId, isAdmin, token, isLoggedIn } = data || {};
 
@@ -275,9 +289,12 @@ const SignInSignUp = () => {
   return (
     <div className="loginSignup-container">
       {loading && <Loading />}
-      <h2 className="signup-logo" onClick={() => navigate("/")}>
-        BRUNIV
-      </h2>
+      <img
+        className="signup-logo"
+        src={`${process.env.PUBLIC_URL}/Logo_white.svg`}
+        alt="Wander Frames Logo"
+        onClick={() => navigate("/")}
+      />
       <video
         autoPlay
         muted
@@ -378,10 +395,10 @@ const SignInSignUp = () => {
               Log In
             </button>
             <div className="mobile-overlay-alternative">
-              <p>Don't have an account?</p>
+              <p className="mobile-overlay-text">Don't have an account?</p>
               <button
                 type="button"
-                className="mobile-overlay"
+                className="mobile-overlay-btn"
                 onClick={handleMobileOverlayForLogin}
               >
                 Sign Up
@@ -393,7 +410,7 @@ const SignInSignUp = () => {
               !mobileLogin ? "hidden" : ""
             }`}
           >
-            <h2>Sign Up</h2>
+            <h2>Create Account</h2>
             {errors.form && (
               <p className="loginSignup-error-message signup-top">
                 {errors.form}
@@ -531,7 +548,7 @@ const SignInSignUp = () => {
                 )}
               </div>
               <div className="loginSignup-form-group">
-                <label htmlFor="securityAnswer">Security Answer:</label>
+                <label htmlFor="securityAnswer">Answer:</label>
                 <input
                   name="securityAnswer"
                   onChange={handleChange}
@@ -556,10 +573,10 @@ const SignInSignUp = () => {
               Sign Up
             </button>
             <div className="mobile-overlay-alternative">
-              <p>already have an account?</p>
+              <p className="mobile-overlay-text">Already have an account?</p>
               <button
                 type="button"
-                className="mobile-overlay"
+                className="mobile-overlay-btn"
                 onClick={handleMobileOverlayForLogin}
               >
                 Log In

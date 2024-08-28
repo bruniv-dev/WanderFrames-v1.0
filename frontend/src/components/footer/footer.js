@@ -41,8 +41,8 @@ const Footer = () => {
             </li>
           </ul>
           <p className="footer__copyright">
-            Copyright &copy; <span className="footer__year">2027</span> by
-            Omnifood, Inc. All rights reserved.
+            Copyright &copy; <span className="footer__year">2024</span> by
+            Wander Frames, Inc. All rights reserved.
           </p>
         </div>
 

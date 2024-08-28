@@ -304,6 +304,7 @@ const Upload = () => {
         classNamelogo="upload-logo"
         classNamenav="upload-nav"
         classNamesignin="upload-signin"
+        logoSrc={`Logo_green.svg`}
       />
       <div className="upload">
         <form

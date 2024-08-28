@@ -42,6 +42,7 @@ const Home = () => {
         classNamenav="home-nav"
         classNamesignin="home-signin"
         classNameHamburger="home-ham"
+        logoSrc={`Logo_white.svg`}
       />
       <div className="home-container">
         <video autoPlay loop muted playsInline onLoadedData={handleVideoLoad}>

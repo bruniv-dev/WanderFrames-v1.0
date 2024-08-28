@@ -5,6 +5,94 @@ import path from "path";
 import crypto from "crypto";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+// export const signup = async (req, res) => {
+//   const {
+//     firstName,
+//     lastName,
+//     username,
+//     email,
+//     password,
+//     securityQuestion,
+//     securityAnswer,
+//     isAdmin = false,
+//     role = "user",
+//   } = req.body;
+
+//   try {
+//     // Validate all required fields
+//     if (
+//       !firstName ||
+//       !lastName ||
+//       !username ||
+//       !email ||
+//       !password ||
+//       !securityQuestion ||
+//       !securityAnswer
+//     ) {
+//       return res.status(400).json({ message: "All fields are required" });
+//     }
+
+//     // Check if username or email already taken
+//     const [existingUserByUsername, existingUserByEmail] = await Promise.all([
+//       User.findOne({ username }),
+//       User.findOne({ email }),
+//     ]);
+
+//     if (existingUserByUsername) {
+//       return res.status(400).json({ message: "Username already taken" });
+//     }
+
+//     if (existingUserByEmail) {
+//       return res.status(400).json({ message: "User already exists" });
+//     }
+
+//     // Hash the password
+//     const hashedPassword = await bcrypt.hash(password, 10);
+
+//     // Create a new user
+//     const user = new User({
+//       firstName,
+//       lastName,
+//       username,
+//       email,
+//       password: hashedPassword,
+//       securityQuestion,
+//       securityAnswer,
+//       isAdmin,
+//       role,
+//     });
+
+//     await user.save();
+//     console.log(`signup ${user._id}`);
+
+//     // Create JWT token
+//     const token = jwt.sign(
+//       { userId: user._id, isAdmin: user.isAdmin },
+//       process.env.JWT_SECRET,
+//       { expiresIn: "1h" }
+//     );
+
+//     // Set token as HTTP-only cookie
+//     res.cookie("token", token, {
+//       httpOnly: true,
+//       path: "/",
+//       secure: true,
+//       sameSite: "None",
+//       maxAge: 3600000, // 1 hour
+//     });
+
+//     return res.status(201).json({
+//       message: "User created successfully",
+//       userId: user._id,
+//       isAdmin: user.isAdmin,
+//       token,
+//     });
+//   } catch (err) {
+//     console.error("Error in signup controller:", err);
+//     return res.status(500).json({ message: "Internal server error" });
+//   }
+// };
+
 export const signup = async (req, res) => {
   const {
     firstName,
@@ -32,7 +120,7 @@ export const signup = async (req, res) => {
       return res.status(400).json({ message: "All fields are required" });
     }
 
-    // Check if username or email already taken
+    // Check if username or email is already taken
     const [existingUserByUsername, existingUserByEmail] = await Promise.all([
       User.findOne({ username }),
       User.findOne({ email }),
@@ -43,7 +131,7 @@ export const signup = async (req, res) => {
     }
 
     if (existingUserByEmail) {
-      return res.status(400).json({ message: "User already exists" });
+      return res.status(400).json({ message: "Email already registered" });
     }
 
     // Hash the password
@@ -63,7 +151,7 @@ export const signup = async (req, res) => {
     });
 
     await user.save();
-    console.log(`signup ${user._id}`);
+    console.log(`User signed up with ID: ${user._id}`);
 
     // Create JWT token
     const token = jwt.sign(
@@ -76,7 +164,7 @@ export const signup = async (req, res) => {
     res.cookie("token", token, {
       httpOnly: true,
       path: "/",
-      secure: true,
+      secure: process.env.NODE_ENV === "production", // Ensure secure cookies in production
       sameSite: "None",
       maxAge: 3600000, // 1 hour
     });
