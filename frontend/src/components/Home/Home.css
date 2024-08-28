@@ -25,7 +25,7 @@ video {
   height: 100vh;
   object-fit: cover;
   z-index: -1;
-  filter: brightness(30%);
+  filter: brightness(40%);
 }
 
 .header.home-header {
@@ -34,10 +34,15 @@ video {
   width: 100%;
   background-color: transparent;
   z-index: 2;
+  /* background-color: rgb(255, 255, 255, 0.05); */
 }
 
 .hamburger.home-ham {
   color: #fff;
+}
+
+.hamburger.home-ham:hover {
+  color: var(--primary-color);
 }
 
 .header .home-logo {

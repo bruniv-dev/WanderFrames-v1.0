@@ -38,6 +38,12 @@
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
 }
 
+.optional {
+  font-size: 0.5rem;
+  color: #777;
+  margin-left: 0.5rem;
+}
+
 .upload-left-section,
 .upload-right-section {
   width: 48%;
@@ -47,7 +53,7 @@
   flex-direction: column;
   min-width: 300px;
   margin: 0 auto;
-  gap: 0.75rem;
+  gap: 1rem;
 }
 
 .upload-label {

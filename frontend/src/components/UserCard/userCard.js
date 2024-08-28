@@ -242,9 +242,7 @@ const UserCard = ({
           {username}
         </p>
         <p className="name">{`${firstName} ${lastName}`}</p>
-        <p className="role" style={{ color: isAdmin ? "red" : "black" }}>
-          {role}
-        </p>
+        <p className={`role ${isAdmin ? "admin" : "user"}`}>{role}</p>
         <p className="email"> {email}</p>
         <p className="joined">Joined: {formatDate(createdAt)}</p>
 

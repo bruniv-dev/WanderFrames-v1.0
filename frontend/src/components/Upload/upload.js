@@ -314,7 +314,7 @@ const Upload = () => {
         >
           <div className="upload-left-section">
             <label htmlFor="upload-images" className="image upload-label">
-              Images (up to 3)
+              Images<span className="optional">(Maximum Limit: 3)</span>
               <input
                 className="upload-choose-file upload-input"
                 type="file"
@@ -326,7 +326,7 @@ const Upload = () => {
               />
             </label>
             <label htmlFor="upload-date" className="date upload-label">
-              Date
+              Date of visit<span className="optional">(Optional)</span>
               <input
                 type="date"
                 id="upload-date"
@@ -334,7 +334,6 @@ const Upload = () => {
                 value={formData.date}
                 onChange={handleInputChange}
                 className="upload-input date"
-                required
                 max={today}
               />
             </label>
@@ -342,7 +341,7 @@ const Upload = () => {
               htmlFor="upload-locationUrl"
               className="locationUrl upload-label"
             >
-              Google Maps URL
+              Google Maps URL<span className="optional">(Optional)</span>
               <input
                 type="url"
                 id="upload-locationUrl"
@@ -367,7 +366,7 @@ const Upload = () => {
               />
             </label>
             <label htmlFor="upload-subLocation" className="upload-label">
-              Sub-Location
+              State, Country
               <input
                 type="text"
                 id="upload-subLocation"

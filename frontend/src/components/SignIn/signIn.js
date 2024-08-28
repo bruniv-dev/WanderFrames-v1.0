@@ -353,9 +353,12 @@ const SignInSignUp = () => {
                   {errors.password}
                 </p>
               )}
-              <a href="/forgot-password" className="forgot-password">
+              <button
+                className="forgot-password"
+                onClick={() => navigate("/forgot-password")}
+              >
                 Forgot Password?
-              </a>
+              </button>
             </div>
             <button
               type="submit"
