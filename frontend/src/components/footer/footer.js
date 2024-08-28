@@ -7,12 +7,11 @@ const Footer = () => {
       <div className="footer__container grid grid--footer">
         <div className="footer__logo-col">
           <a href="/" className="footer__logo">
-            {/* <img
-              className="footer__logo-img"
-              alt="Omnifood logo"
-              src="img/omnifood-logo.png"
-            /> */}
-            BRUNIV
+            <img
+              className="logo"
+              src={`${process.env.PUBLIC_URL}/Logo_black.svg`}
+              alt="Wander Frames Logo"
+            />
           </a>
           <ul className="footer__social-links">
             <li>

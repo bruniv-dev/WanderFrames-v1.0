@@ -139,6 +139,7 @@ const SignInSignUp = () => {
 
   const toggleForm = () => {
     setIsSignUp(!isSignUp);
+    handleMobileOverlayForLogin();
   };
 
   const toggleShowPassword = () => {
@@ -207,50 +208,20 @@ const SignInSignUp = () => {
       setLoading(true);
       const data = await sendAuthRequest(isSignUp, inputs);
 
-      // if (isSignUp) {
-      //   console.log("Sign-up successful:", data);
-      //   toggleForm();
-      // } else {
-      //   const { userId, isAdmin } = data || {};
-
-      //   if (userId) {
-      //     dispatch(authActions.login({ userId, isAdmin }));
-      //   } else {
-      //     throw new Error("Failed to retrieve user information.");
-      //   }
-
-      //   navigate("/");
-      // }
-      // if (isSignUp) {
-      // const { isAdmin, token } = data || {};
-      // console.log("Sign-up successful:", data);
-      // toggleForm();
-      // dispatch(authActions.login({ isAdmin, token }));
-      // navigate("/");
-      // }
-      // Automatically log in the user after successful sign-up
-      const { userId, isAdmin, token } = data || {};
-
-      if (userId && token) {
-        localStorage.setItem("token", token);
-        localStorage.setItem("isAdmin", isAdmin);
-        localStorage.setItem("isLoggedIn", "true");
-
-        dispatch(authActions.login({ isAdmin, token }));
-        navigate("/");
+      if (isSignUp) {
+        // const { isAdmin, token } = data || {};
+        console.log("Sign-up successful:", data);
+        toggleForm();
       } else {
         const { userId, isAdmin, token, isLoggedIn } = data || {};
-
         if (userId && isLoggedIn) {
           // Store token and isLoggedIn in localStorage
           localStorage.setItem("token", token);
           localStorage.setItem("isAdmin", isAdmin);
           localStorage.setItem("isLoggedIn", isLoggedIn.toString()); // Convert to string
 
-          // Update Redux state
           dispatch(authActions.login({ isAdmin, token }));
 
-          // Redirect to home or dashboard
           navigate("/");
         } else {
           throw new Error("Failed to retrieve user information.");
@@ -399,7 +370,10 @@ const SignInSignUp = () => {
               <button
                 type="button"
                 className="mobile-overlay-btn"
-                onClick={handleMobileOverlayForLogin}
+                onClick={() => {
+                  handleMobileOverlayForLogin();
+                  setIsSignUp(true);
+                }}
               >
                 Sign Up
               </button>
@@ -551,6 +525,7 @@ const SignInSignUp = () => {
                 <label htmlFor="securityAnswer">Answer:</label>
                 <input
                   name="securityAnswer"
+                  value={inputs.securityAnswer}
                   onChange={handleChange}
                   type="text"
                   id="securityAnswer"
@@ -577,7 +552,10 @@ const SignInSignUp = () => {
               <button
                 type="button"
                 className="mobile-overlay-btn"
-                onClick={handleMobileOverlayForLogin}
+                onClick={() => {
+                  handleMobileOverlayForLogin();
+                  setIsSignUp(false);
+                }}
               >
                 Log In
               </button>

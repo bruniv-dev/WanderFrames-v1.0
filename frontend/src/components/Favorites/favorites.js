@@ -172,7 +172,7 @@ const Favorites = () => {
         classNamelogo="favorites-logo"
         classNamenav="favorites-nav"
         classNamesignin="favorites-signin"
-        logoSrc={`Logo_green.svg`}
+        logoSrc={`Logo_black.svg`}
       />
       <Search
         cardsData={favorites}

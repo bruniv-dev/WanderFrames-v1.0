@@ -20,10 +20,6 @@
 
 .footer__logo {
   display: block;
-  font-size: 1.5rem;
-  font-weight: 700;
-  text-decoration: none;
-  line-height: 1;
   margin-bottom: 1rem;
 }
 
@@ -54,12 +50,14 @@
 
 .footer__address {
   font-size: 0.75rem;
+  margin-top: 1.25rem;
   margin-bottom: 1rem;
 }
 
 .footer__heading {
   font-size: 0.75rem;
   font-weight: 500;
+  margin-top: 0.5rem;
   margin-bottom: 1rem;
 }
 
@@ -81,4 +79,10 @@
 .footer__link:hover,
 .footer__link:active {
   color: var(--hover);
+}
+
+@media (max-width: 600px) {
+  .footer__logo .logo {
+    width: 8rem;
+  }
 }

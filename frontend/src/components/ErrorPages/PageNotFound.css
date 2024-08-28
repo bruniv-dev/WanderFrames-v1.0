@@ -24,7 +24,7 @@
 .not-found-back-btn {
   text-decoration: none;
   color: #fff;
-  background-color: #83f806;
+  background-color: var(--primary-color);
   padding: 10px 20px;
   border-radius: 5px;
   font-size: 16px;
@@ -32,5 +32,5 @@
 }
 
 .not-found-back-btn:hover {
-  background-color: #9cf938;
+  background-color: var(--hover);
 }
