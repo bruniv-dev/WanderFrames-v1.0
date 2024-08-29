@@ -200,20 +200,33 @@ const SignInSignUp = () => {
       const data = await sendAuthRequest(isSignUp, inputs);
 
       if (isSignUp) {
-        // const { isAdmin, token } = data || {};
         console.log("Sign-up successful:", data);
-        setSuccess("Signed Up Sucessfully. Please Log In");
-        setTimeout(() => {
-          toggleForm();
-        }, 2000);
+        setSuccess("Signed Up Successfully. Logging you in...");
+
+        const { userId, isAdmin, token } = data || {};
+
+        // Automatically log the user in after sign-up
+        if (userId && token) {
+          localStorage.setItem("token", token);
+          localStorage.setItem("isAdmin", isAdmin);
+          localStorage.setItem("isLoggedIn", "true"); // Since user just signed up, they're logged in.
+
+          dispatch(authActions.login({ isAdmin, token }));
+
+          // Redirect after a short delay to show the success message
+          setTimeout(() => {
+            navigate("/");
+          }, 2000);
+        } else {
+          setError("Sign-up was successful, but auto-login failed.");
+        }
       } else {
         const { userId, isAdmin, token, isLoggedIn } = data || {};
         if (userId && isLoggedIn) {
-          // Store token and isLoggedIn in localStorage
-          setSuccess("Logged In Sucessfully");
+          setSuccess("All Set! Logging you in...");
           localStorage.setItem("token", token);
           localStorage.setItem("isAdmin", isAdmin);
-          localStorage.setItem("isLoggedIn", isLoggedIn.toString()); // Convert to string
+          localStorage.setItem("isLoggedIn", isLoggedIn.toString());
 
           dispatch(authActions.login({ isAdmin, token }));
           setTimeout(() => {
@@ -226,54 +239,11 @@ const SignInSignUp = () => {
       }
     } catch (err) {
       console.error("Authentication error:", err);
-      // setErrors((prevErrors) => ({
-      //   ...prevErrors,
-      //   form:
-      //     err.response?.data?.message || "An error occurred. Please try again.",
-      // }));
-      // const errorMessage = err.response?.data?.message;
-
-      // setErrors((prevErrors) => ({
-      //   ...prevErrors,
-      //   form: errorMessage,
-      // }));
-      //   setErrors(err.message);
-      // } finally {
-      //   setLoading(false);
-      // }
-
-      // Display backend error message
-      // if (err.response && err.response.data && err.response.data.message) {
-      //   setErrors((prevErrors) => ({
-      //     ...prevErrors,
-      //     form: err.response.data.message,
-      //   }));
-      // }
-      //  else {
-      //   setErrors((prevErrors) => ({
-      //     ...prevErrors,
-      //     form: "An unexpected error occurred. Please try again.",
-      //   }));
-      // }
       setError(err.message || "An unknown error occurred.");
     } finally {
       setLoading(false);
     }
   };
-
-  // const handleChange = (e) => {
-  //   const { name, value } = e.target;
-  //   setInputs((prevState) => ({
-  //     ...prevState,
-  //     [name]: value,
-  //   }));
-
-  //   if (error) {
-  //     setError("");
-  //   }
-
-  //   validateInputs();
-  // };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -642,3 +612,50 @@ const SignInSignUp = () => {
 };
 
 export default SignInSignUp;
+
+//FOR MANUAL LOGIN AFTER SIGNUP
+// const handleSubmit = async (e) => {
+//   e.preventDefault();
+//   setSubmitted(true);
+
+//   if (!validateInputs()) {
+//     setError("Please fix the errors before submitting.");
+//     return;
+//   }
+
+//   try {
+//     setLoading(true);
+//     const data = await sendAuthRequest(isSignUp, inputs);
+
+//     if (isSignUp) {
+//       // const { isAdmin, token } = data || {};
+//       console.log("Sign-up successful:", data);
+//       setSuccess("Signed Up Sucessfully. Please Log In");
+//       setTimeout(() => {
+//         toggleForm();
+//       }, 2000);
+//     } else {
+//       const { userId, isAdmin, token, isLoggedIn } = data || {};
+//       if (userId && isLoggedIn) {
+//         // Store token and isLoggedIn in localStorage
+//         setSuccess("Logged In Sucessfully");
+//         localStorage.setItem("token", token);
+//         localStorage.setItem("isAdmin", isAdmin);
+//         localStorage.setItem("isLoggedIn", isLoggedIn.toString()); // Convert to string
+
+//         dispatch(authActions.login({ isAdmin, token }));
+//         setTimeout(() => {
+//           navigate("/");
+//         }, 2000);
+//       } else {
+//         setError("Failed to Log In. Try Again Later");
+//         throw new Error("Failed to retrieve user information.");
+//       }
+//     }
+//   } catch (err) {
+//     console.error("Authentication error:", err);
+//     setError(err.message || "An unknown error occurred.");
+//   } finally {
+//     setLoading(false);
+//   }
+// };

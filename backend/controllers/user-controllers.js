@@ -164,8 +164,8 @@ export const signup = async (req, res) => {
     res.cookie("token", token, {
       httpOnly: true,
       path: "/",
-      secure: process.env.NODE_ENV === "production", // Ensure secure cookies in production
       sameSite: "None",
+      secure: true,
       maxAge: 3600000, // 1 hour
     });
 
