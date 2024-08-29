@@ -103,7 +103,7 @@ export const signup = async (req, res) => {
     securityQuestion,
     securityAnswer,
     isAdmin = false,
-    role = "user",
+    role = "User",
   } = req.body;
 
   try {
@@ -185,6 +185,9 @@ export const login = async (req, res) => {
   const { identifier, password } = req.body;
 
   try {
+    if (!identifier || !password) {
+      return res.status(400).json({ message: "All fields are required" });
+    }
     // Find the user by username or email
     const user = await User.findOne({
       $or: [{ email: identifier }, { username: identifier }],

@@ -111,7 +111,7 @@
 .loginSignup-signup-form {
   width: 50%;
   height: 100%;
-  padding: 2rem;
+  padding: 2.5rem 2rem;
   box-sizing: border-box;
 }
 
@@ -130,7 +130,7 @@
   font-size: 1.25rem;
   color: #333;
   font-weight: 500;
-  margin-bottom: 1.25rem;
+  margin-bottom: 1.5rem;
   position: relative;
 }
 
@@ -158,7 +158,7 @@
 .loginSignup-signup-form label {
   color: #555;
   font-size: 0.75rem;
-  margin-bottom: 0.5rem;
+  margin-bottom: 1.25rem;
 }
 /* 
 .loginSignup-forgot-password  {
@@ -294,28 +294,50 @@ input[type="password"]::-ms-clear {
   transform: scale(0.95);
 }
 
+.loginSignup-main-error-message {
+  position: absolute;
+  color: red;
+  width: 100%;
+  text-align: center;
+}
+
+.loginSignup-main-success-message {
+  position: absolute;
+  color: var(--hover);
+  width: 100%;
+  text-align: center;
+}
+
 .loginSignup-error-message {
   color: red;
+  position: absolute;
+  width: 85%;
   font-size: 0.5rem;
 }
 
-.loginSignup-error-message.login {
-  color: red;
-  font-size: 0.75rem;
-  position: absolute;
-  top: 28%;
+.loginSignup-error-message.login,
+.loginSignup-main-error-message.login,
+.loginSignup-main-success-message.login {
+  font-size: 0.675rem;
+  /* position: absolute; */
+  top: 26%;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
-.loginSignup-error-message.signup-top {
+.loginSignup-error-message.signup,
+.loginSignup-main-error-message.signup,
+.loginSignup-main-success-message.signup {
   position: absolute;
-  font-size: 0.75rem;
-  color: red;
-  top: 15%;
+  font-size: 0.675rem;
+  top: 14%;
 }
 
 /* Username availability status */
 .loginSignup-username-status {
+  position: absolute;
   font-size: 0.5rem;
+  width: 85%;
 }
 
 .loginSignup-username-status.available {
@@ -345,14 +367,23 @@ input[type="password"]::-ms-clear {
   font-size: 0.75rem;
 }
 
+.loginSignup-toggle-password:hover {
+  color: #333;
+}
+
 .forgot-password {
-  font-size: 14px;
-  color: #444;
+  font-size: 0.75rem;
+  color: #555;
   margin-top: 2rem;
   margin-bottom: 15px;
   text-align: center;
   border: none;
   background-color: transparent;
+  text-decoration: underline;
+}
+
+.forgot-password:hover {
+  color: #333;
 }
 
 .mobile-overlay-alternative {
@@ -431,11 +462,15 @@ input[type="password"]::-ms-clear {
     margin: 0.5rem auto;
   }
 
-  .loginSignup-error-message.login {
+  .loginSignup-error-message.login,
+  .loginSignup-main-error-message.login,
+  .loginSignup-main-success-message.login {
     top: 12%;
   }
 
-  .loginSignup-error-message.signup-top {
+  .loginSignup-error-message.signup,
+  .loginSignup-main-error-message.signup,
+  .loginSignup-main-success-message.signup {
     top: 10%;
   }
 }

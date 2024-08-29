@@ -341,7 +341,8 @@ const Upload = () => {
               htmlFor="upload-locationUrl"
               className="locationUrl upload-label"
             >
-              Google Maps URL<span className="optional">(Optional)</span>
+              Google Maps URL
+              <span className="optional">(Add location link - Optional)</span>
               <input
                 type="url"
                 id="upload-locationUrl"

@@ -15,6 +15,8 @@ const SignInSignUp = () => {
   const navigate = useNavigate();
   const [isSignUp, setIsSignUp] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [success, setSuccess] = useState("");
+  const [error, setError] = useState("");
   const [errors, setErrors] = useState({
     firstName: "",
     lastName: "",
@@ -26,6 +28,7 @@ const SignInSignUp = () => {
     identifier: "",
   });
   const [usernameStatus, setUsernameStatus] = useState("");
+
   const [inputs, setInputs] = useState({
     firstName: "",
     lastName: "",
@@ -62,6 +65,7 @@ const SignInSignUp = () => {
       securityAnswer: "",
       identifier: "",
     });
+
     setUsernameStatus("");
     setSubmitted(false);
   }, [isSignUp]);
@@ -103,40 +107,6 @@ const SignInSignUp = () => {
     return () => clearTimeout(debounceTimeout.current);
   }, [inputs.username, isSignUp]);
 
-  // useEffect(() => {
-  //   const checkAvailability = async () => {
-  //     const usernameRegex = /^[a-zA-Z0-9._]{6,}$/;
-
-  //     if (isSignUp && inputs.username) {
-  //       if (!usernameRegex.test(inputs.username)) {
-  //         setUsernameStatus(
-  //           "Username can only contain letters, numbers, underscores (_), and periods (.) and be over 6 characters"
-  //         );
-  //         return;
-  //       }
-
-  //       try {
-  //         setLoading(true);
-  //         const isAvailable = await checkUsernameAvailability(inputs.username);
-  //         setUsernameStatus(
-  //           isAvailable
-  //             ? "Username is available."
-  //             : "Username is already taken."
-  //         );
-  //       } catch (err) {
-  //         setUsernameStatus("Error checking username availability.");
-  //       } finally {
-  //         setLoading(false);
-  //       }
-  //     } else {
-  //       setUsernameStatus("");
-  //     }
-  //   };
-
-  //   const debounce = setTimeout(checkAvailability, 300);
-  //   return () => clearTimeout(debounce);
-  // }, [inputs.username, isSignUp]);
-
   const toggleForm = () => {
     setIsSignUp(!isSignUp);
     handleMobileOverlayForLogin();
@@ -156,10 +126,17 @@ const SignInSignUp = () => {
 
       if (inputs.password && !passwordRegex.test(inputs.password)) {
         newErrors.password =
-          "Password must include an uppercase letter, lowercase letter, digit, special character, and be over 8 characters.";
+          "Password must have uppercase, lowercase letter, digit, special character, and be over 8 characters.";
       } else {
         delete newErrors.password;
       }
+
+      // if (!inputs.password && !inputs.password) {
+      //   newErrors.password = "Password is required.";
+      // } else if (!passwordRegex.test(inputs.password)) {
+      //   newErrors.password =
+      //     "Password must include an uppercase letter, lowercase letter, digit, special character, and be over 8 characters.";
+      // }
 
       if (inputs.email && !emailRegex.test(inputs.email)) {
         newErrors.email = "Please enter a valid email address.";
@@ -171,6 +148,18 @@ const SignInSignUp = () => {
         newErrors.securityQuestion = "Please select a security question.";
       } else {
         delete newErrors.securityQuestion;
+      }
+
+      if (submitted && !inputs.firstName) {
+        newErrors.firstName = "Required";
+      } else {
+        delete newErrors.firstName;
+      }
+
+      if (submitted && !inputs.lastName) {
+        newErrors.lastName = "Required";
+      } else {
+        delete newErrors.lastName;
       }
 
       if (submitted && !inputs.securityAnswer) {
@@ -193,6 +182,7 @@ const SignInSignUp = () => {
     }
 
     setErrors(newErrors);
+
     return Object.keys(newErrors).length === 0;
   };
 
@@ -201,6 +191,7 @@ const SignInSignUp = () => {
     setSubmitted(true);
 
     if (!validateInputs()) {
+      setError("Please fix the errors before submitting.");
       return;
     }
 
@@ -211,40 +202,93 @@ const SignInSignUp = () => {
       if (isSignUp) {
         // const { isAdmin, token } = data || {};
         console.log("Sign-up successful:", data);
-        toggleForm();
+        setSuccess("Signed Up Sucessfully. Please Log In");
+        setTimeout(() => {
+          toggleForm();
+        }, 2000);
       } else {
         const { userId, isAdmin, token, isLoggedIn } = data || {};
         if (userId && isLoggedIn) {
           // Store token and isLoggedIn in localStorage
+          setSuccess("Logged In Sucessfully");
           localStorage.setItem("token", token);
           localStorage.setItem("isAdmin", isAdmin);
           localStorage.setItem("isLoggedIn", isLoggedIn.toString()); // Convert to string
 
           dispatch(authActions.login({ isAdmin, token }));
-
-          navigate("/");
+          setTimeout(() => {
+            navigate("/");
+          }, 2000);
         } else {
+          setError("Failed to Log In. Try Again Later");
           throw new Error("Failed to retrieve user information.");
         }
       }
     } catch (err) {
       console.error("Authentication error:", err);
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        form:
-          err.response?.data?.message || "An error occurred. Please try again.",
-      }));
+      // setErrors((prevErrors) => ({
+      //   ...prevErrors,
+      //   form:
+      //     err.response?.data?.message || "An error occurred. Please try again.",
+      // }));
+      // const errorMessage = err.response?.data?.message;
+
+      // setErrors((prevErrors) => ({
+      //   ...prevErrors,
+      //   form: errorMessage,
+      // }));
+      //   setErrors(err.message);
+      // } finally {
+      //   setLoading(false);
+      // }
+
+      // Display backend error message
+      // if (err.response && err.response.data && err.response.data.message) {
+      //   setErrors((prevErrors) => ({
+      //     ...prevErrors,
+      //     form: err.response.data.message,
+      //   }));
+      // }
+      //  else {
+      //   setErrors((prevErrors) => ({
+      //     ...prevErrors,
+      //     form: "An unexpected error occurred. Please try again.",
+      //   }));
+      // }
+      setError(err.message || "An unknown error occurred.");
     } finally {
       setLoading(false);
     }
   };
 
+  // const handleChange = (e) => {
+  //   const { name, value } = e.target;
+  //   setInputs((prevState) => ({
+  //     ...prevState,
+  //     [name]: value,
+  //   }));
+
+  //   if (error) {
+  //     setError("");
+  //   }
+
+  //   validateInputs();
+  // };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
+
+    // Check if the input is for email and convert to lowercase
+    const updatedValue = name === "email" ? value.toLowerCase() : value;
+
     setInputs((prevState) => ({
       ...prevState,
-      [name]: value,
+      [name]: updatedValue,
     }));
+
+    if (error) {
+      setError("");
+    }
 
     validateInputs();
   };
@@ -288,7 +332,14 @@ const SignInSignUp = () => {
                 <h3 className="overlay-line-2">
                   Start your journey with us by creating an account
                 </h3>
-                <button onClick={() => setIsSignUp(true)} className="login">
+                <button
+                  onClick={() => {
+                    setIsSignUp(true);
+                    setError("");
+                    setSuccess("");
+                  }}
+                  className="login"
+                >
                   Sign Up
                 </button>
               </>
@@ -298,7 +349,14 @@ const SignInSignUp = () => {
                 <h3 className="overlay-line-2">
                   To stay connected, please log in to your account.
                 </h3>
-                <button onClick={() => setIsSignUp(false)} className="signup">
+                <button
+                  onClick={() => {
+                    setIsSignUp(false);
+                    setError("");
+                    setSuccess("");
+                  }}
+                  className="signup"
+                >
                   Log In
                 </button>
               </>
@@ -310,9 +368,20 @@ const SignInSignUp = () => {
             className={`loginSignup-login-form ${mobileLogin ? "hidden" : ""}`}
           >
             <h2>Log In</h2>
-            {errors.form && (
-              <p className="loginSignup-error-message login">{errors.form}</p>
-            )}
+            {/* {error && (
+              <div className="loginSignup-main-error-message login">
+                {error}
+              </div>
+            )} */}
+            {error ? (
+              <div className="loginSignup-main-error-message login">
+                {error}
+              </div>
+            ) : success ? (
+              <div className="loginSignup-main-success-message login">
+                {success}
+              </div>
+            ) : null}
             <div className="loginSignup-form-group">
               <label htmlFor="identifier">Username or Email:</label>
               <input
@@ -323,11 +392,6 @@ const SignInSignUp = () => {
                 id="identifier"
                 required
               />
-              {errors.identifier && (
-                <p className="loginSignup-error-message login">
-                  {errors.identifier}
-                </p>
-              )}
             </div>
             <div className="loginSignup-form-group">
               <label htmlFor="password">Password:</label>
@@ -348,11 +412,7 @@ const SignInSignUp = () => {
                   {showPassword ? "Hide" : "Show"}
                 </span>
               </div>
-              {errors.password && (
-                <p className="loginSignup-error-message login">
-                  {errors.password}
-                </p>
-              )}
+
               <button
                 className="forgot-password"
                 onClick={() => navigate("/forgot-password")}
@@ -376,6 +436,8 @@ const SignInSignUp = () => {
                 onClick={() => {
                   handleMobileOverlayForLogin();
                   setIsSignUp(true);
+                  setError("");
+                  setSuccess("");
                 }}
               >
                 Sign Up
@@ -388,11 +450,20 @@ const SignInSignUp = () => {
             }`}
           >
             <h2>Create Account</h2>
-            {errors.form && (
-              <p className="loginSignup-error-message signup-top">
-                {errors.form}
-              </p>
-            )}
+            {/* {error && (
+              <div className="loginSignup-main-error-message signup">
+                {error}
+              </div>
+            )} */}
+            {error ? (
+              <div className="loginSignup-main-error-message signup">
+                {error}
+              </div>
+            ) : success ? (
+              <div className="loginSignup-main-success-message signup">
+                {success}
+              </div>
+            ) : null}
             <div className="loginSignup-form-group">
               <div className="loginSignup-first-last">
                 <div>
@@ -412,6 +483,7 @@ const SignInSignUp = () => {
                     </p>
                   )}
                 </div>
+
                 <div>
                   <label htmlFor="lastName">Last Name:</label>
                   <input
@@ -451,9 +523,6 @@ const SignInSignUp = () => {
               >
                 {usernameStatus}
               </p>
-              {errors.username && (
-                <p className="loginSignup-error-message">{errors.username}</p>
-              )}
             </div>
             <div className="loginSignup-form-group">
               <label htmlFor="email">Email:</label>
@@ -558,6 +627,8 @@ const SignInSignUp = () => {
                 onClick={() => {
                   handleMobileOverlayForLogin();
                   setIsSignUp(false);
+                  setError("");
+                  setSuccess("");
                 }}
               >
                 Log In

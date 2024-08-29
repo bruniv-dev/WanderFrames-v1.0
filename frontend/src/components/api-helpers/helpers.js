@@ -81,10 +81,31 @@ export const sendAuthRequest = async (signup, data) => {
     } else {
       throw new Error(`Unexpected status code: ${status}`);
     }
+    // } catch (error) {
+    //   const errorMessage = error.response
+    //     ? `Error: ${error.response.data.message || error.response.data}`
+    //     : `Error: ${error.message}`;
+
+    //   console.error("Error during authentication:", errorMessage);
+    //   throw new Error(errorMessage);
+    // }
+    // const errorMessage = error.response?.data?.message || error.message;
+    // console.error("Error during authentication:", errorMessage);
+    // throw new Error(errorMessage);
+    // }
   } catch (error) {
-    const errorMessage = error.response
-      ? `Error: ${error.response.data.message || error.response.data}`
-      : `Error: ${error.message}`;
+    let errorMessage = "An unknown error occurred";
+
+    if (error.response && error.response.data) {
+      // Check if response.data has a 'message' field
+      errorMessage = error.response.data.message || error.message;
+    } else if (error.request) {
+      // No response received from the server
+      errorMessage = "No response received from the server";
+    } else {
+      // Error setting up the request
+      errorMessage = error.message;
+    }
 
     console.error("Error during authentication:", errorMessage);
     throw new Error(errorMessage);
