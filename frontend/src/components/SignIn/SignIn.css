@@ -394,6 +394,14 @@ input[type="password"]::-ms-clear {
   display: none;
 }
 
+video {
+  z-index: -1;
+}
+
+video::-webkit-media-controls-picture-in-picture-button {
+  display: none;
+}
+
 @media (max-width: 950px) {
   .loginSignup-container {
     flex-direction: column;

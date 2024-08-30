@@ -708,6 +708,7 @@ const Card = ({
   onCardClick,
   isProfile,
   isAdminContext,
+  isModal,
 }) => {
   const [isFavorite, setIsFavorite] = useState(false);
   const [authorDetails, setAuthorDetails] = useState({}); // For author details
@@ -774,7 +775,7 @@ const Card = ({
         .then(() => {
           setIsFavorite((prevIsFavorite) => !prevIsFavorite);
           if (onFavoriteToggle) {
-            onFavoriteToggle(); // Notify parent component to refresh favorites
+            onFavoriteToggle();
           }
         })
         .catch((err) => console.error("Error in toggleFavorite:", err));
@@ -896,10 +897,12 @@ const Card = ({
     handleClosePopup(); // Close popup after action
   };
 
+  const isLoggedIn = localStorage.getItem("isLoggedIn");
+
   return (
     <>
       <div
-        className="card-container"
+        className={`card-container ${isModal ? "modal-card" : ""}`}
         onClick={onCardClick}
         onMouseEnter={() => setIsHovered(true)} // Start autoplay on hover
         onMouseLeave={() => {
@@ -907,40 +910,9 @@ const Card = ({
           closeMenu(); // Close menu when not hovering
         }}
       >
-        <div className="card-image-slider">
-          {uniqueImages.length > 0 ? (
-            <Slider {...sliderSettings}>
-              {uniqueImages.map((img, index) => (
-                <img
-                  key={index}
-                  className="card-slider-image"
-                  src={img.url}
-                  alt={`Slide ${index + 1}`}
-                />
-              ))}
-            </Slider>
-          ) : (
-            <img
-              className="card-slider-image"
-              src="https://placehold.co/600x400"
-              alt="Placeholder"
-            />
-          )}
-        </div>
-        <div className="card-content">
-          <div className="loc-name-nav">
-            <p className="card-location">{location}</p>
-            {locationUrl && (
-              <a href={locationUrl} target="_blank" rel="noopener noreferrer">
-                <MdLocationOn className="card-location-button" />
-              </a>
-            )}
-          </div>
-          <p className="card-sub-location">{subLocation}</p>
-          <p className={"card-description"}>{description}</p>
-        </div>
-
-        <div className="card-header">
+        <div
+          className={`card-header ${!loggedInUserId ? "not-logged-in" : ""}`}
+        >
           {loggedInUserId && (
             <>
               <img
@@ -963,10 +935,48 @@ const Card = ({
             </>
           )}
         </div>
-
+        <div className={`${isModal ? "modal-flex" : ""}`}>
+          <div className="card-image-slider">
+            {uniqueImages.length > 0 ? (
+              <Slider {...sliderSettings}>
+                {uniqueImages.map((img, index) => (
+                  <img
+                    key={index}
+                    className="card-slider-image"
+                    src={img.url}
+                    alt={`Slide ${index + 1}`}
+                  />
+                ))}
+              </Slider>
+            ) : (
+              <img
+                className="card-slider-image"
+                src="https://placehold.co/600x400"
+                alt="Placeholder"
+              />
+            )}
+          </div>
+          <div className="card-content">
+            <div className="loc-name-nav">
+              <p className="card-location">{location}</p>
+              {locationUrl && (
+                <a href={locationUrl} target="_blank" rel="noopener noreferrer">
+                  <MdLocationOn className="card-location-button" />
+                </a>
+              )}
+            </div>
+            <p className="card-sub-location">{subLocation}</p>
+            <p className={`${isModal && isLoggedIn ? "visit-date" : "hidden"}`}>
+              Date Of Visit : {formatPostDate(date)}
+            </p>
+            <p className={"card-description"}>{description}</p>
+          </div>
+        </div>
         {!isAdminContext && (
           <button
-            className={`card-add-to-favorites ${isFavorite ? "favorite" : ""}`}
+            className={`card-add-to-favorites ${
+              !loggedInUserId ? "not-logged-in" : ""
+            }${isFavorite ? "favorite" : ""}`}
             onClick={handleFavoriteClick}
           >
             {isFavorite ? (
@@ -985,10 +995,14 @@ const Card = ({
                 className="card-kebab-menu-item edit"
                 onClick={handleEditClick}
               >
-                <MdEdit className="card-kebab-menu-icon" /> Edit
+                <MdEdit className="card-kebab-menu-icon edit" /> Edit
               </div>
-              <div className="card-kebab-menu-item" onClick={handleDeleteClick}>
-                <MdDeleteForever className="card-kebab-menu-icon" /> Delete
+              <div
+                className="card-kebab-menu-item delete"
+                onClick={handleDeleteClick}
+              >
+                <MdDeleteForever className="card-kebab-menu-icon delete" />{" "}
+                Delete
               </div>
             </div>
           )}

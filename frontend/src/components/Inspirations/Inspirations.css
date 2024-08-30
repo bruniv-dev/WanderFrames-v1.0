@@ -37,3 +37,7 @@
   color: #777;
   margin-top: 5rem;
 }
+
+.inspirations-container .card-layout .card-admin-delete-button {
+  display: none;
+}
