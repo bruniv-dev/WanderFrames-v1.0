@@ -1051,9 +1051,6 @@ const CardLayout = ({
         {selectedCard && (
           <div className="modal-backdrop">
             <div className="modal-content">
-              <span className="close-button" onClick={closeModal}>
-                &times;
-              </span>
               <Card
                 _id={selectedCard._id}
                 userId={selectedCard.user}
@@ -1073,6 +1070,8 @@ const CardLayout = ({
                 isAdminContext={isAdminContext}
                 onCardClick={null} // Disable clicking inside modal to open another modal
                 isModal={true}
+                selectedCard={true}
+                closeModal={closeModal}
               />
             </div>
           </div>

@@ -709,6 +709,7 @@ const Card = ({
   isProfile,
   isAdminContext,
   isModal,
+  closeModal,
 }) => {
   const [isFavorite, setIsFavorite] = useState(false);
   const [authorDetails, setAuthorDetails] = useState({}); // For author details
@@ -910,6 +911,11 @@ const Card = ({
           closeMenu(); // Close menu when not hovering
         }}
       >
+        {isModal && loggedInUserId && (
+          <span className="close-button" onClick={closeModal}>
+            &times;
+          </span>
+        )}
         <div
           className={`card-header ${!loggedInUserId ? "not-logged-in" : ""}`}
         >
@@ -972,7 +978,7 @@ const Card = ({
             <p className={"card-description"}>{description}</p>
           </div>
         </div>
-        {!isAdminContext && (
+        {!isAdminContext && !isModal && (
           <button
             className={`card-add-to-favorites ${
               !loggedInUserId ? "not-logged-in" : ""
