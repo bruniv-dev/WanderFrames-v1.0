@@ -21,8 +21,8 @@
 
 .loginSignup-form-container {
   position: relative;
-  width: 56.25rem;
-  height: 34.375rem;
+  width: 56rem;
+  height: 34rem;
   display: flex;
   overflow: hidden;
   border-radius: 4px;
@@ -44,10 +44,11 @@
 
 .loginSignup-overlay {
   position: absolute;
-  width: 28.125rem;
-  height: 34.375rem;
+  /* width: 28.125rem; */
+  width: 29rem;
+  height: 34rem;
   top: 0;
-  left: 28.1875rem;
+  left: 27rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -130,7 +131,7 @@
   font-size: 1.25rem;
   color: #333;
   font-weight: 500;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
   position: relative;
 }
 
@@ -317,7 +318,7 @@ input[type="password"]::-ms-clear {
   position: absolute;
   width: 85%;
   font-size: 0.5rem;
-  font-size: 0.675rem;
+  /* font-size: 0.675rem; */
 }
 
 .loginSignup-error-message.login,
@@ -333,7 +334,6 @@ input[type="password"]::-ms-clear {
 .loginSignup-main-error-message.signup,
 .loginSignup-main-success-message.signup {
   position: absolute;
-
   top: 14%;
 }
 
@@ -350,6 +350,25 @@ input[type="password"]::-ms-clear {
 
 .loginSignup-username-status.unavailable {
   color: red;
+}
+
+.loginSignup-container .notif {
+  position: absolute;
+  top: 20%;
+  color: #000;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  font-size: 0.75rem;
+  border-radius: 4px;
+  z-index: 7000;
+}
+
+.loginSignup-container .notif.error-message {
+  background-color: #fde0e0;
+}
+
+.loginSignup-container .notif.success-message {
+  background-color: #e0ffcc;
 }
 
 .loginSignup-password-container {
@@ -484,5 +503,14 @@ video::-webkit-media-controls-picture-in-picture-button {
   .loginSignup-main-error-message.signup,
   .loginSignup-main-success-message.signup {
     top: 10%;
+  }
+
+  .loginSignup-container .notif {
+    top: 10%;
+  }
+
+  .loginSignup-username-status,
+  .loginSignup-error-message {
+    width: 75%;
   }
 }

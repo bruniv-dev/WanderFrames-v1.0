@@ -60,7 +60,7 @@ export const deletePost = async (req, res) => {
 export const addPost = async (req, res) => {
   const { subLocation, description, location, date, locationUrl, postedAt } =
     req.body;
-  const user = req.user.userId; // Use the authenticated user from the middleware
+  const user = req.user.userId;
   console.log(user);
   const imageFiles = req.files;
 

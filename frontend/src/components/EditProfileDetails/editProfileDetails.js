@@ -328,7 +328,7 @@ const EditProfileDetails = () => {
   const [error, setError] = useState(null);
   const [usernameStatus, setUsernameStatus] = useState("");
   const [loading, setLoading] = useState(false);
-  const [successMessage, setSuccessMessage] = useState(""); // Added state for success message
+  const [success, setSuccess] = useState("");
   const navigate = useNavigate();
   const editorRef = useRef(null);
 
@@ -453,10 +453,10 @@ const EditProfileDetails = () => {
       const response = await updateUserProfile(userId, formData);
 
       if (response && response.user) {
-        setSuccessMessage("Profile successfully updated."); // Set success message
+        setSuccess("Profile Successfully Updated.");
         setTimeout(() => {
           navigate(`/profile`);
-        }, 1000); // Redirect after showing the success message
+        }, 1000);
       } else {
         throw new Error("Unexpected response structure.");
       }
@@ -483,6 +483,11 @@ const EditProfileDetails = () => {
       />
 
       <div className="edit-profile-page">
+        {error ? (
+          <div className="notif error-message">{error}</div>
+        ) : success ? (
+          <div className="notif success-message">{success}</div>
+        ) : null}
         <div className="edit-profile-content">
           <form onSubmit={handleSubmit} className="edit-profile-form">
             <div className="left-section">
@@ -520,10 +525,6 @@ const EditProfileDetails = () => {
                     onChange={handleImageChange}
                     id="upload-image-editprofile"
                   />
-                  {error && <p className="error-message">{error}</p>}
-                  {successMessage && (
-                    <p className="success-message">{successMessage}</p>
-                  )}
                 </div>
               )}
             </div>

@@ -4,12 +4,12 @@ import "./footer.css"; // Assuming your CSS is named Footer.css
 const Footer = () => {
   return (
     <footer className="footer">
-      <div className="footer__container grid grid--footer">
+      <div className="footer__container">
         <div className="footer__logo-col">
           <a href="/" className="footer__logo">
             <img
               className="logo"
-              src={`${process.env.PUBLIC_URL}/Logo_black.svg`}
+              src={`${process.env.PUBLIC_URL}/Logo_green.svg`}
               alt="Wander Frames Logo"
             />
           </a>
@@ -67,12 +67,12 @@ const Footer = () => {
           <p className="footer__heading">Account</p>
           <ul className="footer__nav">
             <li>
-              <a className="footer__link" href="/">
+              <a className="footer__link" href="/loginSignup">
                 Create Account
               </a>
             </li>
             <li>
-              <a className="footer__link" href="/">
+              <a className="footer__link" href="/loginSignup">
                 Log In
               </a>
             </li>

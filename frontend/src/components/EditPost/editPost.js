@@ -22,6 +22,7 @@ const EditPost = () => {
   const [post, setPost] = useState(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(false);
 
   useEffect(() => {
     if (!postId) {
@@ -64,7 +65,10 @@ const EditPost = () => {
     updatePost(postId, updatedPost)
       .then((response) => {
         console.log("Post updated successfully:", response);
-        navigate("/profile", { state: { refresh: true } });
+        setSuccess("Post Updated Sucessfully!");
+        setTimeout(() => {
+          navigate("/profile", { state: { refresh: true } });
+        }, 2000);
       })
       .catch((err) => {
         console.error("Error updating post:", err);
@@ -103,7 +107,11 @@ const EditPost = () => {
       />
 
       <div className="edit-container">
-        {error && <div className="error-message">{error}</div>}
+        {error ? (
+          <div className="notif error-message">{error}</div>
+        ) : success ? (
+          <div className="notif success-message">{success}</div>
+        ) : null}
         {post && (
           <form className="edit-form" onSubmit={handleSubmit}>
             <div className="left-section">

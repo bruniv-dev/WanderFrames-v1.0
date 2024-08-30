@@ -226,12 +226,16 @@ const Upload = () => {
 
   const [formData, setFormData] = useState(initialFormData);
   const [loading, setLoading] = useState(false);
-
+  const [success, setSuccess] = useState("");
+  const [error, setError] = useState("");
   const today = new Date().toISOString().split("T")[0];
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({ ...prevData, [name]: value }));
+    if (error) {
+      setError("");
+    }
   };
 
   const handleImageChange = async (e) => {
@@ -282,7 +286,10 @@ const Upload = () => {
     addPost(data)
       .then((response) => {
         console.log("Post added successfully:", response);
-        navigate("/profile");
+        setSuccess("Post Added Successfully!");
+        setTimeout(() => {
+          navigate("/profile");
+        }, 2000);
       })
       .catch((err) => console.error("Error adding post:", err))
       .finally(() => setLoading(false));
@@ -307,6 +314,11 @@ const Upload = () => {
         logoSrc={`Logo_green.svg`}
       />
       <div className="upload">
+        {error ? (
+          <div className="notif error-message">{error}</div>
+        ) : success ? (
+          <div className="notif success-message">{success}</div>
+        ) : null}
         <form
           className="upload-form"
           onSubmit={handleSubmit}

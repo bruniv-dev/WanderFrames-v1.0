@@ -247,24 +247,25 @@ const UserCard = ({
         <p className="joined">Joined: {formatDate(createdAt)}</p>
 
         {/* <p className="bio">{bio || "No bio available"}</p> */}
-
-        {loggedInUserId !== userId && currentUserIsAdmin && (
-          <>
-            {!isAdmin ? (
-              <button className="make-admin-button" onClick={makeAdmin}>
-                Make Admin
+        <div className="action-buttons">
+          {loggedInUserId !== userId && currentUserIsAdmin && (
+            <>
+              {!isAdmin ? (
+                <button className="make-admin-button" onClick={makeAdmin}>
+                  Make Admin
+                </button>
+              ) : (
+                <button className="remove-admin-button" onClick={removeAdmin}>
+                  Remove Admin
+                </button>
+              )}
+              <button className="delete-button" onClick={onAdminDelete}>
+                {/* <MdDeleteForever className="usercard-admin-delete-button" /> */}
+                Delete Account
               </button>
-            ) : (
-              <button className="remove-admin-button" onClick={removeAdmin}>
-                Remove Admin
-              </button>
-            )}
-            <MdDeleteForever
-              className="admin-delete-button"
-              onClick={onAdminDelete}
-            />
-          </>
-        )}
+            </>
+          )}
+        </div>
       </div>
     </div>
   );

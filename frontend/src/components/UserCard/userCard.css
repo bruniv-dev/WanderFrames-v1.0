@@ -2,7 +2,7 @@
   /* border: 1px solid #ddd; */
   border-radius: 4px;
   box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
-  margin: 1rem;
+  /* margin: 1rem; */
   padding: 1rem;
   background-color: #fff;
   position: relative;
@@ -45,9 +45,13 @@
   font-size: 0.875rem;
 }
 
-.joined,
 .email {
   font-size: 0.875rem;
+}
+
+.joined {
+  font-size: 0.75rem;
+  color: #555;
 }
 
 /* .bio {
@@ -73,28 +77,25 @@
   background-color: #fde0e0;
 }
 
-.admin-delete-button {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  width: 1.5rem;
-  height: 1.5rem;
-  cursor: pointer;
-  border-radius: 4px;
-  fill: darkred;
-  background-color: #fff;
+.user-card-container .action-buttons {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  /* justify-content: space-between; */
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+  justify-content: center;
 }
 
 .make-admin-button,
 .remove-admin-button {
-  border: 1px solid var(--primary-color);
+  border: 0.5px solid var(--primary-color);
   cursor: pointer;
   border-radius: 4px;
-  font-size: 0.75rem;
+  font-size: 0.5rem;
   color: #fff;
   color: var(--primary-color);
-  margin: 1rem auto;
-  padding: 0.5rem 1rem;
+  padding: 0.5rem;
   background-color: #fff;
   font-weight: 500;
 }
@@ -112,4 +113,14 @@
 .remove-admin-button:hover {
   color: red;
   border: 0.5px solid red;
+}
+
+.user-card-container .delete-button {
+  font-size: 0.5rem;
+  padding: 0.5rem;
+  background-color: transparent;
+  color: red;
+  border: 0.5px solid red;
+  border-radius: 4px;
+  cursor: pointer;
 }

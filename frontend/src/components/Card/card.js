@@ -908,7 +908,7 @@ const Card = ({
         onMouseEnter={() => setIsHovered(true)} // Start autoplay on hover
         onMouseLeave={() => {
           setIsHovered(false); // Stop autoplay when not hovering
-          closeMenu(); // Close menu when not hovering
+          closeMenu();
         }}
       >
         {isModal && loggedInUserId && (

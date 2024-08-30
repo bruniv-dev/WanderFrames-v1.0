@@ -18,9 +18,15 @@
   gap: 1rem;
 }
 
-.footer__logo {
-  display: block;
+.footer__logo .logo {
+  width: 9rem;
   margin-bottom: 1rem;
+  padding-right: 0.5rem;
+}
+
+.footer__logo_col {
+  object-fit: contain;
+  margin-right: 1rem;
 }
 
 .footer__social-links {

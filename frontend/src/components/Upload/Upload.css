@@ -164,5 +164,23 @@
   border: 1px solid var(--hover);
 }
 
+.upload .notif {
+  position: absolute;
+  top: 10%;
+  color: #000;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  font-size: 0.75rem;
+  border-radius: 4px;
+}
+
+.upload .notif.error-message {
+  background-color: #fde0e0;
+}
+
+.upload .notif.success-message {
+  background-color: #e0ffcc;
+}
+
 @media (max-width: 600px) {
 }

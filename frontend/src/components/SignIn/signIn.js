@@ -16,6 +16,7 @@ const SignInSignUp = () => {
   const [isSignUp, setIsSignUp] = useState(false);
   const [loading, setLoading] = useState(true);
   const [success, setSuccess] = useState("");
+  const [successFinal, setSuccessFinal] = useState("");
   const [error, setError] = useState("");
   const [errors, setErrors] = useState({
     firstName: "",
@@ -201,7 +202,7 @@ const SignInSignUp = () => {
 
       if (isSignUp) {
         console.log("Sign-up successful:", data);
-        setSuccess("Signed Up Successfully. Logging you in...");
+        // setSuccess("Signed Up Successfully. Logging you in...");
 
         const { userId, isAdmin, token } = data || {};
 
@@ -212,7 +213,7 @@ const SignInSignUp = () => {
           localStorage.setItem("isLoggedIn", "true"); // Since user just signed up, they're logged in.
 
           dispatch(authActions.login({ isAdmin, token }));
-
+          setSuccessFinal("Sign Up Successfull. Logging you in...");
           // Redirect after a short delay to show the success message
           setTimeout(() => {
             navigate("/");
@@ -223,7 +224,7 @@ const SignInSignUp = () => {
       } else {
         const { userId, isAdmin, token, isLoggedIn } = data || {};
         if (userId && isLoggedIn) {
-          setSuccess("All Set! Logging you in...");
+          setSuccessFinal("All Set! Logging you in...");
           localStorage.setItem("token", token);
           localStorage.setItem("isAdmin", isAdmin);
           localStorage.setItem("isLoggedIn", isLoggedIn.toString());
@@ -273,6 +274,10 @@ const SignInSignUp = () => {
 
   return (
     <div className="loginSignup-container">
+      {successFinal && (
+        <div className="notif success-message">{successFinal}</div>
+      )}
+
       {loading && <Loading />}
       <img
         className="signup-logo"
@@ -419,7 +424,7 @@ const SignInSignUp = () => {
               !mobileLogin ? "hidden" : ""
             }`}
           >
-            <h2>Create Account</h2>
+            <h2>Create An Account</h2>
             {/* {error && (
               <div className="loginSignup-main-error-message signup">
                 {error}

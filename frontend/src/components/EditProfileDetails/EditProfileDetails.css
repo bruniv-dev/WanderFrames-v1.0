@@ -182,13 +182,20 @@
   color: var(--primary-color);
 }
 
-.error-message,
-.success-message {
-  color: red;
-  font-size: 1rem;
-  text-align: center;
+.edit-profile-page .notif {
+  position: absolute;
+  top: 10%;
+  color: #000;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  font-size: 0.75rem;
+  border-radius: 4px;
 }
 
-.success-message {
-  color: green;
+.edit-profile-page .notif.error-message {
+  background-color: #fde0e0;
+}
+
+.edit-profile-page .notif.success-message {
+  background-color: #e0ffcc;
 }
