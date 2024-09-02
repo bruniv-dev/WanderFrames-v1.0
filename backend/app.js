@@ -3,9 +3,9 @@ import dotenv from "dotenv";
 import path from "path";
 import { fileURLToPath } from "url";
 
-dotenv.config({
-  path: path.resolve(fileURLToPath(import.meta.url), "..", "config.env"),
-});
+// dotenv.config({
+//   path: path.resolve(fileURLToPath(import.meta.url), "..", "config.env"),
+// });
 
 // basic node and express setup
 import express from "express";
@@ -24,6 +24,10 @@ export const uploadDir = path.join(__dirname, "uploads");
 if (!fs.existsSync(uploadDir)) {
   fs.mkdirSync(uploadDir, { recursive: true });
 }
+
+dotenv.config({
+  path: path.resolve(__dirname, "config.env"),
+});
 
 // Serve static files from "uploads" directory
 const app = express();

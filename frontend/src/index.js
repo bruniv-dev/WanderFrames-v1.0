@@ -77,15 +77,13 @@ import store from "./store/store";
 // Optional: Set default base URL for Axios if required globally
 // axios.defaults.baseURL = "http://localhost:5000";
 
-// Determine if we are running in a development environment
-const isLocal =
-  window.location.hostname === "localhost" ||
-  window.location.hostname === "127.0.0.1";
+// Example environment variables
+const baseUrl =
+  process.env.NODE_ENV === "production"
+    ? "https://wanderframes.onrender.com"
+    : "http://localhost:5000";
 
-// Set the base URL based on the environment
-axios.defaults.baseURL = isLocal
-  ? "http://localhost:5000"
-  : "https://wanderframes.onrender.com";
+axios.defaults.baseURL = baseUrl;
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

@@ -455,7 +455,12 @@ export const deleteUserAccount = async (req, res) => {
   }
 };
 
-const baseUrl = process.env.BASE_URL || "http://localhost:5000";
+// const baseUrl = "https://wanderframes.onrender.com";
+
+const baseUrl =
+  process.env.NODE_ENV === "production"
+    ? "https://wanderframes.onrender.com"
+    : "http://localhost:5000";
 
 export const updateUserProfile = async (req, res) => {
   const { userId } = req.params;

@@ -36,9 +36,6 @@ export const getPostById = async (req, res) => {
   return res.status(200).json({ post });
 };
 
-// Define the base URL
-const baseUrl = process.env.BASE_URL || "http://localhost:5000";
-
 export const deletePost = async (req, res) => {
   const id = req.params.id;
 
@@ -55,6 +52,13 @@ export const deletePost = async (req, res) => {
     return res.status(500).json({ message: "Internal server error" });
   }
 };
+
+// Define the base URL
+// const baseUrl = "https://wanderframes.onrender.com";
+const baseUrl =
+  process.env.NODE_ENV === "production"
+    ? "https://wanderframes.onrender.com"
+    : "http://localhost:5000";
 
 // Your addPost controller function
 export const addPost = async (req, res) => {
