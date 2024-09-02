@@ -4,7 +4,7 @@
   border-top: 1px solid #eee;
   font-size: 16px;
   margin-top: 6rem;
-  bottom: 0;
+  bottom: 0px;
   background-color: #ffffffe0;
 }
 
@@ -84,7 +84,7 @@
 
 .footer__link:hover,
 .footer__link:active {
-  color: var(--hover);
+  color: var(--primary-hover);
 }
 
 @media (max-width: 600px) {

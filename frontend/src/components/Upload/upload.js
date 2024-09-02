@@ -311,7 +311,7 @@ const Upload = () => {
         classNamelogo="upload-logo"
         classNamenav="upload-nav"
         classNamesignin="upload-signin"
-        logoSrc={`Logo_green.svg`}
+        logoSrc={`Logo_black_Green.svg`}
       />
       <div className="upload">
         {error ? (

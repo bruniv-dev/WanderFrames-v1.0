@@ -187,6 +187,10 @@ const SignInSignUp = () => {
     return Object.keys(newErrors).length === 0;
   };
 
+  const handleContentLoad = () => {
+    setLoading(false);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setSubmitted(true);
@@ -197,7 +201,7 @@ const SignInSignUp = () => {
     }
 
     try {
-      setLoading(true);
+      // setLoading(true);
       const data = await sendAuthRequest(isSignUp, inputs);
 
       if (isSignUp) {
@@ -242,7 +246,7 @@ const SignInSignUp = () => {
       console.error("Authentication error:", err);
       setError(err.message || "An unknown error occurred.");
     } finally {
-      setLoading(false);
+      // setLoading(false);
     }
   };
 
@@ -284,6 +288,7 @@ const SignInSignUp = () => {
         src={`${process.env.PUBLIC_URL}/Logo_white.svg`}
         alt="Wander Frames Logo"
         onClick={() => navigate("/")}
+        onLoadedData={handleContentLoad}
       />
       <video
         autoPlay
@@ -291,16 +296,19 @@ const SignInSignUp = () => {
         loop
         className="loginSignup-background-video"
         preload="auto"
-        onLoadedData={handleVideoLoad}
+        onLoadedData={handleContentLoad}
       >
         <source src="beach3.mp4" type="video/mp4" />
       </video>
       <div className="loginSignup-form-container ">
         <div className={`loginSignup-overlay ${isSignUp ? "signup" : "login"}`}>
-          <video autoPlay muted loop onLoadedData={handleVideoLoad}>
+          <video autoPlay muted loop onLoadedData={handleContentLoad}>
             <source src="road.mp4" type="video/mp4" preload="auto" />
           </video>
-          <div className="loginSignup-overlay-content">
+          <div
+            className="loginSignup-overlay-content"
+            onLoadedData={handleContentLoad}
+          >
             {!isSignUp ? (
               <>
                 <h2 className="overlay-line-1">Hello There!</h2>

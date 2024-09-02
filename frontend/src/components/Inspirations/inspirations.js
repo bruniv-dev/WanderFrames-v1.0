@@ -246,7 +246,7 @@ const Inspirations = () => {
         classNamelogo="inspirations-logo"
         classNamenav="inspirations-nav"
         classNamesignin="inspirations-signin"
-        logoSrc={`Logo_green.svg`}
+        logoSrc={`Logo_black_green.svg`}
       />
       <Search
         cardsData={cardsData}

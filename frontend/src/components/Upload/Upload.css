@@ -99,10 +99,12 @@
   transition: background-color 0.3s;
   font-size: 1rem;
   margin-right: 0.5rem;
+  transition: all 0.3s ease-in-out;
 }
 
 #upload-images::-webkit-file-upload-button:hover {
-  background-color: var(--hover);
+  background-color: var(--primary-hover);
+  transform: scale(1.02);
 }
 
 #description {
@@ -140,6 +142,7 @@
   box-sizing: border-box;
   padding: 0.5rem 1rem;
   text-align: center;
+  transition: all 0.3s ease-in-out;
 }
 
 .upload-buttons .submit-button {
@@ -149,8 +152,8 @@
 }
 
 .upload-buttons .submit-button:hover {
-  background-color: var(--hover);
-  transform: scale(1.05);
+  background-color: var(--primary-hover);
+  transform: scale(1.02);
 }
 
 .upload-buttons .cancel-button {
@@ -160,8 +163,9 @@
 }
 
 .upload-buttons .cancel-button:hover {
-  color: var(--hover);
-  border: 1px solid var(--hover);
+  color: var(--primary-hover);
+  border: 1px solid var(--primary-hover);
+  transform: scale(1.02);
 }
 
 .upload .notif {
@@ -172,14 +176,15 @@
   padding: 0.5rem 1rem;
   font-size: 0.75rem;
   border-radius: 4px;
+  max-width: 15rem;
 }
 
 .upload .notif.error-message {
-  background-color: #fde0e0;
+  background-color: var(--light-pink);
 }
 
 .upload .notif.success-message {
-  background-color: #e0ffcc;
+  background-color: var(--secondary-color);
 }
 
 @media (max-width: 600px) {

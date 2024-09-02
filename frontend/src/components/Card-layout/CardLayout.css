@@ -4,9 +4,9 @@
 .card-layout {
   width: 100%;
   display: grid;
-  /* grid-template-columns: 1fr 1fr 1fr 1fr; */
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 1.5rem;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-columns: repeat(auto-fill, minmax(300px, auto));
+  gap: 2rem;
   grid-row-gap: 2rem;
   margin: 1rem auto;
   padding: 0 1rem;
@@ -36,7 +36,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 5rem;
+  margin-top: 6rem;
+  bottom: 5px;
 }
 
 .page-button {
@@ -45,6 +46,7 @@
   cursor: pointer;
   background-color: white;
   border: 0.5px solid #ccc;
+  transition: all 0.3s ease-in-out;
 }
 
 .page-button.active {
@@ -53,8 +55,8 @@
 }
 
 .page-button:hover {
-  background-color: #f1f1f1;
-  color: var(--primary-color);
+  background-color: var(--secondary-color);
+  color: var(--primary-hover);
 }
 
 .arrow-button {
@@ -186,6 +188,7 @@
   font-size: 2rem;
   color: #000;
   cursor: pointer;
+  transition: all 0.3s ease-in-out;
 }
 
 .close-button:hover {

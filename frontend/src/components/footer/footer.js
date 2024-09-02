@@ -9,7 +9,7 @@ const Footer = () => {
           <a href="/" className="footer__logo">
             <img
               className="logo"
-              src={`${process.env.PUBLIC_URL}/Logo_green.svg`}
+              src={`${process.env.PUBLIC_URL}/Logo_black_Green.svg`}
               alt="Wander Frames Logo"
             />
           </a>

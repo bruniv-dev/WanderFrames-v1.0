@@ -1282,6 +1282,8 @@ const UserActions = () => {
   const [showPopup, setShowPopup] = useState(false);
   const [popupType, setPopupType] = useState("");
   const [selectedUserId, setSelectedUserId] = useState(null);
+  const [successMessage, setSuccessMessage] = useState("");
+  const [error, setError] = useState("");
 
   // Pagination state
   const [currentPage, setCurrentPage] = useState(1);
@@ -1393,15 +1395,28 @@ const UserActions = () => {
           })
           .catch((e) => console.log(e));
       } else if (popupType === "deleteUser") {
+        // Clear success message before the operation
+        setSuccessMessage("");
+
         deleteUserById(selectedUserId)
           .then(() => {
+            // Set the success message only if the operation is successful
+            setSuccessMessage("User Deleted Successfully!");
+            setTimeout(() => {
+              setSuccessMessage("");
+            }, 2000);
+
             const updatedUsers = usersData.filter(
               (user) => user._id !== selectedUserId
             );
             setUsersData(updatedUsers);
             setFilteredUsers(updatedUsers);
           })
-          .catch((e) => console.log(e));
+          .catch((e) => {
+            // Handle the error and show the error message
+            setError("Failed to delete user!");
+            setTimeout(() => setError(""), 2000);
+          });
       }
 
       handleClosePopup();
@@ -1442,7 +1457,7 @@ const UserActions = () => {
         classNamelogo="postActions-logo"
         classNamenav="postActions-nav"
         classNamesignin="postActions-signin"
-        logoSrc={`Logo_green.svg`}
+        logoSrc={`Logo_black_Green.svg`}
       />
       <div className="user-actions-header">
         <Search
@@ -1457,6 +1472,11 @@ const UserActions = () => {
         />
       </div>
       <div className="user-actions-container">
+        {error ? (
+          <div className="notif error-message">{error}</div>
+        ) : successMessage ? (
+          <div className="notif success-message">{successMessage}</div>
+        ) : null}
         {currentUsers.map((user) => (
           <UserCard
             key={user._id}
@@ -1470,7 +1490,9 @@ const UserActions = () => {
             role={user.role}
             profileImage={user.profileImage}
             isAdmin={user.isAdmin}
-            onAdminDelete={() => handleActionWithPopup(user._id, "deleteUser")}
+            onAdminDelete={() => {
+              handleActionWithPopup(user._id, "deleteUser");
+            }}
             makeAdmin={() => handleActionWithPopup(user._id, "makeAdmin")}
             removeAdmin={() => handleActionWithPopup(user._id, "removeAdmin")}
             currentUserIsAdmin={currentUserIsAdmin}

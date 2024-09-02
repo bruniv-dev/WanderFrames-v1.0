@@ -985,6 +985,7 @@ const Profile = () => {
   const [error, setError] = useState(null);
   const [isResettingPassword, setIsResettingPassword] = useState(false);
   const [showDeletePopup, setShowDeletePopup] = useState(false);
+  const [successMessage, setSuccessMessage] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -1024,9 +1025,16 @@ const Profile = () => {
     try {
       setPosts((prevPosts) => prevPosts.filter((post) => post._id !== postId));
       await fetchUserDetails();
+      setSuccessMessage("Post Deleted Successfully!");
+      setTimeout(() => {
+        setSuccessMessage("");
+      }, 2000);
     } catch (err) {
       console.error("Error deleting post:", err);
       setError("Failed to delete post.");
+      setTimeout(() => {
+        setError("");
+      }, 2000);
     }
   };
 
@@ -1036,13 +1044,33 @@ const Profile = () => {
         throw new Error("User ID is not available.");
       }
       await deleteUserById(user._id);
-      dispatch(authActions.logout());
-      navigate("/loginSignup");
+      setSuccessMessage("Profile Deleted Successfully! Logging you out..");
+      setTimeout(() => {
+        dispatch(authActions.logout());
+        navigate("/loginSignup");
+      }, 2000);
     } catch (err) {
       console.error("Error deleting user profile:", err);
       setError("Failed to delete profile.");
     }
   };
+
+  // const handleResetPassword = async (oldPassword, newPassword) => {
+  //   try {
+  //     if (!user || !user._id) {
+  //       throw new Error("User ID is not available.");
+  //     }
+  //     await resetPassword(user._id, oldPassword, newPassword);
+  //     return true;
+  //   } catch (err) {
+  //     console.error("Error resetting password:", err);
+  //     setError(
+  //       err.response?.data?.message ||
+  //         "Failed to reset password. Please try again."
+  //     );
+  //     return false;
+  //   }
+  // };
 
   const handleResetPassword = async (oldPassword, newPassword) => {
     try {
@@ -1050,14 +1078,15 @@ const Profile = () => {
         throw new Error("User ID is not available.");
       }
       await resetPassword(user._id, oldPassword, newPassword);
-      return true;
+      return { success: true };
     } catch (err) {
       console.error("Error resetting password:", err);
-      setError(
-        err.response?.data?.message ||
-          "Failed to reset password. Please try again."
-      );
-      return false;
+      return {
+        success: false,
+        message:
+          err.response?.data?.message ||
+          "Failed to reset password. Please try again.",
+      };
     }
   };
 
@@ -1095,9 +1124,14 @@ const Profile = () => {
         classNamelogo="profile-logo"
         classNamenav="profile-nav"
         classNamesignin="profile-signin"
-        logoSrc={`Logo_black.svg`}
+        logoSrc={`Logo_black_Green.svg`}
       />
       <div className="profile-container">
+        {error ? (
+          <div className="notif error-message">{error}</div>
+        ) : successMessage ? (
+          <div className="notif success-message">{successMessage}</div>
+        ) : null}
         {user ? (
           <div className="profile-details">
             <div className="profile-image">
@@ -1167,7 +1201,7 @@ const Profile = () => {
           showPopup={showDeletePopup}
           onClose={handleCancelDelete}
           onConfirm={handleConfirmDelete}
-          confirmText="Delete"
+          confirmBtnText="Delete"
           message={{
             title: "Confirm Deletion",
             body: "Are you sure you want to delete your account? This action cannot be undone.",

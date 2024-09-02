@@ -394,9 +394,9 @@ export const deletePostById = async (id) => {
 };
 
 //actions -- admin
-export const deleteUserById = async (id) => {
+export const deleteUserById = async (userId) => {
   try {
-    const response = await axios.delete(`/user/${id}`, {
+    const response = await axios.delete(`/user/${userId}`, {
       withCredentials: true,
     });
     return response.data; // Ensure this matches the API response structure

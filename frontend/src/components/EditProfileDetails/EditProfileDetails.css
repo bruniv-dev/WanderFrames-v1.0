@@ -95,13 +95,14 @@
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
   font-size: 1rem;
   margin-right: 0.5rem;
 }
 
 #upload-image-editprofile::-webkit-file-upload-button:hover {
-  background-color: var(--hover);
+  background-color: var(--primary-hover);
+  transform: scale(1.05);
 }
 
 .form-group {
@@ -138,11 +139,11 @@
 }
 
 .username-status-message.available {
-  color: green;
+  color: var(--primary-hover);
 }
 
 .username-status-message.taken {
-  color: red;
+  color: var(--red-color);
 }
 
 .form-buttons {
@@ -159,7 +160,7 @@
   padding: 0.5rem 1.25rem;
   border-radius: 4px;
   font-size: 1rem;
-  transition: background-color 0.3s, transform 0.2s;
+  transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
 }
 
 .form-buttons button:hover {
@@ -170,16 +171,19 @@
   background-color: var(--primary-color);
   color: #fff;
   border: 1px solid var(--primary-color);
+  transition: all 0.3s ease-in-out;
 }
 
 .form-buttons .submit-button:hover {
-  background-color: var(--hover);
+  background-color: var(--primary-hover);
+  transform: scale(1.05);
 }
 
 .form-buttons .cancel-button {
   border: 1px solid var(--primary-color);
   background-color: #fff;
   color: var(--primary-color);
+  transition: all 0.3s ease-in-out;
 }
 
 .edit-profile-page .notif {
@@ -190,12 +194,13 @@
   padding: 0.5rem 1rem;
   font-size: 0.75rem;
   border-radius: 4px;
+  max-width: 15rem;
 }
 
 .edit-profile-page .notif.error-message {
-  background-color: #fde0e0;
+  background-color: var(--light-pink);
 }
 
 .edit-profile-page .notif.success-message {
-  background-color: #e0ffcc;
+  background-color: var(--secondary-color);
 }

@@ -31,7 +31,7 @@
   grid-template-columns: 0.5fr 1fr 1fr;
   justify-content: center;
   align-items: center;
-  border-bottom: 1px solid #00000013;
+  border-bottom: 1px solid #ccc;
   padding: 1rem 2rem;
   gap: 1rem;
 }
@@ -112,6 +112,7 @@
   font-size: 0.75rem;
   min-width: 135px;
   font-weight: 500;
+  transition: all 0.3s ease-in-out;
 }
 
 .profile-header-buttons .profile-edit-button {
@@ -122,6 +123,7 @@
   border-radius: 4px;
   box-sizing: border-box;
   height: 100%;
+  transition: all 0.3s ease-in-out;
 }
 
 .mdedit {
@@ -129,12 +131,14 @@
 }
 
 .mdedit:hover {
-  fill: var(--hover);
+  fill: var(--primary-hover);
+  transform: scale(1.02);
 }
 
 .profile-edit-button:hover {
-  color: var(--hover);
-  border: 1px solid var(--hover);
+  color: var(--primary-hover);
+  border: 1px solid var(--primary-hover);
+  transform: scale(1.02);
 }
 
 .profile-header-buttons .reset-password-button {
@@ -144,38 +148,43 @@
   border: 1px solid var(--primary-color);
   border-radius: 4px;
   box-sizing: border-box;
+  transition: all 0.3s ease-in-out;
 }
 
 .resetpasswordicon {
   fill: var(--primary-color);
+  transform: scale(1.02);
 }
 
 .resetpasswordicon:hover {
-  fill: var(--hover);
+  fill: var(--primary-hover);
+  transform: scale(1.02);
 }
 
 .profile-header-buttons .profile-delete-button {
   align-items: center;
   justify-content: center;
-  border: 1px solid darkred;
+  border: 1px solid var(--red-color);
   border-radius: 4px;
   height: 100%;
   box-sizing: border-box;
-  color: darkred;
+  color: var(--red-color);
 }
 
 .mddelete {
-  fill: darkred;
+  fill: var(--red-color);
 }
 
 .profile-header-buttons .reset-password-button:hover {
-  border: 1px solid var(--hover);
-  color: var(--hover);
+  border: 1px solid var(--primary-hover);
+  color: var(--primary-hover);
+  transform: scale(1.02);
 }
 
 .profile-delete-button:hover {
-  fill: red;
-  border: 1px solid red;
+  fill: var(--red-hover);
+  border: 1px solid var(--red-hover);
+  transform: scale(1.02);
 }
 
 .profile-container .card-add-to-favorites {
@@ -201,9 +210,32 @@
 
 .profile-container .card-layout {
   margin: 1rem 0;
-  gap: 0.75rem;
+  gap: 1.5rem;
   box-sizing: border-box;
   width: 100%;
+}
+
+.profile-container .notif {
+  position: absolute;
+  top: 5%;
+  left: 50%;
+  transform: translate(-50%);
+  color: #000;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  font-size: 0.75rem;
+  border-radius: 4px;
+  z-index: 2;
+  text-align: center;
+  max-width: 15rem;
+}
+
+.profile-container .notif.error-message {
+  background-color: var(--light-pink);
+}
+
+.profile-container .notif.success-message {
+  background-color: var(--secondary-color);
 }
 
 @media (max-width: 600px) {

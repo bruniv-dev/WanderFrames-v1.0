@@ -73,7 +73,8 @@ const Home = () => {
             </button>
           </div>
           <p className="slogan">
-            CAPTURE <span>.</span> SHARE <span>.</span> INSPIRE
+            CAPTURE <span className="dots slogan-dot-1">.</span> SHARE{" "}
+            <span className="dots slogan-dot-2">.</span> INSPIRE
           </p>
         </div>
         <Popup

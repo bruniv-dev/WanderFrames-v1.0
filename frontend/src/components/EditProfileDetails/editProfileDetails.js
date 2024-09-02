@@ -479,7 +479,7 @@ const EditProfileDetails = () => {
         classNamelogo="favorites-logo"
         classNamenav="favorites-nav"
         classNamesignin="favorites-signin"
-        logoSrc={`Logo_green.svg`}
+        logoSrc={`Logo_black_Green.svg`}
       />
 
       <div className="edit-profile-page">

@@ -313,7 +313,7 @@ export const getUserByToken = async (req, res) => {
 
 // Delete a user and their posts
 export const deleteUser = async (req, res) => {
-  const id = req.params.id;
+  const id = req.params.userId;
   let session;
 
   try {
@@ -400,7 +400,7 @@ export const getFavorites = async (req, res) => {
 };
 
 export const getUserProfile = async (req, res) => {
-  const userId = req.params.id;
+  const userId = req.params.userId;
 
   try {
     const user = await User.findById(userId).select("-password"); // Exclude password
@@ -439,7 +439,7 @@ export const getUserPosts = async (req, res) => {
 };
 
 export const deleteUserAccount = async (req, res) => {
-  const userId = req.params.id;
+  const userId = req.params.userId;
 
   try {
     const user = await User.findByIdAndDelete(userId);

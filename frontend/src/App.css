@@ -7,7 +7,11 @@
   font-family: "Poppins", sans-serif;
   color: black;
   --primary-color: #6da300;
-  --hover: #5f8f00;
+  --primary-hover: #5f8f00;
+  --secondary-color: #e0fccc;
+  --light-pink: #fde0e0;
+  --red-color: #ad102a;
+  --red-hover: #550b1b;
 }
 
 html {

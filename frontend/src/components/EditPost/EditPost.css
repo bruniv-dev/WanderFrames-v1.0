@@ -171,10 +171,11 @@
   background-color: #ddd;
   border-radius: 50%;
   cursor: pointer;
+  transition: all 0.3s ease-in-out;
 }
 
 .editpost-dot.active {
-  background-color: var(--hover); /* Green color for active dot */
+  background-color: var(--primary-hover);
 }
 
 /* Button Styles */
@@ -193,16 +194,19 @@
   border-radius: 4px;
   font-size: 1rem;
   box-sizing: border-box;
+  transition: all 0.3s ease-in-out;
 }
 
 .editPost-buttons .submit-button {
   background-color: var(--primary-color);
   color: #fff;
   border: 1px solid var(--primary-color);
+  transition: all 0.3s ease-in-out;
 }
 
 .editPost-buttons .submit-button:hover {
-  background-color: var(--hover);
+  background-color: var(--primary-hover);
+  transform: scale(1.05);
 }
 
 .editPost-buttons .cancel-button {
@@ -210,11 +214,13 @@
   background-color: #fff;
   color: var(--primary-color);
   font-size: 1rem;
+  transition: all 0.3s ease-in-out;
 }
 
 .editPost-buttons .cancel-button:hover {
-  color: var(--hover);
-  border: 1px solid var(--hover);
+  color: var(--primary-hover);
+  border: 1px solid var(--primary-hover);
+  transform: scale(1.05);
 }
 
 .editPost-buttons button:hover {
@@ -233,12 +239,13 @@
   padding: 0.5rem 1rem;
   font-size: 0.75rem;
   border-radius: 4px;
+  max-width: 15rem;
 }
 
 .edit-container .notif.error-message {
-  background-color: #fde0e0;
+  background-color: var(--light-pink);
 }
 
 .edit-container .notif.success-message {
-  background-color: #e0ffcc;
+  background-color: var(--secondary-color);
 }

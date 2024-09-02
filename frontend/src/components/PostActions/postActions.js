@@ -287,6 +287,8 @@ const PostActions = () => {
   const [filterCategory, setFilterCategory] = useState("all");
   const [isAdmin, setIsAdmin] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [successMessage, setSuccessMessage] = useState("");
+  const [error, setError] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -354,11 +356,21 @@ const PostActions = () => {
   const handleAdminDelete = (postId) => {
     deletePostById(postId)
       .then(() => {
+        setSuccessMessage("Post Deleted Successfully!");
+        setTimeout(() => {
+          setSuccessMessage("");
+        }, 2000);
         const updatedCards = cardsData.filter((post) => post._id !== postId);
         setCardsData(updatedCards);
         setFilteredCards(updatedCards);
       })
-      .catch((e) => console.log(e));
+      .catch((e) => {
+        console.log(e);
+        setError("Failed to Delete Post");
+        setTimeout(() => {
+          setError("");
+        }, 2000);
+      });
   };
 
   return loading ? (
@@ -370,7 +382,7 @@ const PostActions = () => {
         classNamelogo="postActions-logo"
         classNamenav="postActions-nav"
         classNamesignin="postActions-signin"
-        logoSrc={`Logo_green.svg`}
+        logoSrc={`Logo_black_Green.svg`}
       />
 
       <Search
@@ -384,6 +396,11 @@ const PostActions = () => {
       />
 
       <div className="postActions-container">
+        {error ? (
+          <div className="notif error-message">{error}</div>
+        ) : successMessage ? (
+          <div className="notif success-message">{successMessage}</div>
+        ) : null}
         <CardLayout
           cardsData={filteredCards}
           onAdminDelete={handleAdminDelete}

@@ -53,7 +53,7 @@ userRouter.get("/check-username/:username", checkUsernameAvailability);
 userRouter.get("/:userId", authenticateToken, getUserById);
 userRouter.get("/by-token/me", authenticateToken, getUserByToken);
 userRouter.post("/logout", authenticateToken, logoutUser);
-userRouter.get("/profile/:id", authenticateToken, getUserProfile);
+userRouter.get("/profile/:userId", authenticateToken, getUserProfile);
 userRouter.get("/posts/:userId", authenticateToken, getUserPosts);
 userRouter.put(
   "/:userId",
@@ -65,7 +65,7 @@ userRouter.put(
 
 // userRouter.delete("/:id", authenticateToken, deleteUserAccount);
 userRouter.delete(
-  "/:id",
+  "/:userId",
   authenticateToken,
   checkProfileOwnershipAndAdminPrivileges,
   deleteUser
