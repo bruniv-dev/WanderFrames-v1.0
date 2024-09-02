@@ -3,7 +3,8 @@ import mongoose from "mongoose";
 import Post from "../models/Post.js";
 import path from "path";
 import crypto from "crypto";
-import bcrypt from "bcrypt";
+// import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 // export const signup = async (req, res) => {
 //   const {
