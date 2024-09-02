@@ -75,7 +75,17 @@ import App from "./App"; // Ensure correct import path
 import store from "./store/store";
 
 // Optional: Set default base URL for Axios if required globally
-axios.defaults.baseURL = "http://localhost:5000";
+// axios.defaults.baseURL = "http://localhost:5000";
+
+// Determine if we are running in a development environment
+const isLocal =
+  window.location.hostname === "localhost" ||
+  window.location.hostname === "127.0.0.1";
+
+// Set the base URL based on the environment
+axios.defaults.baseURL = isLocal
+  ? "http://localhost:5000"
+  : "https://wanderframes.onrender.com";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
