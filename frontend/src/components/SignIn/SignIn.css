@@ -1,21 +1,27 @@
 .loginSignup-container {
   position: relative;
   height: 100vh;
-  width: 100vw;
+  width: 100%;
   overflow: hidden;
   display: flex;
   justify-content: center;
   align-items: center;
+  margin: 0;
+  padding: 0;
 }
 
-.loginSignup-background-video {
+.loginSignup-background-video,
+.loginSignup-overlay video {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  z-index: -1;
+  z-index: -1000;
+}
+
+.loginSignup-background-video {
   filter: brightness(40%);
 }
 
@@ -518,5 +524,13 @@ video::-webkit-media-controls-picture-in-picture-button {
   .loginSignup-username-status,
   .loginSignup-error-message {
     width: 75%;
+  }
+
+  video {
+    z-index: -1;
+  }
+
+  video::-webkit-media-controls-picture-in-picture-button {
+    display: none;
   }
 }

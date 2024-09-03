@@ -1,5 +1,6 @@
 import axios from "axios";
 import { authActions } from "../../store/authSlice";
+import { useNavigate } from "react-router-dom";
 
 // export const sendAuthRequest = async (signup, data) => {
 //   const endpoint = signup ? "/user/signup" : "/user/login"; // Adjust based on your API
@@ -196,6 +197,8 @@ export const fetchUserDetailsByToken = async () => {
     if (err.response && err.response.status === 401) {
       // Token is invalid or expired
       console.error("Token expired or invalid");
+      const navigate = useNavigate;
+      navigate("/loginSignup");
       // Optionally, redirect to login page or clear user session
     }
     throw err;

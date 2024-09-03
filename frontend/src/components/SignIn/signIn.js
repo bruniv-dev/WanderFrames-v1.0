@@ -296,13 +296,20 @@ const SignInSignUp = () => {
         loop
         className="loginSignup-background-video"
         preload="auto"
+        playsInline
         onLoadedData={handleContentLoad}
       >
         <source src="beach3.mp4" type="video/mp4" />
       </video>
       <div className="loginSignup-form-container ">
         <div className={`loginSignup-overlay ${isSignUp ? "signup" : "login"}`}>
-          <video autoPlay muted loop onLoadedData={handleContentLoad}>
+          <video
+            autoPlay
+            muted
+            playsInline
+            loop
+            onLoadedData={handleContentLoad}
+          >
             <source src="road.mp4" type="video/mp4" preload="auto" />
           </video>
           <div
