@@ -223,6 +223,9 @@ export const login = async (req, res) => {
       maxAge: 3600000, // 1 hour
     });
 
+    const env = process.env.NODE_ENV;
+    console.log(env);
+
     // Respond with user data
     res.status(200).json({
       userId: user._id,
@@ -230,6 +233,7 @@ export const login = async (req, res) => {
       message: "Login successful",
       isLoggedIn: true,
       token,
+      env,
     });
   } catch (error) {
     console.error("Error during login:", error);
