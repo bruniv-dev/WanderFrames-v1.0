@@ -338,7 +338,7 @@ const Upload = () => {
               />
             </label>
             <label htmlFor="upload-date" className="date upload-label">
-              Date of visit<span className="optional">(Optional)</span>
+              Date of visit
               <input
                 type="date"
                 id="upload-date"
@@ -347,6 +347,7 @@ const Upload = () => {
                 onChange={handleInputChange}
                 className="upload-input date"
                 max={today}
+                required
               />
             </label>
             <label
