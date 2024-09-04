@@ -2,44 +2,6 @@ import axios from "axios";
 import { authActions } from "../../store/authSlice";
 import { useNavigate } from "react-router-dom";
 
-// export const sendAuthRequest = async (signup, data) => {
-//   const endpoint = signup ? "/user/signup" : "/user/login"; // Adjust based on your API
-
-//   const payload = signup
-//     ? {
-//         email: data.email,
-//         password: data.password,
-//         firstName: data.firstName,
-//         lastName: data.lastName,
-//         username: data.username,
-//         securityQuestion: data.securityQuestion,
-//         securityAnswer: data.securityAnswer,
-//         isAdmin: data.isAdmin,
-//       }
-//     : {
-//         identifier: data.identifier,
-//         password: data.password,
-//       };
-
-//   try {
-//     const { status, data: responseData } = await axios.post(endpoint, payload, {
-//       withCredentials: true,
-//     });
-
-//     if (status === 200 || status === 201) {
-//       return responseData;
-//     }
-
-//     throw new Error(`Unexpected status code: ${status}`);
-//   } catch (error) {
-//     console.error(
-//       "Error during authentication:",
-//       error.response ? error.response.data : error.message
-//     );
-//     throw error;
-//   }
-// };
-
 export const sendAuthRequest = async (signup, data) => {
   const endpoint = signup ? "/user/signup" : "/user/login"; // Adjust based on your API
 
