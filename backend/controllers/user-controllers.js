@@ -886,7 +886,7 @@ export const signup = async (req, res) => {
     res.cookie("token", token, {
       httpOnly: true,
       path: "/",
-      sameSite: "None",
+      sameSite: "Lax",
       secure: true,
       maxAge: 3600000, // 1 hour
       domain: ".onrender.com",
@@ -940,7 +940,7 @@ export const login = async (req, res) => {
     res.cookie("token", token, {
       httpOnly: true,
       path: "/",
-      sameSite: "None",
+      sameSite: "Lax",
       secure: true,
       maxAge: 3600000, // 1 hour
       domain: ".onrender.com",
