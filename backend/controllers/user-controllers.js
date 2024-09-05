@@ -889,6 +889,7 @@ export const signup = async (req, res) => {
       sameSite: "None",
       secure: true,
       maxAge: 3600000, // 1 hour
+      domain: ".onrender.com",
     });
 
     return res.status(201).json({
@@ -942,6 +943,7 @@ export const login = async (req, res) => {
       sameSite: "None",
       secure: true,
       maxAge: 3600000, // 1 hour
+      domain: ".onrender.com",
     });
 
     const env = process.env.NODE_ENV;
